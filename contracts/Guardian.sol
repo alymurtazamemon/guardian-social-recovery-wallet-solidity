@@ -13,7 +13,7 @@ contract Guardian is Ownable {
 
     receive() external payable {}
 
-    function send(address to, uint amount) external {
+    function send(address to, uint amount) external onlyOwner {
         if (amount <= 0) {
             revert Guardian__InvalidAmount(amount);
         }
