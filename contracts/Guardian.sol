@@ -23,4 +23,11 @@ contract Guardian is Ownable {
             revert Guardian__TransactionFailed();
         }
     }
+
+    function sendAll(address to) external onlyOwner {
+        (bool success, ) = to.call{value: address(this).balance}("");
+        if (!success) {
+            revert Guardian__TransactionFailed();
+        }
+    }
 }
