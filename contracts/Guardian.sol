@@ -7,16 +7,23 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 error Guardian__InvalidAmount(uint amount);
 error Guardian__TransactionFailed();
 error Guardian__DailyTransferLimitExceed(uint amount);
+error Guardian__CanOnlyRemoveAfterDelayPeriod();
+error Guardian__GuardianDoesNotExist();
 
 contract Guardian is Ownable {
     // * STATE VARIABLES
     uint256 private dailyTransferLimit;
+    uint256 private removeGuardianDelay;
+    uint256 private lastGuardianRemovalTime;
 
     address[] private guardians;
 
     // * FUNCTIONS
     constructor() {
         dailyTransferLimit = 1 ether;
+        removeGuardianDelay = 3 days;
+        // * initially it is the time of smart contract creation.
+        lastGuardianRemovalTime = block.timestamp;
     }
 
     fallback() external payable {}
@@ -34,6 +41,10 @@ contract Guardian is Ownable {
     }
 
     function removeGuardian(address guardian) external onlyOwner {
+        if (block.timestamp < lastGuardianRemovalTime + removeGuardianDelay) {
+            revert Guardian__CanOnlyRemoveAfterDelayPeriod();
+        }
+
         address[] memory guardiansCopy = guardians;
 
         // * for local arrays we need to declare the size at the initialization time.
@@ -56,6 +67,9 @@ contract Guardian is Ownable {
 
         if (exist) {
             guardians = updatedCopy;
+            lastGuardianRemovalTime = block.timestamp;
+        } else {
+            revert Guardian__GuardianDoesNotExist();
         }
     }
 
