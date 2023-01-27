@@ -101,6 +101,14 @@ contract Guardian is Ownable {
         }
     }
 
+    function getLastGuardianRemovalTime() external view returns (uint256) {
+        return lastGuardianRemovalTime;
+    }
+
+    function getRemoveGuardianDelay() external view returns (uint256) {
+        return removeGuardianDelay;
+    }
+
     function getDailyTransferLimit() external view returns (uint256) {
         return dailyTransferLimit;
     }
