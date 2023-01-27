@@ -12,6 +12,8 @@ contract Guardian is Ownable {
     // * STATE VARIABLES
     uint256 private dailyTransferLimit;
 
+    address[] private guardians;
+
     // * FUNCTIONS
     constructor() {
         dailyTransferLimit = 1 ether;
@@ -20,6 +22,36 @@ contract Guardian is Ownable {
     fallback() external payable {}
 
     receive() external payable {}
+
+    function addGuardian(address guardian) external onlyOwner {
+        guardians.push(guardian);
+    }
+
+    function removeGuardian(address guardian) external onlyOwner {
+        address[] memory guardiansCopy = guardians;
+
+        // * for local arrays we need to declare the size at the initialization time.
+        // * we are removing the 1 guardian so the updated array will be less than 1 the length of existing array.
+        address[] memory updatedCopy = new address[](guardiansCopy.length - 1);
+        uint256 index = 0;
+
+        // * using this variable so we should not update the state variable if address does not exits.
+        bool exist = false;
+
+        for (uint256 i = 0; i < guardiansCopy.length; i++) {
+            if (guardiansCopy[i] == guardian) {
+                exist = true;
+                continue;
+            } else {
+                updatedCopy[index] = guardiansCopy[i];
+                index++;
+            }
+        }
+
+        if (exist) {
+            guardians = updatedCopy;
+        }
+    }
 
     function send(address to, uint amount) external onlyOwner {
         if (amount <= 0) {
@@ -51,5 +83,9 @@ contract Guardian is Ownable {
 
     function getDailyTransferLimit() external view returns (uint256) {
         return dailyTransferLimit;
+    }
+
+    function getGuardians() external view returns (address[] memory) {
+        return guardians;
     }
 }
