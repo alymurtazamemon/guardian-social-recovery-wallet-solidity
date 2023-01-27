@@ -9,12 +9,15 @@ error Guardian__TransactionFailed();
 error Guardian__DailyTransferLimitExceed(uint amount);
 error Guardian__CanOnlyRemoveAfterDelayPeriod();
 error Guardian__GuardianDoesNotExist();
+error Guardian__CanOnlyChangeAfterDelayPeriod();
 
 contract Guardian is Ownable {
     // * STATE VARIABLES
     uint256 private dailyTransferLimit;
     uint256 private removeGuardianDelay;
     uint256 private lastGuardianRemovalTime;
+    uint256 private changeGuardianDelay;
+    uint256 private lastGuardianChangeTime;
 
     address[] private guardians;
 
@@ -24,11 +27,40 @@ contract Guardian is Ownable {
         removeGuardianDelay = 3 days;
         // * initially it is the time of smart contract creation.
         lastGuardianRemovalTime = block.timestamp;
+        changeGuardianDelay = 1 days;
+        // * initially it is the time of smart contract creation.
+        lastGuardianChangeTime = block.timestamp;
     }
 
     fallback() external payable {}
 
     receive() external payable {}
+
+    function changeGuardian(address from, address to) external onlyOwner {
+        if (block.timestamp < lastGuardianChangeTime + changeGuardianDelay) {
+            revert Guardian__CanOnlyChangeAfterDelayPeriod();
+        }
+
+        address[] memory guardiansCopy = guardians;
+
+        // * using this variable so we should not update the state variable if address does not exits.
+        bool exist = false;
+
+        for (uint256 i = 0; i < guardiansCopy.length; i++) {
+            if (guardiansCopy[i] == from) {
+                exist = true;
+                guardiansCopy[i] = to;
+                break;
+            }
+        }
+
+        if (exist) {
+            guardians = guardiansCopy;
+            lastGuardianChangeTime = block.timestamp;
+        } else {
+            revert Guardian__GuardianDoesNotExist();
+        }
+    }
 
     function addGuardians(address[] memory newGuardians) external onlyOwner {
         for (uint256 i = 0; i < newGuardians.length; i++) {
@@ -99,6 +131,14 @@ contract Guardian is Ownable {
         if (!success) {
             revert Guardian__TransactionFailed();
         }
+    }
+
+    function getChangeGuardianDelay() external view returns (uint256) {
+        return changeGuardianDelay;
+    }
+
+    function getLastGuardianChangeTime() external view returns (uint256) {
+        return lastGuardianChangeTime;
     }
 
     function getLastGuardianRemovalTime() external view returns (uint256) {
