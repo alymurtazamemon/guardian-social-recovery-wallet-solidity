@@ -23,6 +23,12 @@ contract Guardian is Ownable {
 
     receive() external payable {}
 
+    function addGuardians(address[] memory newGuardians) external onlyOwner {
+        for (uint256 i = 0; i < newGuardians.length; i++) {
+            guardians.push(newGuardians[i]);
+        }
+    }
+
     function addGuardian(address guardian) external onlyOwner {
         guardians.push(guardian);
     }
