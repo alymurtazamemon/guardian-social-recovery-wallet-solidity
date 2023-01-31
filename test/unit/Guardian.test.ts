@@ -234,6 +234,15 @@ import { BigNumber, ContractTransaction } from "ethers";
                   ).to.be.revertedWith("Ownable: caller is not the owner");
               });
 
+              it("should revert if the guardians list is empty.", async () => {
+                  await expect(guardian.addGuardians([]))
+                      .to.be.revertedWithCustomError(
+                          guardian,
+                          "Guardian__InvalidGuardiansList"
+                      )
+                      .withArgs([]);
+              });
+
               it("should add new guardians.", async () => {
                   const [_, account2, account3, account4, account5, account6] =
                       await ethers.getSigners();
