@@ -25,16 +25,52 @@ contract Guardian is Ownable {
     constructor() {
         dailyTransferLimit = 1 ether;
         removeGuardianDelay = 3 days;
-        // * initially it is the time of smart contract creation.
-        lastGuardianRemovalTime = block.timestamp;
         changeGuardianDelay = 1 days;
-        // * initially it is the time of smart contract creation.
-        lastGuardianChangeTime = block.timestamp;
     }
+
+    // * FUNCTIONS - EXTERNAL
 
     fallback() external payable {}
 
     receive() external payable {}
+
+    function send(address to, uint amount) external onlyOwner {
+        if (amount <= 0) {
+            revert Guardian__InvalidAmount(amount);
+        }
+
+        if (amount > dailyTransferLimit) {
+            revert Guardian__DailyTransferLimitExceed(amount);
+        }
+
+        (bool success, ) = to.call{value: amount}("");
+        if (!success) {
+            revert Guardian__TransactionFailed();
+        }
+    }
+
+    function sendAll(address to) external onlyOwner {
+        uint256 balance = address(this).balance;
+
+        if (balance > dailyTransferLimit) {
+            revert Guardian__DailyTransferLimitExceed(balance);
+        }
+
+        (bool success, ) = to.call{value: balance}("");
+        if (!success) {
+            revert Guardian__TransactionFailed();
+        }
+    }
+
+    function addGuardians(address[] memory newGuardians) external onlyOwner {
+        for (uint256 i = 0; i < newGuardians.length; i++) {
+            guardians.push(newGuardians[i]);
+        }
+    }
+
+    function addGuardian(address guardian) external onlyOwner {
+        guardians.push(guardian);
+    }
 
     function changeGuardian(address from, address to) external onlyOwner {
         if (block.timestamp < lastGuardianChangeTime + changeGuardianDelay) {
@@ -60,16 +96,6 @@ contract Guardian is Ownable {
         } else {
             revert Guardian__GuardianDoesNotExist();
         }
-    }
-
-    function addGuardians(address[] memory newGuardians) external onlyOwner {
-        for (uint256 i = 0; i < newGuardians.length; i++) {
-            guardians.push(newGuardians[i]);
-        }
-    }
-
-    function addGuardian(address guardian) external onlyOwner {
-        guardians.push(guardian);
     }
 
     function removeGuardian(address guardian) external onlyOwner {
@@ -105,33 +131,7 @@ contract Guardian is Ownable {
         }
     }
 
-    function send(address to, uint amount) external onlyOwner {
-        if (amount <= 0) {
-            revert Guardian__InvalidAmount(amount);
-        }
-
-        if (amount > dailyTransferLimit) {
-            revert Guardian__DailyTransferLimitExceed(amount);
-        }
-
-        (bool success, ) = to.call{value: amount}("");
-        if (!success) {
-            revert Guardian__TransactionFailed();
-        }
-    }
-
-    function sendAll(address to) external onlyOwner {
-        uint256 balance = address(this).balance;
-
-        if (balance > dailyTransferLimit) {
-            revert Guardian__DailyTransferLimitExceed(balance);
-        }
-
-        (bool success, ) = to.call{value: balance}("");
-        if (!success) {
-            revert Guardian__TransactionFailed();
-        }
-    }
+    // * FUNCTIONS - VIEW & PURE
 
     function getChangeGuardianDelay() external view returns (uint256) {
         return changeGuardianDelay;
