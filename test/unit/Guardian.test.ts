@@ -182,5 +182,35 @@ import { BigNumber, ContractTransaction } from "ethers";
                       )
                       .withArgs(oneEther.mul(2));
               });
+
+              it("should transfer all of the funds if less than or equal to daily limit.", async () => {
+                  const [deployer, account2] = await ethers.getSigners();
+
+                  const tx: ContractTransaction =
+                      await deployer.sendTransaction({
+                          to: guardian.address,
+                          data: "0x",
+                          value: oneEther.mul(1),
+                      });
+
+                  await tx.wait(1);
+
+                  const tx2: ContractTransaction = await guardian.sendAll(
+                      account2.address
+                  );
+
+                  await tx2.wait(1);
+
+                  expect(
+                      (
+                          await ethers.provider.getBalance(guardian.address)
+                      ).toString()
+                  ).to.be.equal("0");
+                  expect(
+                      (
+                          await ethers.provider.getBalance(account2.address)
+                      ).toString()
+                  ).to.be.equal(ethers.utils.parseEther("10001"));
+              });
           });
       });

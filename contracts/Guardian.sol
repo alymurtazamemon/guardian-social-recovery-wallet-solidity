@@ -5,6 +5,7 @@ pragma solidity ^0.8.17;
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 error Guardian__InvalidAmount(uint amount);
+error Guardian__BalanceIsZero(uint balance);
 error Guardian__TransactionFailed();
 error Guardian__DailyTransferLimitExceed(uint amount);
 error Guardian__CanOnlyRemoveAfterDelayPeriod();
@@ -66,6 +67,10 @@ contract Guardian is Ownable {
 
     function sendAll(address to) external onlyOwner {
         uint256 balance = address(this).balance;
+
+        if (balance <= 0) {
+            revert Guardian__BalanceIsZero(balance);
+        }
 
         if (balance > dailyTransferLimit) {
             revert Guardian__DailyTransferLimitExceed(balance);
