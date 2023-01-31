@@ -2,6 +2,7 @@ import { deployments, ethers, getNamedAccounts, network } from "hardhat";
 import { developmentChains } from "../../helper-hardhat-config";
 import { Guardian } from "../../typechain-types";
 import { expect } from "chai";
+import { BigNumber } from "ethers";
 
 // * if the newwork will be hardhat or localhost then these tests will be run.
 !developmentChains.includes(network.name)
@@ -9,6 +10,7 @@ import { expect } from "chai";
     : describe("Guardian Contract - Unit Tests", () => {
           let deployer: string;
           let guardian: Guardian;
+          const oneEther: BigNumber = ethers.utils.parseEther("1");
 
           beforeEach(async () => {
               if (!developmentChains.includes(network.name)) {
@@ -34,7 +36,7 @@ import { expect } from "chai";
                   const tx = await deployer.sendTransaction({
                       to: guardian.address,
                       data: "0x",
-                      value: ethers.utils.parseEther("1"),
+                      value: oneEther,
                   });
 
                   await tx.wait(1);
@@ -43,7 +45,7 @@ import { expect } from "chai";
                       (
                           await ethers.provider.getBalance(guardian.address)
                       ).toString()
-                  ).to.be.equal(ethers.utils.parseEther("1"));
+                  ).to.be.equal(oneEther);
               });
           });
 
@@ -60,7 +62,7 @@ import { expect } from "chai";
                   const tx = await deployer.sendTransaction({
                       to: guardian.address,
                       data: "0xFFFFFFFF",
-                      value: ethers.utils.parseEther("1"),
+                      value: oneEther,
                   });
 
                   await tx.wait(1);
@@ -69,7 +71,7 @@ import { expect } from "chai";
                       (
                           await ethers.provider.getBalance(guardian.address)
                       ).toString()
-                  ).to.be.equal(ethers.utils.parseEther("1"));
+                  ).to.be.equal(oneEther);
               });
           });
 
@@ -83,6 +85,17 @@ import { expect } from "chai";
                           "Guardian__InvalidAmount"
                       )
                       .withArgs(0);
+              });
+
+              it("should revert if amount is greater than daily transfer limit.", async () => {
+                  const [_, addr2] = await ethers.getSigners();
+
+                  await expect(guardian.send(addr2.address, oneEther.mul(2)))
+                      .to.be.revertedWithCustomError(
+                          guardian,
+                          "Guardian__DailyTransferLimitExceed"
+                      )
+                      .withArgs(oneEther.mul(2));
               });
           });
       });
