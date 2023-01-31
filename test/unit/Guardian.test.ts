@@ -155,6 +155,14 @@ import { BigNumber, ContractTransaction } from "ethers";
           });
 
           describe("sendAll", () => {
+              it("should revert if called by address which is not an owner.", async () => {
+                  const [_, account2, account3] = await ethers.getSigners();
+
+                  await expect(
+                      guardian.connect(account2).sendAll(account3.address)
+                  ).to.be.revertedWith("Ownable: caller is not the owner");
+              });
+
               it("should revert if amount is greater than daily transfer limit.", async () => {
                   const [deployer, account2] = await ethers.getSigners();
 
