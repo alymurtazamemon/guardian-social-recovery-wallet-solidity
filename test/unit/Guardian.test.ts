@@ -140,5 +140,17 @@ import { BigNumber, ContractTransaction } from "ethers";
                       ).toString()
                   ).to.be.equal(ethers.utils.parseEther("10001"));
               });
+
+              it("should revert if call function fails.", async () => {
+                  const [_, account2] = await ethers.getSigners();
+
+                  // * because contract does not have enough funds the transaction will fail and it should revert.
+                  await expect(
+                      guardian.send(account2.address, oneEther.mul(1))
+                  ).to.be.revertedWithCustomError(
+                      guardian,
+                      "Guardian__TransactionFailed"
+                  );
+              });
           });
       });
