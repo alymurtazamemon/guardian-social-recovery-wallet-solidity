@@ -3,6 +3,7 @@
 pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 error Guardian__InvalidAmount(uint amount);
 error Guardian__BalanceIsZero(uint balance);
@@ -17,7 +18,7 @@ error Guardian__AddressNotFoundAsGuardian(address caller);
 error Guardian__NotConfirmedByAllGuardians();
 error Guardian__RequestTimeExpired();
 
-contract Guardian is Ownable {
+contract Guardian is Ownable, ReentrancyGuard {
     // * STATE VARIABLES
     uint256 private dailyTransferLimit;
     uint256 private tempDailyTransferLimit;
@@ -82,7 +83,9 @@ contract Guardian is Ownable {
         }
     }
 
-    function addGuardians(address[] memory newGuardians) external onlyOwner {
+    function addGuardians(
+        address[] memory newGuardians
+    ) external onlyOwner nonReentrant {
         for (uint256 i = 0; i < newGuardians.length; i++) {
             guardians.push(newGuardians[i]);
         }
