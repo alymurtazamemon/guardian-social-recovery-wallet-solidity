@@ -14,10 +14,15 @@ error Guardian__CanOnlyChangeAfterDelayPeriod();
 contract Guardian is Ownable {
     // * STATE VARIABLES
     uint256 private dailyTransferLimit;
+    uint256 private tempDailyTransferLimit;
+    uint256 private lastDailyTransferUpdateRequestTime;
+
     uint256 private removeGuardianDelay;
     uint256 private lastGuardianRemovalTime;
     uint256 private changeGuardianDelay;
     uint256 private lastGuardianChangeTime;
+
+    bool private isDailyTransferLimitUpdateRequested;
 
     address[] private guardians;
 
@@ -129,6 +134,14 @@ contract Guardian is Ownable {
         } else {
             revert Guardian__GuardianDoesNotExist();
         }
+    }
+
+    function requestToUpdateDailyTransferLimit(
+        uint256 limit
+    ) external onlyOwner {
+        lastDailyTransferUpdateRequestTime = block.timestamp;
+        tempDailyTransferLimit = limit;
+        isDailyTransferLimitUpdateRequested = true;
     }
 
     // * FUNCTIONS - VIEW & PURE
