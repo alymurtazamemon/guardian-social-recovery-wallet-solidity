@@ -163,6 +163,17 @@ import { BigNumber, ContractTransaction } from "ethers";
                   ).to.be.revertedWith("Ownable: caller is not the owner");
               });
 
+              it("should revert if amount is less than or equal to zero.", async () => {
+                  const [_, account2] = await ethers.getSigners();
+
+                  await expect(guardian.sendAll(account2.address))
+                      .to.be.revertedWithCustomError(
+                          guardian,
+                          "Guardian__BalanceIsZero"
+                      )
+                      .withArgs(0);
+              });
+
               it("should revert if amount is greater than daily transfer limit.", async () => {
                   const [deployer, account2] = await ethers.getSigners();
 
