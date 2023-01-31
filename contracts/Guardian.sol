@@ -10,12 +10,19 @@ error Guardian__DailyTransferLimitExceed(uint amount);
 error Guardian__CanOnlyRemoveAfterDelayPeriod();
 error Guardian__GuardianDoesNotExist();
 error Guardian__CanOnlyChangeAfterDelayPeriod();
+error Guardian__AlreadyConfirmedByAddress(address guardian);
+error Guardian__UpdateNotRequestedByOwner();
+error Guardian__AddressNotFoundAsGuardian(address caller);
+error Guardian__NotConfirmedByAllGuardians();
+error Guardian__RequestTimeExpired();
 
 contract Guardian is Ownable {
     // * STATE VARIABLES
     uint256 private dailyTransferLimit;
     uint256 private tempDailyTransferLimit;
     uint256 private lastDailyTransferUpdateRequestTime;
+    uint256 private dailyTransferLimitUpdateConfirmationTime;
+    uint256 private requiredConfirmations;
 
     uint256 private removeGuardianDelay;
     uint256 private lastGuardianRemovalTime;
@@ -26,9 +33,12 @@ contract Guardian is Ownable {
 
     address[] private guardians;
 
+    mapping(address => bool) private isConfirmedByGuardian;
+
     // * FUNCTIONS
     constructor() {
         dailyTransferLimit = 1 ether;
+        dailyTransferLimitUpdateConfirmationTime = 1 days;
         removeGuardianDelay = 3 days;
         changeGuardianDelay = 1 days;
     }
@@ -71,10 +81,12 @@ contract Guardian is Ownable {
         for (uint256 i = 0; i < newGuardians.length; i++) {
             guardians.push(newGuardians[i]);
         }
+        updateRequiredConfirmations();
     }
 
     function addGuardian(address guardian) external onlyOwner {
         guardians.push(guardian);
+        updateRequiredConfirmations();
     }
 
     function changeGuardian(address from, address to) external onlyOwner {
@@ -144,7 +156,88 @@ contract Guardian is Ownable {
         isDailyTransferLimitUpdateRequested = true;
     }
 
-    // * FUNCTIONS - VIEW & PURE
+    function confirmDailyTransferLimitRequest() external {
+        if (!isDailyTransferLimitUpdateRequested) {
+            revert Guardian__UpdateNotRequestedByOwner();
+        }
+
+        if (
+            block.timestamp >
+            lastDailyTransferUpdateRequestTime +
+                dailyTransferLimitUpdateConfirmationTime
+        ) {
+            resetDailyTransferLimitVariables();
+            revert Guardian__RequestTimeExpired();
+        }
+
+        if (isConfirmedByGuardian[msg.sender]) {
+            revert Guardian__AlreadyConfirmedByAddress(msg.sender);
+        }
+
+        // * if the length of guardians will be zero then the execution will not run the doesGuardianExist function and revert.
+        if (guardians.length <= 0 || !doesGuardianExist(msg.sender)) {
+            revert Guardian__AddressNotFoundAsGuardian(msg.sender);
+        }
+
+        isConfirmedByGuardian[msg.sender] = true;
+    }
+
+    function confirmAndUpdate() external onlyOwner {
+        if (!isDailyTransferLimitUpdateRequested) {
+            revert Guardian__UpdateNotRequestedByOwner();
+        }
+
+        if (
+            block.timestamp >
+            lastDailyTransferUpdateRequestTime +
+                dailyTransferLimitUpdateConfirmationTime
+        ) {
+            resetDailyTransferLimitVariables();
+            revert Guardian__RequestTimeExpired();
+        }
+
+        if (isConfirmedByGuardian[msg.sender]) {
+            revert Guardian__AlreadyConfirmedByAddress(msg.sender);
+        }
+
+        address[] memory guardiansCopy = guardians;
+        bool confirmed = true;
+
+        for (uint256 i = 0; i < guardiansCopy.length; i++) {
+            if (!isConfirmedByGuardian[guardiansCopy[i]]) {
+                confirmed = false;
+                break;
+            }
+        }
+
+        if (!confirmed) {
+            revert Guardian__NotConfirmedByAllGuardians();
+        }
+
+        dailyTransferLimit = tempDailyTransferLimit;
+
+        resetDailyTransferLimitVariables();
+    }
+
+    // * FUNCTIONS - PRIVATE
+
+    function updateRequiredConfirmations() private {
+        requiredConfirmations = (guardians.length / 2) + 1;
+    }
+
+    function resetDailyTransferLimitVariables() private {
+        isDailyTransferLimitUpdateRequested = false;
+
+        address[] memory guardiansCopy = guardians;
+
+        for (uint256 i = 0; i < guardiansCopy.length; i++) {
+            if (isConfirmedByGuardian[guardiansCopy[i]]) {
+                isConfirmedByGuardian[guardiansCopy[i]] = false;
+            }
+        }
+    }
+
+    // * FUNCTIONS - VIEW & PURE - EXTERNAL
 
     function getChangeGuardianDelay() external view returns (uint256) {
         return changeGuardianDelay;
@@ -168,5 +261,19 @@ contract Guardian is Ownable {
 
     function getGuardians() external view returns (address[] memory) {
         return guardians;
+    }
+
+    // * FUNCTIONS - VIEW & PURE - PRIVATE
+
+    function doesGuardianExist(address caller) private view returns (bool) {
+        address[] memory guardiansCopy = guardians;
+
+        for (uint256 i = 0; i < guardiansCopy.length; i++) {
+            if (caller == guardiansCopy[i]) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
