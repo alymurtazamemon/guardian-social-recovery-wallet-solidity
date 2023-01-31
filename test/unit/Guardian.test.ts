@@ -72,4 +72,17 @@ import { expect } from "chai";
                   ).to.be.equal(ethers.utils.parseEther("1"));
               });
           });
+
+          describe("send", () => {
+              it("should revert if amount is less than or equal to zero.", async () => {
+                  const [_, addr2] = await ethers.getSigners();
+
+                  await expect(guardian.send(addr2.address, 0))
+                      .to.be.revertedWithCustomError(
+                          guardian,
+                          "Guardian__InvalidAmount"
+                      )
+                      .withArgs(0);
+              });
+          });
       });
