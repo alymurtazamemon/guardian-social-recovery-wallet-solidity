@@ -233,5 +233,31 @@ import { BigNumber, ContractTransaction } from "ethers";
                       guardian.connect(account2).addGuardians([])
                   ).to.be.revertedWith("Ownable: caller is not the owner");
               });
+
+              it("should add new guardians.", async () => {
+                  const [_, account2, account3, account4, account5, account6] =
+                      await ethers.getSigners();
+
+                  const newGuardians: string[] = [
+                      account2.address,
+                      account3.address,
+                      account4.address,
+                      account5.address,
+                      account6.address,
+                  ];
+
+                  const tx: ContractTransaction = await guardian.addGuardians(
+                      newGuardians
+                  );
+
+                  await tx.wait(1);
+
+                  const guardians: string[] = await guardian.getGuardians();
+                  expect(guardians.length).to.be.equal(newGuardians.length);
+
+                  const requiredConfirmations: BigNumber =
+                      await guardian.getRequiredConfirmations();
+                  expect(requiredConfirmations).to.be.equal(3);
+              });
           });
       });

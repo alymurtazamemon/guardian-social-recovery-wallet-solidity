@@ -244,6 +244,14 @@ contract Guardian is Ownable {
 
     // * FUNCTIONS - VIEW & PURE - EXTERNAL
 
+    function getDailyTransferLimit() external view returns (uint256) {
+        return dailyTransferLimit;
+    }
+
+    function getRequiredConfirmations() external view returns (uint256) {
+        return requiredConfirmations;
+    }
+
     function getChangeGuardianDelay() external view returns (uint256) {
         return changeGuardianDelay;
     }
@@ -258,10 +266,6 @@ contract Guardian is Ownable {
 
     function getRemoveGuardianDelay() external view returns (uint256) {
         return removeGuardianDelay;
-    }
-
-    function getDailyTransferLimit() external view returns (uint256) {
-        return dailyTransferLimit;
     }
 
     function getGuardians() external view returns (address[] memory) {
