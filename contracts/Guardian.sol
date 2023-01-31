@@ -51,7 +51,7 @@ contract Guardian is Ownable, ReentrancyGuard {
 
     receive() external payable {}
 
-    function send(address to, uint amount) external onlyOwner {
+    function send(address to, uint amount) external onlyOwner nonReentrant {
         if (amount <= 0) {
             revert Guardian__InvalidAmount(amount);
         }
@@ -66,7 +66,7 @@ contract Guardian is Ownable, ReentrancyGuard {
         }
     }
 
-    function sendAll(address to) external onlyOwner {
+    function sendAll(address to) external onlyOwner nonReentrant {
         uint256 balance = address(this).balance;
 
         if (balance <= 0) {
