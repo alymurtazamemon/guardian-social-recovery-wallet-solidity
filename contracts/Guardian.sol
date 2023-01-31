@@ -27,10 +27,10 @@ contract Guardian is Ownable, ReentrancyGuard {
     uint256 private dailyTransferLimitUpdateConfirmationTime;
     uint256 private requiredConfirmations;
 
-    uint256 private removeGuardianDelay;
-    uint256 private lastGuardianRemovalTime;
     uint256 private changeGuardianDelay;
     uint256 private lastGuardianChangeTime;
+    uint256 private removeGuardianDelay;
+    uint256 private lastGuardianRemovalTime;
 
     bool private isDailyTransferLimitUpdateRequested;
 
@@ -42,8 +42,9 @@ contract Guardian is Ownable, ReentrancyGuard {
     constructor() {
         dailyTransferLimit = 1 ether;
         dailyTransferLimitUpdateConfirmationTime = 1 days;
-        removeGuardianDelay = 3 days;
+        lastGuardianChangeTime = block.timestamp;
         changeGuardianDelay = 1 days;
+        removeGuardianDelay = 3 days;
     }
 
     // * FUNCTIONS - EXTERNAL

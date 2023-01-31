@@ -308,5 +308,19 @@ import { BigNumber, ContractTransaction } from "ethers";
                           .changeGuardian(account3.address, account4.address)
                   ).to.be.revertedWith("Ownable: caller is not the owner");
               });
+
+              it("should revert if delay time is not passed before changing guardian.", async () => {
+                  const [_, account2, account3] = await ethers.getSigners();
+
+                  await expect(
+                      guardian.changeGuardian(
+                          account2.address,
+                          account3.address
+                      )
+                  ).to.be.revertedWithCustomError(
+                      guardian,
+                      "Guardian__CanOnlyChangeAfterDelayPeriod"
+                  );
+              });
           });
       });
