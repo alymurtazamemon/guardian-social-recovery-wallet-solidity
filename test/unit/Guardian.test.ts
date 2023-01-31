@@ -269,4 +269,14 @@ import { BigNumber, ContractTransaction } from "ethers";
                   expect(requiredConfirmations).to.be.equal(3);
               });
           });
+
+          describe("addGuardian", () => {
+              it("should revert if called by address which is not an owner.", async () => {
+                  const [_, account2, account3] = await ethers.getSigners();
+
+                  await expect(
+                      guardian.connect(account2).addGuardian(account3.address)
+                  ).to.be.revertedWith("Ownable: caller is not the owner");
+              });
+          });
       });
