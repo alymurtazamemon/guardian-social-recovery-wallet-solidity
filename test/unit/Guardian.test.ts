@@ -224,4 +224,14 @@ import { BigNumber, ContractTransaction } from "ethers";
                   ).to.be.equal(ethers.utils.parseEther("10001"));
               });
           });
+
+          describe("addGuardians", () => {
+              it("should revert if called by address which is not an owner.", async () => {
+                  const [_, account2, account3] = await ethers.getSigners();
+
+                  await expect(
+                      guardian.connect(account2).addGuardians([])
+                  ).to.be.revertedWith("Ownable: caller is not the owner");
+              });
+          });
       });
