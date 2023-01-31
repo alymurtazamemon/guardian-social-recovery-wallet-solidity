@@ -76,6 +76,14 @@ import { BigNumber } from "ethers";
           });
 
           describe("send", () => {
+              it("should revert if called by address which is not an owner.", async () => {
+                  const [_, addr2, addr3] = await ethers.getSigners();
+
+                  await expect(
+                      guardian.connect(addr2).send(addr3.address, oneEther)
+                  ).to.be.revertedWith("Ownable: caller is not the owner");
+              });
+
               it("should revert if amount is less than or equal to zero.", async () => {
                   const [_, addr2] = await ethers.getSigners();
 
