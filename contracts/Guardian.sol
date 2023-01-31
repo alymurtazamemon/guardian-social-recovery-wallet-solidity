@@ -261,12 +261,12 @@ contract Guardian is Ownable, ReentrancyGuard {
         return requiredConfirmations;
     }
 
-    function getChangeGuardianDelay() external view returns (uint256) {
-        return changeGuardianDelay;
-    }
-
     function getLastGuardianChangeTime() external view returns (uint256) {
         return lastGuardianChangeTime;
+    }
+
+    function getChangeGuardianDelay() external view returns (uint256) {
+        return changeGuardianDelay;
     }
 
     function getLastGuardianRemovalTime() external view returns (uint256) {

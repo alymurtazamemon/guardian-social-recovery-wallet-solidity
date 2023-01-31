@@ -322,5 +322,33 @@ import { BigNumber, ContractTransaction } from "ethers";
                       "Guardian__CanOnlyChangeAfterDelayPeriod"
                   );
               });
+
+              describe("changeGuardian - After Delay", () => {
+                  beforeEach(async () => {
+                      const changeTime: BigNumber =
+                          await guardian.getLastGuardianChangeTime();
+
+                      const delayTime: BigNumber =
+                          await guardian.getChangeGuardianDelay();
+
+                      await network.provider.send("evm_increaseTime", [
+                          changeTime.toNumber() + delayTime.toNumber(),
+                      ]);
+                  });
+
+                  it("should revert if the `from` address does not exist.", async () => {
+                      const [_, account2, account3] = await ethers.getSigners();
+
+                      await expect(
+                          guardian.changeGuardian(
+                              account2.address,
+                              account3.address
+                          )
+                      ).to.be.revertedWithCustomError(
+                          guardian,
+                          "Guardian__GuardianDoesNotExist"
+                      );
+                  });
+              });
           });
       });
