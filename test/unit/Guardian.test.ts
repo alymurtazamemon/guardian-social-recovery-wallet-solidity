@@ -156,9 +156,18 @@ import { BigNumber, ContractTransaction } from "ethers";
 
           describe("sendAll", () => {
               it("should revert if amount is greater than daily transfer limit.", async () => {
-                  const [_, account2] = await ethers.getSigners();
+                  const [deployer, account2] = await ethers.getSigners();
 
-                  await expect(guardian.send(account2.address, oneEther.mul(2)))
+                  const tx: ContractTransaction =
+                      await deployer.sendTransaction({
+                          to: guardian.address,
+                          data: "0x",
+                          value: oneEther.mul(2),
+                      });
+
+                  await tx.wait(1);
+
+                  await expect(guardian.sendAll(account2.address))
                       .to.be.revertedWithCustomError(
                           guardian,
                           "Guardian__DailyTransferLimitExceed"
