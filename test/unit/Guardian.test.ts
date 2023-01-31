@@ -296,4 +296,17 @@ import { BigNumber, ContractTransaction } from "ethers";
                   expect(requiredConfirmations).to.be.equal(1);
               });
           });
+
+          describe("changeGuardian", () => {
+              it("should revert if called by address which is not an owner.", async () => {
+                  const [_, account2, account3, account4] =
+                      await ethers.getSigners();
+
+                  await expect(
+                      guardian
+                          .connect(account2)
+                          .changeGuardian(account3.address, account4.address)
+                  ).to.be.revertedWith("Ownable: caller is not the owner");
+              });
+          });
       });
