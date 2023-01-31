@@ -2,7 +2,7 @@ import { deployments, ethers, getNamedAccounts, network } from "hardhat";
 import { developmentChains } from "../../helper-hardhat-config";
 import { Guardian } from "../../typechain-types";
 import { expect } from "chai";
-import { BigNumber } from "ethers";
+import { BigNumber, ContractTransaction } from "ethers";
 
 // * if the newwork will be hardhat or localhost then these tests will be run.
 !developmentChains.includes(network.name)
@@ -33,11 +33,12 @@ import { BigNumber } from "ethers";
                       ).toString()
                   ).to.be.equal("0");
 
-                  const tx = await deployer.sendTransaction({
-                      to: guardian.address,
-                      data: "0x",
-                      value: oneEther,
-                  });
+                  const tx: ContractTransaction =
+                      await deployer.sendTransaction({
+                          to: guardian.address,
+                          data: "0x",
+                          value: oneEther,
+                      });
 
                   await tx.wait(1);
 
@@ -59,11 +60,12 @@ import { BigNumber } from "ethers";
                       ).toString()
                   ).to.be.equal("0");
 
-                  const tx = await deployer.sendTransaction({
-                      to: guardian.address,
-                      data: "0xFFFFFFFF",
-                      value: oneEther,
-                  });
+                  const tx: ContractTransaction =
+                      await deployer.sendTransaction({
+                          to: guardian.address,
+                          data: "0xFFFFFFFF",
+                          value: oneEther,
+                      });
 
                   await tx.wait(1);
 
@@ -104,6 +106,37 @@ import { BigNumber } from "ethers";
                           "Guardian__DailyTransferLimitExceed"
                       )
                       .withArgs(oneEther.mul(2));
+              });
+
+              it("should transfer funds to other address.", async () => {
+                  const [deployer, addr2] = await ethers.getSigners();
+
+                  const tx: ContractTransaction =
+                      await deployer.sendTransaction({
+                          to: guardian.address,
+                          data: "0x",
+                          value: oneEther,
+                      });
+
+                  await tx.wait(1);
+
+                  const tx2: ContractTransaction = await guardian.send(
+                      addr2.address,
+                      oneEther
+                  );
+
+                  await tx2.wait(1);
+
+                  expect(
+                      (
+                          await ethers.provider.getBalance(guardian.address)
+                      ).toString()
+                  ).to.be.equal("0");
+                  expect(
+                      (
+                          await ethers.provider.getBalance(addr2.address)
+                      ).toString()
+                  ).to.be.equal(ethers.utils.parseEther("10001"));
               });
           });
       });
