@@ -79,17 +79,19 @@ import { BigNumber, ContractTransaction } from "ethers";
 
           describe("send", () => {
               it("should revert if called by address which is not an owner.", async () => {
-                  const [_, addr2, addr3] = await ethers.getSigners();
+                  const [_, account2, account3] = await ethers.getSigners();
 
                   await expect(
-                      guardian.connect(addr2).send(addr3.address, oneEther)
+                      guardian
+                          .connect(account2)
+                          .send(account3.address, oneEther)
                   ).to.be.revertedWith("Ownable: caller is not the owner");
               });
 
               it("should revert if amount is less than or equal to zero.", async () => {
-                  const [_, addr2] = await ethers.getSigners();
+                  const [_, account2] = await ethers.getSigners();
 
-                  await expect(guardian.send(addr2.address, 0))
+                  await expect(guardian.send(account2.address, 0))
                       .to.be.revertedWithCustomError(
                           guardian,
                           "Guardian__InvalidAmount"
@@ -98,9 +100,9 @@ import { BigNumber, ContractTransaction } from "ethers";
               });
 
               it("should revert if amount is greater than daily transfer limit.", async () => {
-                  const [_, addr2] = await ethers.getSigners();
+                  const [_, account2] = await ethers.getSigners();
 
-                  await expect(guardian.send(addr2.address, oneEther.mul(2)))
+                  await expect(guardian.send(account2.address, oneEther.mul(2)))
                       .to.be.revertedWithCustomError(
                           guardian,
                           "Guardian__DailyTransferLimitExceed"
@@ -109,7 +111,7 @@ import { BigNumber, ContractTransaction } from "ethers";
               });
 
               it("should transfer funds to other address.", async () => {
-                  const [deployer, addr2] = await ethers.getSigners();
+                  const [deployer, account2] = await ethers.getSigners();
 
                   const tx: ContractTransaction =
                       await deployer.sendTransaction({
@@ -121,7 +123,7 @@ import { BigNumber, ContractTransaction } from "ethers";
                   await tx.wait(1);
 
                   const tx2: ContractTransaction = await guardian.send(
-                      addr2.address,
+                      account2.address,
                       oneEther
                   );
 
@@ -134,7 +136,7 @@ import { BigNumber, ContractTransaction } from "ethers";
                   ).to.be.equal("0");
                   expect(
                       (
-                          await ethers.provider.getBalance(addr2.address)
+                          await ethers.provider.getBalance(account2.address)
                       ).toString()
                   ).to.be.equal(ethers.utils.parseEther("10001"));
               });
