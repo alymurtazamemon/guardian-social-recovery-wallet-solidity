@@ -153,4 +153,17 @@ import { BigNumber, ContractTransaction } from "ethers";
                   );
               });
           });
+
+          describe("sendAll", () => {
+              it("should revert if amount is greater than daily transfer limit.", async () => {
+                  const [_, account2] = await ethers.getSigners();
+
+                  await expect(guardian.send(account2.address, oneEther.mul(2)))
+                      .to.be.revertedWithCustomError(
+                          guardian,
+                          "Guardian__DailyTransferLimitExceed"
+                      )
+                      .withArgs(oneEther.mul(2));
+              });
+          });
       });
