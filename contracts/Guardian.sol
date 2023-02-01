@@ -44,6 +44,7 @@ contract Guardian is Ownable, ReentrancyGuard {
         dailyTransferLimitUpdateConfirmationTime = 1 days;
         lastGuardianChangeTime = block.timestamp;
         changeGuardianDelay = 1 days;
+        lastGuardianRemovalTime = block.timestamp;
         removeGuardianDelay = 3 days;
     }
 
@@ -103,7 +104,10 @@ contract Guardian is Ownable, ReentrancyGuard {
         updateRequiredConfirmations();
     }
 
-    function changeGuardian(address from, address to) external onlyOwner nonReentrant {
+    function changeGuardian(
+        address from,
+        address to
+    ) external onlyOwner nonReentrant {
         if (block.timestamp < lastGuardianChangeTime + changeGuardianDelay) {
             revert Guardian__CanOnlyChangeAfterDelayPeriod();
         }

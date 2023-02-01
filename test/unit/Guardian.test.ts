@@ -298,7 +298,7 @@ import { BigNumber, ContractTransaction } from "ethers";
           });
 
           describe("changeGuardian", () => {
-              it("should revert if called by address which is not an owner.", async () => {
+              it("should revert if called by an address which is not an owner.", async () => {
                   const [_, account2, account3, account4] =
                       await ethers.getSigners();
 
@@ -390,6 +390,18 @@ import { BigNumber, ContractTransaction } from "ethers";
 
                       expect(changeTime).to.not.be.equal(updatedChangeTime);
                   });
+              });
+          });
+
+          describe("removeGuardian", () => {
+              it("should revert if called by an address which is not an owner.", async () => {
+                  const [_, account2, account3] = await ethers.getSigners();
+
+                  await expect(
+                      guardian
+                          .connect(account2)
+                          .removeGuardian(account3.address)
+                  ).to.be.revertedWith("Ownable: caller is not the owner");
               });
           });
       });
