@@ -759,5 +759,37 @@ import { BigNumber, Contract, ContractTransaction } from "ethers";
                       "Guardian__UpdateNotRequestedByOwner"
                   );
               });
+
+              describe("confirmAndUpdate - After Request", () => {
+                  beforeEach(async () => {
+                      const tx: ContractTransaction =
+                          await guardian.requestToUpdateDailyTransferLimit(
+                              oneEther.mul(2)
+                          );
+
+                      await tx.wait(1);
+                  });
+
+                  it("should revert if confirmed after confirmation duration.", async () => {
+                      const requestTime: BigNumber =
+                          await guardian.getLastDailyTransferUpdateRequestTime();
+
+                      const confirmationTime: BigNumber =
+                          await guardian.getDailyTransferLimitUpdateConfirmationTime();
+
+                      await network.provider.send("evm_increaseTime", [
+                          requestTime.toNumber() +
+                              confirmationTime.toNumber() +
+                              1,
+                      ]);
+
+                      await expect(
+                          guardian.confirmAndUpdate()
+                      ).to.be.revertedWithCustomError(
+                          guardian,
+                          "Guardian__RequestTimeExpired"
+                      );
+                  });
+              });
           });
       });
