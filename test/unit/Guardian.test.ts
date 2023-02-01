@@ -483,6 +483,26 @@ import { BigNumber, ContractTransaction } from "ethers";
                       expect(guardians.length).to.be.equal(2);
                       expect(guardians.includes(account2.address)).to.be.false;
                   });
+
+                  it("should not remove another guardian before delay time.", async () => {
+                      const [_, account2, account3] = await ethers.getSigners();
+
+                      const tx: ContractTransaction =
+                          await guardian.removeGuardian(account2.address);
+
+                      await tx.wait(1);
+
+                      const guardians: string[] = await guardian.getGuardians();
+                      expect(guardians.length).to.be.equal(2);
+                      expect(guardians.includes(account2.address)).to.be.false;
+
+                      await expect(
+                          guardian.removeGuardian(account3.address)
+                      ).to.be.revertedWithCustomError(
+                          guardian,
+                          "Guardian__CanOnlyRemoveAfterDelayPeriod"
+                      );
+                  });
               });
           });
       });
