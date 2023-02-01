@@ -3,6 +3,7 @@ import { developmentChains } from "../../helper-hardhat-config";
 import { Guardian } from "../../typechain-types";
 import { expect } from "chai";
 import { BigNumber, Contract, ContractTransaction } from "ethers";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 
 // * if the newwork will be hardhat or localhost then these tests will be run.
 !developmentChains.includes(network.name)
@@ -832,33 +833,29 @@ import { BigNumber, Contract, ContractTransaction } from "ethers";
                           const [_, account2, account3, account4] =
                               await ethers.getSigners();
 
-                          const tx: ContractTransaction = await guardian
-                              .connect(account2)
-                              .confirmDailyTransferLimitRequest();
+                          const guardians: SignerWithAddress[] = [
+                              account2,
+                              account3,
+                              account4,
+                          ];
 
-                          await tx.wait(1);
+                          for (let i = 0; i < guardians.length; i++) {
+                              const tx: ContractTransaction = await guardian
+                                  .connect(guardians[i])
+                                  .confirmDailyTransferLimitRequest();
 
-                          const tx2: ContractTransaction = await guardian
-                              .connect(account3)
-                              .confirmDailyTransferLimitRequest();
-
-                          await tx2.wait(1);
-
-                          const tx3: ContractTransaction = await guardian
-                              .connect(account4)
-                              .confirmDailyTransferLimitRequest();
-
-                          await tx3.wait(1);
+                              await tx.wait(1);
+                          }
 
                           const dailyTransferLimit: BigNumber =
                               await guardian.getDailyTransferLimit();
 
                           expect(dailyTransferLimit).to.be.equal(oneEther);
 
-                          const tx4: ContractTransaction =
+                          const tx: ContractTransaction =
                               await guardian.confirmAndUpdate();
 
-                          await tx4.wait(1);
+                          await tx.wait(1);
 
                           const updatedDailyTransferLimit: BigNumber =
                               await guardian.getDailyTransferLimit();
@@ -866,6 +863,21 @@ import { BigNumber, Contract, ContractTransaction } from "ethers";
                           expect(updatedDailyTransferLimit).to.be.equal(
                               oneEther.mul(2)
                           );
+
+                          const requestStatus: Boolean =
+                              await guardian.getDailyTransferLimitUpdateRequestStatus();
+
+                          expect(requestStatus).to.be.false;
+
+                          for (let i = 0; i < guardians.length; i++) {
+                              const confimationStatus = await guardian
+                                  .connect(guardians[i])
+                                  .getGuardianConfirmationStatus(
+                                      guardians[i].address
+                                  );
+
+                              expect(confimationStatus).to.be.false;
+                          }
                       });
                   });
               });
