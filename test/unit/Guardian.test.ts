@@ -2,7 +2,7 @@ import { deployments, ethers, getNamedAccounts, network } from "hardhat";
 import { developmentChains } from "../../helper-hardhat-config";
 import { Guardian } from "../../typechain-types";
 import { expect } from "chai";
-import { BigNumber, ContractTransaction } from "ethers";
+import { BigNumber, Contract, ContractTransaction } from "ethers";
 
 // * if the newwork will be hardhat or localhost then these tests will be run.
 !developmentChains.includes(network.name)
@@ -678,6 +678,30 @@ import { BigNumber, ContractTransaction } from "ethers";
                                   "Guardian__AddressNotFoundAsGuardian"
                               )
                               .withArgs(account5.address);
+                      });
+
+                      it("should confirm the daily transfer update request.", async () => {
+                          const [_, account2] = await ethers.getSigners();
+
+                          const status: Boolean =
+                              await guardian.getGuardianConfirmationStatus(
+                                  account2.address
+                              );
+
+                          expect(status).to.be.false;
+
+                          const tx: ContractTransaction = await guardian
+                              .connect(account2)
+                              .confirmDailyTransferLimitRequest();
+
+                          await tx.wait(1);
+
+                          const updatedStatus: Boolean =
+                              await guardian.getGuardianConfirmationStatus(
+                                  account2.address
+                              );
+
+                          expect(updatedStatus).to.be.true;
                       });
                   });
               });
