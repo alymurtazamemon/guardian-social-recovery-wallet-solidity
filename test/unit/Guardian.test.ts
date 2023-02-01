@@ -807,6 +807,46 @@ import { BigNumber, Contract, ContractTransaction } from "ethers";
                               "Guardian__RequestTimeExpired"
                           );
                       });
+
+                      it("should update the daily transfer limit after all guardians confirmation.", async () => {
+                          const [_, account2, account3, account4] =
+                              await ethers.getSigners();
+
+                          const tx: ContractTransaction = await guardian
+                              .connect(account2)
+                              .confirmDailyTransferLimitRequest();
+
+                          await tx.wait(1);
+
+                          const tx2: ContractTransaction = await guardian
+                              .connect(account3)
+                              .confirmDailyTransferLimitRequest();
+
+                          await tx2.wait(1);
+
+                          const tx3: ContractTransaction = await guardian
+                              .connect(account4)
+                              .confirmDailyTransferLimitRequest();
+
+                          await tx3.wait(1);
+
+                          const dailyTransferLimit: BigNumber =
+                              await guardian.getDailyTransferLimit();
+
+                          expect(dailyTransferLimit).to.be.equal(oneEther);
+
+                          const tx4: ContractTransaction =
+                              await guardian.confirmAndUpdate();
+
+                          await tx4.wait(1);
+
+                          const updatedDailyTransferLimit: BigNumber =
+                              await guardian.getDailyTransferLimit();
+
+                          expect(updatedDailyTransferLimit).to.be.equal(
+                              oneEther.mul(2)
+                          );
+                      });
                   });
               });
           });
