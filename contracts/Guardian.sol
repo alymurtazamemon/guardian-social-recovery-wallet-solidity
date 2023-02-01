@@ -135,7 +135,7 @@ contract Guardian is Ownable, ReentrancyGuard {
         }
     }
 
-    function removeGuardian(address guardian) external onlyOwner {
+    function removeGuardian(address guardian) external onlyOwner nonReentrant {
         if (guardians.length <= 0) {
             revert Guardian__GuardiansListIsEmpty();
         }
