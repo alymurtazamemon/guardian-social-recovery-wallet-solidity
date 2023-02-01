@@ -752,6 +752,15 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                   ).to.be.revertedWith("Ownable: caller is not the owner");
               });
 
+              it("should revert if guardians does not exist.", async () => {
+                  await expect(
+                      guardian.confirmAndUpdate()
+                  ).to.be.revertedWithCustomError(
+                      guardian,
+                      "Guardian__GuardiansListIsEmpty"
+                  );
+              });
+
               describe("confirmAndUpdate - After Adding Guardians", () => {
                   beforeEach(async () => {
                       const [_, account2, account3, account4] =
