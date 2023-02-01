@@ -349,6 +349,39 @@ import { BigNumber, ContractTransaction } from "ethers";
                           "Guardian__GuardianDoesNotExist"
                       );
                   });
+
+                  it("should change the guardian.", async () => {
+                      const [_, account2, account3, account4, account5] =
+                          await ethers.getSigners();
+
+                      const newGuardians: string[] = [
+                          account2.address,
+                          account3.address,
+                          account4.address,
+                      ];
+
+                      const tx: ContractTransaction =
+                          await guardian.addGuardians(newGuardians);
+
+                      await tx.wait(1);
+
+                      const guardians: string[] = await guardian.getGuardians();
+
+                      expect(guardians[0]).to.be.equal(newGuardians[0]);
+
+                      const tx2: ContractTransaction =
+                          await guardian.changeGuardian(
+                              account2.address,
+                              account5.address
+                          );
+
+                      await tx2.wait(1);
+
+                      const updatedGuardians: string[] =
+                          await guardian.getGuardians();
+
+                      expect(updatedGuardians[0]).to.be.equal(account5.address);
+                  });
               });
           });
       });
