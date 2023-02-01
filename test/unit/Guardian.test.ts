@@ -616,6 +616,27 @@ import { BigNumber, ContractTransaction } from "ethers";
 
                       await tx.wait(1);
                   });
+
+                  it("should revert if confirmed after comfirmation duration period.", async () => {
+                      const requestTime: BigNumber =
+                          await guardian.getLastDailyTransferUpdateRequestTime();
+
+                      const confirmationTime: BigNumber =
+                          await guardian.getDailyTransferLimitUpdateConfirmationTime();
+
+                      await network.provider.send("evm_increaseTime", [
+                          requestTime.toNumber() +
+                              confirmationTime.toNumber() +
+                              1,
+                      ]);
+
+                      await expect(
+                          guardian.confirmDailyTransferLimitRequest()
+                      ).to.be.revertedWithCustomError(
+                          guardian,
+                          "Guardian__RequestTimeExpired"
+                      );
+                  });
               });
           });
       });
