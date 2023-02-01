@@ -403,5 +403,16 @@ import { BigNumber, ContractTransaction } from "ethers";
                           .removeGuardian(account3.address)
                   ).to.be.revertedWith("Ownable: caller is not the owner");
               });
+
+              it("should revert if delay time is not passed before removing a guardian.", async () => {
+                  const [_, account2] = await ethers.getSigners();
+
+                  await expect(
+                      guardian.removeGuardian(account2.address)
+                  ).to.be.revertedWithCustomError(
+                      guardian,
+                      "Guardian__CanOnlyRemoveAfterDelayPeriod"
+                  );
+              });
           });
       });
