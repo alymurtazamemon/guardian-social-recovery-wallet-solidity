@@ -663,6 +663,22 @@ import { BigNumber, ContractTransaction } from "ethers";
                               "Guardian__RequestTimeExpired"
                           );
                       });
+
+                      it("should revert if an address does not exist in guardians list.", async () => {
+                          const [_, account2, account3, account4, account5] =
+                              await ethers.getSigners();
+
+                          await expect(
+                              guardian
+                                  .connect(account5)
+                                  .confirmDailyTransferLimitRequest()
+                          )
+                              .to.be.revertedWithCustomError(
+                                  guardian,
+                                  "Guardian__AddressNotFoundAsGuardian"
+                              )
+                              .withArgs(account5.address);
+                      });
                   });
               });
           });
