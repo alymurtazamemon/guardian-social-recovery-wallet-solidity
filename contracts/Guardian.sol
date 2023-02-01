@@ -103,7 +103,7 @@ contract Guardian is Ownable, ReentrancyGuard {
         updateRequiredConfirmations();
     }
 
-    function changeGuardian(address from, address to) external onlyOwner {
+    function changeGuardian(address from, address to) external onlyOwner nonReentrant {
         if (block.timestamp < lastGuardianChangeTime + changeGuardianDelay) {
             revert Guardian__CanOnlyChangeAfterDelayPeriod();
         }
