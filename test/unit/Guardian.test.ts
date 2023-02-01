@@ -703,6 +703,41 @@ import { BigNumber, Contract, ContractTransaction } from "ethers";
 
                           expect(updatedStatus).to.be.true;
                       });
+
+                      it("should revert if daily transfer update request already confirmed by a guardian.", async () => {
+                          const [_, account2] = await ethers.getSigners();
+
+                          const status: Boolean =
+                              await guardian.getGuardianConfirmationStatus(
+                                  account2.address
+                              );
+
+                          expect(status).to.be.false;
+
+                          const tx: ContractTransaction = await guardian
+                              .connect(account2)
+                              .confirmDailyTransferLimitRequest();
+
+                          await tx.wait(1);
+
+                          const updatedStatus: Boolean =
+                              await guardian.getGuardianConfirmationStatus(
+                                  account2.address
+                              );
+
+                          expect(updatedStatus).to.be.true;
+
+                          await expect(
+                              guardian
+                                  .connect(account2)
+                                  .confirmDailyTransferLimitRequest()
+                          )
+                              .to.be.revertedWithCustomError(
+                                  guardian,
+                                  "Guardian__AlreadyConfirmedByAddress"
+                              )
+                              .withArgs(account2.address);
+                      });
                   });
               });
           });
