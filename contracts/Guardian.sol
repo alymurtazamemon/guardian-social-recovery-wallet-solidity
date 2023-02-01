@@ -10,9 +10,10 @@ error Guardian__DailyTransferLimitExceed(uint amount);
 error Guardian__TransactionFailed();
 error Guardian__BalanceIsZero(uint balance);
 error Guardian__InvalidGuardiansList(address[] addressesList);
-error Guardian__CanOnlyRemoveAfterDelayPeriod();
-error Guardian__GuardianDoesNotExist();
 error Guardian__CanOnlyChangeAfterDelayPeriod();
+error Guardian__GuardianDoesNotExist();
+error Guardian__GuardiansListIsEmpty();
+error Guardian__CanOnlyRemoveAfterDelayPeriod();
 error Guardian__AlreadyConfirmedByAddress(address guardian);
 error Guardian__UpdateNotRequestedByOwner();
 error Guardian__AddressNotFoundAsGuardian(address caller);
@@ -134,6 +135,10 @@ contract Guardian is Ownable, ReentrancyGuard {
     }
 
     function removeGuardian(address guardian) external onlyOwner {
+        if (guardians.length <= 0) {
+            revert Guardian__GuardiansListIsEmpty();
+        }
+
         if (block.timestamp < lastGuardianRemovalTime + removeGuardianDelay) {
             revert Guardian__CanOnlyRemoveAfterDelayPeriod();
         }

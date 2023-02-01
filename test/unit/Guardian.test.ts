@@ -404,6 +404,17 @@ import { BigNumber, ContractTransaction } from "ethers";
                   ).to.be.revertedWith("Ownable: caller is not the owner");
               });
 
+              it("should revert if there is no guardians to remove.", async () => {
+                  const [_, account2] = await ethers.getSigners();
+
+                  await expect(
+                      guardian.removeGuardian(account2.address)
+                  ).to.be.revertedWithCustomError(
+                      guardian,
+                      "Guardian__GuardiansListIsEmpty"
+                  );
+              });
+
               it("should revert if delay time is not passed before removing a guardian.", async () => {
                   const [_, account2] = await ethers.getSigners();
 
@@ -413,6 +424,31 @@ import { BigNumber, ContractTransaction } from "ethers";
                       guardian,
                       "Guardian__CanOnlyRemoveAfterDelayPeriod"
                   );
+              });
+
+              describe("removeGuardian - After Delay", () => {
+                  beforeEach(async () => {
+                      const removalTime: BigNumber =
+                          await guardian.getLastGuardianRemovalTime();
+
+                      const delayTime: BigNumber =
+                          await guardian.getRemoveGuardianDelay();
+
+                      await network.provider.send("evm_increaseTime", [
+                          removalTime.toNumber() + delayTime.toNumber(),
+                      ]);
+                  });
+
+                  it("should revert if the `guardian` address does not exist.", async () => {
+                      const [_, account2] = await ethers.getSigners();
+
+                      await expect(
+                          guardian.removeGuardian(account2.address)
+                      ).to.be.revertedWithCustomError(
+                          guardian,
+                          "Guardian__GuardianDoesNotExist"
+                      );
+                  });
               });
           });
       });
