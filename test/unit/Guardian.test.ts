@@ -808,6 +808,26 @@ import { BigNumber, Contract, ContractTransaction } from "ethers";
                           );
                       });
 
+                      it("should revert if not confirmed by required number of guardians.", async () => {
+                          const [_, account2] = await ethers.getSigners();
+
+                          const tx: ContractTransaction = await guardian
+                              .connect(account2)
+                              .confirmDailyTransferLimitRequest();
+
+                          await tx.wait(1);
+
+                          const requiredConfirmations: BigNumber =
+                              await guardian.getRequiredConfirmations();
+
+                          await expect(guardian.confirmAndUpdate())
+                              .to.be.revertedWithCustomError(
+                                  guardian,
+                                  "Guardian__RequiredConfirmationsNotMet"
+                              )
+                              .withArgs(requiredConfirmations.toNumber());
+                      });
+
                       it("should update the daily transfer limit after all guardians confirmation.", async () => {
                           const [_, account2, account3, account4] =
                               await ethers.getSigners();
