@@ -15,6 +15,7 @@ error Guardian__CanOnlyChangeAfterDelayPeriod();
 error Guardian__GuardianDoesNotExist();
 error Guardian__GuardiansListIsEmpty();
 error Guardian__CanOnlyRemoveAfterDelayPeriod();
+error Guardian__InvalidLimit(uint256 limit);
 error Guardian__AlreadyConfirmedByAddress(address guardian);
 error Guardian__UpdateNotRequestedByOwner();
 error Guardian__AddressNotFoundAsGuardian(address caller);
@@ -175,6 +176,10 @@ contract Guardian is Ownable, ReentrancyGuard {
     function requestToUpdateDailyTransferLimit(
         uint256 limit
     ) external onlyOwner {
+        if (limit <= 0) {
+            revert Guardian__InvalidLimit(limit);
+        }
+
         lastDailyTransferUpdateRequestTime = block.timestamp;
         tempDailyTransferLimit = limit;
         isDailyTransferLimitUpdateRequested = true;

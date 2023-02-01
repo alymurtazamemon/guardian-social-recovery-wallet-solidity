@@ -567,5 +567,14 @@ import { BigNumber, ContractTransaction } from "ethers";
                           .requestToUpdateDailyTransferLimit(oneEther.mul(2))
                   ).to.be.revertedWith("Ownable: caller is not the owner");
               });
+
+              it("should revert if the limit is less than or equal to zero.", async () => {
+                  await expect(guardian.requestToUpdateDailyTransferLimit(0))
+                      .to.be.revertedWithCustomError(
+                          guardian,
+                          "Guardian__InvalidLimit"
+                      )
+                      .withArgs(0);
+              });
           });
       });
