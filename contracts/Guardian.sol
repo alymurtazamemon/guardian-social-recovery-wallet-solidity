@@ -20,7 +20,7 @@ error Guardian__UpdateNotRequestedByOwner();
 error Guardian__RequestTimeExpired();
 error Guardian__AlreadyConfirmedByAddress(address guardian);
 error Guardian__AddressNotFoundAsGuardian(address caller);
-error Guardian__NotConfirmedByAllGuardians();
+error Guardian__RequiredConfirmationsNotMet(uint256 confirmations);
 
 contract Guardian is Ownable, ReentrancyGuard {
     // * STATE VARIABLES
@@ -233,17 +233,16 @@ contract Guardian is Ownable, ReentrancyGuard {
         }
 
         address[] memory guardiansCopy = guardians;
-        bool confirmed = true;
+        uint256 counter = 0;
 
         for (uint256 i = 0; i < guardiansCopy.length; i++) {
-            if (!isConfirmedByGuardian[guardiansCopy[i]]) {
-                confirmed = false;
-                break;
+            if (isConfirmedByGuardian[guardiansCopy[i]]) {
+                counter++;
             }
         }
 
-        if (!confirmed) {
-            revert Guardian__NotConfirmedByAllGuardians();
+        if (counter < requiredConfirmations) {
+            revert Guardian__RequiredConfirmationsNotMet(requiredConfirmations);
         }
 
         dailyTransferLimit = tempDailyTransferLimit;
