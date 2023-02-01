@@ -228,10 +228,6 @@ contract Guardian is Ownable, ReentrancyGuard {
             revert Guardian__RequestTimeExpired();
         }
 
-        if (isConfirmedByGuardian[msg.sender]) {
-            revert Guardian__AlreadyConfirmedByAddress(msg.sender);
-        }
-
         address[] memory guardiansCopy = guardians;
         bool confirmed = true;
 
