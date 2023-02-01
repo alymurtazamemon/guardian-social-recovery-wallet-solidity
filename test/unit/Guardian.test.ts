@@ -598,44 +598,71 @@ import { BigNumber, ContractTransaction } from "ethers";
           });
 
           describe("confirmDailyTransferLimitRequest", () => {
-              it("should revert if daily transfer limit update not requested by the owner.", async () => {
+              it("should revert if guardians list is empty.", async () => {
                   await expect(
                       guardian.confirmDailyTransferLimitRequest()
                   ).to.be.revertedWithCustomError(
                       guardian,
-                      "Guardian__UpdateNotRequestedByOwner"
+                      "Guardian__GuardiansListIsEmpty"
                   );
               });
 
-              describe("confirmDailyTransferLimitRequest - After Request", () => {
+              describe("confirmDailyTransferLimitRequest - After Adding Guardians", () => {
                   beforeEach(async () => {
+                      const [_, account2, account3, account4] =
+                          await ethers.getSigners();
+
+                      const newGuardians: string[] = [
+                          account2.address,
+                          account3.address,
+                          account4.address,
+                      ];
+
                       const tx: ContractTransaction =
-                          await guardian.requestToUpdateDailyTransferLimit(
-                              oneEther.mul(2)
-                          );
+                          await guardian.addGuardians(newGuardians);
 
                       await tx.wait(1);
                   });
 
-                  it("should revert if confirmed after comfirmation duration period.", async () => {
-                      const requestTime: BigNumber =
-                          await guardian.getLastDailyTransferUpdateRequestTime();
-
-                      const confirmationTime: BigNumber =
-                          await guardian.getDailyTransferLimitUpdateConfirmationTime();
-
-                      await network.provider.send("evm_increaseTime", [
-                          requestTime.toNumber() +
-                              confirmationTime.toNumber() +
-                              1,
-                      ]);
-
+                  it("should revert if daily transfer limit update not requested by the owner.", async () => {
                       await expect(
                           guardian.confirmDailyTransferLimitRequest()
                       ).to.be.revertedWithCustomError(
                           guardian,
-                          "Guardian__RequestTimeExpired"
+                          "Guardian__UpdateNotRequestedByOwner"
                       );
+                  });
+
+                  describe("confirmDailyTransferLimitRequest - After Request", () => {
+                      beforeEach(async () => {
+                          const tx: ContractTransaction =
+                              await guardian.requestToUpdateDailyTransferLimit(
+                                  oneEther.mul(2)
+                              );
+
+                          await tx.wait(1);
+                      });
+
+                      it("should revert if confirmed after comfirmation duration period.", async () => {
+                          const requestTime: BigNumber =
+                              await guardian.getLastDailyTransferUpdateRequestTime();
+
+                          const confirmationTime: BigNumber =
+                              await guardian.getDailyTransferLimitUpdateConfirmationTime();
+
+                          await network.provider.send("evm_increaseTime", [
+                              requestTime.toNumber() +
+                                  confirmationTime.toNumber() +
+                                  1,
+                          ]);
+
+                          await expect(
+                              guardian.confirmDailyTransferLimitRequest()
+                          ).to.be.revertedWithCustomError(
+                              guardian,
+                              "Guardian__RequestTimeExpired"
+                          );
+                      });
                   });
               });
           });
