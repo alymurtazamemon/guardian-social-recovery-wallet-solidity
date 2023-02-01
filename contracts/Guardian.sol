@@ -300,6 +300,14 @@ contract Guardian is Ownable, ReentrancyGuard {
         return isDailyTransferLimitUpdateRequested;
     }
 
+    function getDailyTransferLimitUpdateConfirmationTime()
+        external
+        view
+        returns (uint256)
+    {
+        return dailyTransferLimitUpdateConfirmationTime;
+    }
+
     function getLastDailyTransferUpdateRequestTime()
         external
         view
