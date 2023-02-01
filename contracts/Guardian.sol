@@ -16,11 +16,11 @@ error Guardian__GuardianDoesNotExist();
 error Guardian__GuardiansListIsEmpty();
 error Guardian__CanOnlyRemoveAfterDelayPeriod();
 error Guardian__InvalidLimit(uint256 limit);
-error Guardian__AlreadyConfirmedByAddress(address guardian);
 error Guardian__UpdateNotRequestedByOwner();
+error Guardian__RequestTimeExpired();
+error Guardian__AlreadyConfirmedByAddress(address guardian);
 error Guardian__AddressNotFoundAsGuardian(address caller);
 error Guardian__NotConfirmedByAllGuardians();
-error Guardian__RequestTimeExpired();
 
 contract Guardian is Ownable, ReentrancyGuard {
     // * STATE VARIABLES
@@ -298,6 +298,14 @@ contract Guardian is Ownable, ReentrancyGuard {
         returns (bool)
     {
         return isDailyTransferLimitUpdateRequested;
+    }
+
+    function getLastDailyTransferUpdateRequestTime()
+        external
+        view
+        returns (uint256)
+    {
+        return lastDailyTransferUpdateRequestTime;
     }
 
     function getGuardians() external view returns (address[] memory) {
