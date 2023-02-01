@@ -432,8 +432,22 @@ import { BigNumber, ContractTransaction } from "ethers";
                   );
               });
 
-              describe("removeGuardian - After Delay", () => {
+              describe("removeGuardian - After Adding Guardians & Delay", () => {
                   beforeEach(async () => {
+                      const [_, account2, account3, account4] =
+                          await ethers.getSigners();
+
+                      const newGuardians: string[] = [
+                          account2.address,
+                          account3.address,
+                          account4.address,
+                      ];
+
+                      const tx: ContractTransaction =
+                          await guardian.addGuardians(newGuardians);
+
+                      await tx.wait(1);
+
                       const removalTime: BigNumber =
                           await guardian.getLastGuardianRemovalTime();
 
@@ -446,10 +460,11 @@ import { BigNumber, ContractTransaction } from "ethers";
                   });
 
                   it("should revert if the `guardian` address does not exist.", async () => {
-                      const [_, account2] = await ethers.getSigners();
+                      const [_, account2, account3, account4, account5] =
+                          await ethers.getSigners();
 
                       await expect(
-                          guardian.removeGuardian(account2.address)
+                          guardian.removeGuardian(account5.address)
                       ).to.be.revertedWithCustomError(
                           guardian,
                           "Guardian__GuardianDoesNotExist"

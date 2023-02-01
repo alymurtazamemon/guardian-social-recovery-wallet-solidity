@@ -4,6 +4,7 @@ pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "hardhat/console.sol";
 
 error Guardian__InvalidAmount(uint amount);
 error Guardian__DailyTransferLimitExceed(uint amount);
@@ -157,7 +158,7 @@ contract Guardian is Ownable, ReentrancyGuard {
             if (guardiansCopy[i] == guardian) {
                 exist = true;
                 continue;
-            } else {
+            } else if (i != updatedCopy.length) {
                 updatedCopy[index] = guardiansCopy[i];
                 index++;
             }
