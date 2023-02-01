@@ -606,5 +606,16 @@ import { BigNumber, ContractTransaction } from "ethers";
                       "Guardian__UpdateNotRequestedByOwner"
                   );
               });
+
+              describe("confirmDailyTransferLimitRequest - After Request", () => {
+                  beforeEach(async () => {
+                      const tx: ContractTransaction =
+                          await guardian.requestToUpdateDailyTransferLimit(
+                              oneEther.mul(2)
+                          );
+
+                      await tx.wait(1);
+                  });
+              });
           });
       });
