@@ -418,6 +418,12 @@ import { BigNumber, ContractTransaction } from "ethers";
               it("should revert if delay time is not passed before removing a guardian.", async () => {
                   const [_, account2] = await ethers.getSigners();
 
+                  const tx: ContractTransaction = await guardian.addGuardian(
+                      account2.address
+                  );
+
+                  await tx.wait(1);
+
                   await expect(
                       guardian.removeGuardian(account2.address)
                   ).to.be.revertedWithCustomError(
