@@ -596,4 +596,15 @@ import { BigNumber, ContractTransaction } from "ethers";
                   expect(updatedStatus).to.be.true;
               });
           });
+
+          describe("confirmDailyTransferLimitRequest", () => {
+              it("should revert if daily transfer limit update not requested by the owner.", async () => {
+                  await expect(
+                      guardian.confirmDailyTransferLimitRequest()
+                  ).to.be.revertedWithCustomError(
+                      guardian,
+                      "Guardian__UpdateNotRequestedByOwner"
+                  );
+              });
+          });
       });
