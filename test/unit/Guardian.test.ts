@@ -807,6 +807,15 @@ import { BigNumber, Contract, ContractTransaction } from "ethers";
                               "Guardian__RequestTimeExpired"
                           );
                       });
+
+                      it("should revert if not confirmed by all guardians.", async () => {
+                          await expect(
+                              guardian.confirmAndUpdate()
+                          ).to.be.revertedWithCustomError(
+                              guardian,
+                              "Guardian__NotConfirmedByAllGuardians"
+                          );
+                      });
                   });
               });
           });
