@@ -369,6 +369,9 @@ import { BigNumber, ContractTransaction } from "ethers";
 
                       expect(guardians[0]).to.be.equal(newGuardians[0]);
 
+                      const changeTime: BigNumber =
+                          await guardian.getLastGuardianChangeTime();
+
                       const tx2: ContractTransaction =
                           await guardian.changeGuardian(
                               account2.address,
@@ -381,6 +384,11 @@ import { BigNumber, ContractTransaction } from "ethers";
                           await guardian.getGuardians();
 
                       expect(updatedGuardians[0]).to.be.equal(account5.address);
+
+                      const updateChangeTime: BigNumber =
+                          await guardian.getLastGuardianChangeTime();
+
+                      expect(changeTime).to.not.be.equal(updateChangeTime);
                   });
               });
           });
