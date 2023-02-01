@@ -741,4 +741,14 @@ import { BigNumber, Contract, ContractTransaction } from "ethers";
                   });
               });
           });
+
+          describe("confirmAndUpdate", () => {
+              it("should revert if called by an address which is not an owner.", async () => {
+                  const [_, account2] = await ethers.getSigners();
+
+                  await expect(
+                      guardian.connect(account2).confirmAndUpdate()
+                  ).to.be.revertedWith("Ownable: caller is not the owner");
+              });
+          });
       });
