@@ -186,6 +186,10 @@ contract Guardian is Ownable, ReentrancyGuard {
     }
 
     function confirmDailyTransferLimitRequest() external {
+        if (guardians.length <= 0) {
+            revert Guardian__GuardiansListIsEmpty();
+        }
+
         if (!isDailyTransferLimitUpdateRequested) {
             revert Guardian__UpdateNotRequestedByOwner();
         }
@@ -203,8 +207,7 @@ contract Guardian is Ownable, ReentrancyGuard {
             revert Guardian__AlreadyConfirmedByAddress(msg.sender);
         }
 
-        // * if the length of guardians will be zero then the execution will not run the doesGuardianExist function and revert.
-        if (guardians.length <= 0 || !doesGuardianExist(msg.sender)) {
+        if (!doesGuardianExist(msg.sender)) {
             revert Guardian__AddressNotFoundAsGuardian(msg.sender);
         }
 
