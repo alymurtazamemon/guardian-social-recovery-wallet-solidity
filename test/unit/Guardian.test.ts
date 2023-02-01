@@ -750,5 +750,14 @@ import { BigNumber, Contract, ContractTransaction } from "ethers";
                       guardian.connect(account2).confirmAndUpdate()
                   ).to.be.revertedWith("Ownable: caller is not the owner");
               });
+
+              it("should revert if daily transfer update not requested by an owner.", async () => {
+                  await expect(
+                      guardian.confirmAndUpdate()
+                  ).to.be.revertedWithCustomError(
+                      guardian,
+                      "Guardian__UpdateNotRequestedByOwner"
+                  );
+              });
           });
       });
