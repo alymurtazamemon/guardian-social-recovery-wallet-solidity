@@ -215,6 +215,10 @@ contract Guardian is Ownable, ReentrancyGuard {
     }
 
     function confirmAndUpdate() external onlyOwner {
+        if (guardians.length <= 0) {
+            revert Guardian__GuardiansListIsEmpty();
+        }
+
         if (!isDailyTransferLimitUpdateRequested) {
             revert Guardian__UpdateNotRequestedByOwner();
         }

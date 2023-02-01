@@ -751,44 +751,62 @@ import { BigNumber, Contract, ContractTransaction } from "ethers";
                   ).to.be.revertedWith("Ownable: caller is not the owner");
               });
 
-              it("should revert if daily transfer update not requested by an owner.", async () => {
-                  await expect(
-                      guardian.confirmAndUpdate()
-                  ).to.be.revertedWithCustomError(
-                      guardian,
-                      "Guardian__UpdateNotRequestedByOwner"
-                  );
-              });
-
-              describe("confirmAndUpdate - After Request", () => {
+              describe("confirmAndUpdate - After Adding Guardians", () => {
                   beforeEach(async () => {
+                      const [_, account2, account3, account4] =
+                          await ethers.getSigners();
+
+                      const newGuardians: string[] = [
+                          account2.address,
+                          account3.address,
+                          account4.address,
+                      ];
+
                       const tx: ContractTransaction =
-                          await guardian.requestToUpdateDailyTransferLimit(
-                              oneEther.mul(2)
-                          );
+                          await guardian.addGuardians(newGuardians);
 
                       await tx.wait(1);
                   });
 
-                  it("should revert if confirmed after confirmation duration.", async () => {
-                      const requestTime: BigNumber =
-                          await guardian.getLastDailyTransferUpdateRequestTime();
-
-                      const confirmationTime: BigNumber =
-                          await guardian.getDailyTransferLimitUpdateConfirmationTime();
-
-                      await network.provider.send("evm_increaseTime", [
-                          requestTime.toNumber() +
-                              confirmationTime.toNumber() +
-                              1,
-                      ]);
-
+                  it("should revert if daily transfer update not requested by an owner.", async () => {
                       await expect(
                           guardian.confirmAndUpdate()
                       ).to.be.revertedWithCustomError(
                           guardian,
-                          "Guardian__RequestTimeExpired"
+                          "Guardian__UpdateNotRequestedByOwner"
                       );
+                  });
+
+                  describe("confirmAndUpdate - After Request", () => {
+                      beforeEach(async () => {
+                          const tx: ContractTransaction =
+                              await guardian.requestToUpdateDailyTransferLimit(
+                                  oneEther.mul(2)
+                              );
+
+                          await tx.wait(1);
+                      });
+
+                      it("should revert if confirmed after confirmation duration.", async () => {
+                          const requestTime: BigNumber =
+                              await guardian.getLastDailyTransferUpdateRequestTime();
+
+                          const confirmationTime: BigNumber =
+                              await guardian.getDailyTransferLimitUpdateConfirmationTime();
+
+                          await network.provider.send("evm_increaseTime", [
+                              requestTime.toNumber() +
+                                  confirmationTime.toNumber() +
+                                  1,
+                          ]);
+
+                          await expect(
+                              guardian.confirmAndUpdate()
+                          ).to.be.revertedWithCustomError(
+                              guardian,
+                              "Guardian__RequestTimeExpired"
+                          );
+                      });
                   });
               });
           });
