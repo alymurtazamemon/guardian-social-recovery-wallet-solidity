@@ -323,6 +323,12 @@ contract Guardian is Ownable, ReentrancyGuard {
         return guardians;
     }
 
+    function getGuardianConfirmationStatus(
+        address guardian
+    ) external view returns (bool) {
+        return isConfirmedByGuardian[guardian];
+    }
+
     // * FUNCTIONS - VIEW & PURE - PRIVATE
 
     function doesGuardianExist(address caller) private view returns (bool) {
