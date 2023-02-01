@@ -98,7 +98,7 @@ contract Guardian is Ownable, ReentrancyGuard {
         updateRequiredConfirmations();
     }
 
-    function addGuardian(address guardian) external onlyOwner {
+    function addGuardian(address guardian) external onlyOwner nonReentrant {
         guardians.push(guardian);
         updateRequiredConfirmations();
     }
