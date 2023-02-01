@@ -292,6 +292,14 @@ contract Guardian is Ownable, ReentrancyGuard {
         return removeGuardianDelay;
     }
 
+    function getDailyTransferLimitUpdateRequestStatus()
+        external
+        view
+        returns (bool)
+    {
+        return isDailyTransferLimitUpdateRequested;
+    }
+
     function getGuardians() external view returns (address[] memory) {
         return guardians;
     }

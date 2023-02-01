@@ -576,5 +576,24 @@ import { BigNumber, ContractTransaction } from "ethers";
                       )
                       .withArgs(0);
               });
+
+              it("should request to update the daily limit.", async () => {
+                  const status: boolean =
+                      await guardian.getDailyTransferLimitUpdateRequestStatus();
+
+                  expect(status).to.be.false;
+
+                  const tx: ContractTransaction =
+                      await guardian.requestToUpdateDailyTransferLimit(
+                          oneEther.mul(2)
+                      );
+
+                  await tx.wait(1);
+
+                  const updatedStatus: boolean =
+                      await guardian.getDailyTransferLimitUpdateRequestStatus();
+
+                  expect(updatedStatus).to.be.true;
+              });
           });
       });
