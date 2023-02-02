@@ -15,22 +15,21 @@ contract OwnershipManager is GuardiansManager {
     // * STATE VARIABLES
     uint256 private lastOwnerUpdateRequestTime;
     uint256 private ownerUpdateConfirmationTime;
+    uint256 private noOfConfirmations;
 
     bool private isOwnerUpdateRequested;
 
-    address private currentOwner;
     address private tempAddress;
 
     mapping(address => bool) private isOwnershipConfimedByGuardian;
 
     // * FUNCTIONS
     constructor() {
-        currentOwner = msg.sender;
         ownerUpdateConfirmationTime = 2 hours;
     }
 
     function requestToUpdateOwner(address newOwnerAddress) external {
-        if (newOwnerAddress == currentOwner) {
+        if (newOwnerAddress == owner()) {
             revert OwnershipManager__AddressAlreadyAnOwner(newOwnerAddress);
         }
 
@@ -73,6 +72,13 @@ contract OwnershipManager is GuardiansManager {
         }
 
         isOwnershipConfimedByGuardian[msg.sender] = true;
+        noOfConfirmations++;
+
+        if (noOfConfirmations >= requiredConfirmations) {
+            // * Ownable internal function without access restriction.
+            _transferOwnership(tempAddress);
+            resetDailyTransferLimitVariables();
+        }
     }
 
     // * FUNCTION - PRIVATE
