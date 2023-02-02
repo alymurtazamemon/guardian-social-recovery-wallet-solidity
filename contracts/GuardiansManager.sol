@@ -70,12 +70,12 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
     }
 
     function removeGuardian(address guardian) external onlyOwner nonReentrant {
-        if (guardians.length <= 0) {
-            revert Error__GuardiansListIsEmpty("GuardiansManager");
-        }
-
         if (block.timestamp < lastGuardianRemovalTime + removeGuardianDelay) {
             revert Error__CanOnlyRemoveAfterDelayPeriod("GuardiansManager");
+        }
+
+        if (guardians.length <= 0) {
+            revert Error__GuardiansListIsEmpty("GuardiansManager");
         }
 
         address[] memory guardiansCopy = guardians;

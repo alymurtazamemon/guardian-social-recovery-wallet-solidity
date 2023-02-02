@@ -186,7 +186,7 @@ import { BigNumber, ContractTransaction } from "ethers";
                           await network.provider.send("evm_increaseTime", [
                               addTime.toNumber() + delayTime.toNumber(),
                           ]);
-                          
+
                           const tx: ContractTransaction =
                               await guardian.addGuardian(newGuardians[i]);
 
@@ -242,31 +242,34 @@ import { BigNumber, ContractTransaction } from "ethers";
                   ).to.be.revertedWith("Ownable: caller is not the owner");
               });
 
-              it("should revert if there is no guardians to remove.", async () => {
-                  const [_, account2] = await ethers.getSigners();
-
-                  await expect(
-                      guardian.removeGuardian(account2.address)
-                  ).to.be.revertedWithCustomError(
-                      guardian,
-                      "Error__GuardiansListIsEmpty"
-                  );
-              });
-
               it("should revert if delay time is not passed before removing a guardian.", async () => {
                   const [_, account2] = await ethers.getSigners();
-
-                  const tx: ContractTransaction = await guardian.addGuardian(
-                      account2.address
-                  );
-
-                  await tx.wait(1);
 
                   await expect(
                       guardian.removeGuardian(account2.address)
                   ).to.be.revertedWithCustomError(
                       guardian,
                       "Error__CanOnlyRemoveAfterDelayPeriod"
+                  );
+              });
+
+              it("should revert if there is no guardians to remove.", async () => {
+                  const [_, account2] = await ethers.getSigners();
+
+                  const removalTime: BigNumber =
+                      await guardian.getLastGuardianRemovalTime();
+                  const delayTime: BigNumber =
+                      await guardian.getRemoveGuardianDelay();
+
+                  await network.provider.send("evm_increaseTime", [
+                      removalTime.toNumber() + delayTime.toNumber(),
+                  ]);
+
+                  await expect(
+                      guardian.removeGuardian(account2.address)
+                  ).to.be.revertedWithCustomError(
+                      guardian,
+                      "Error__GuardiansListIsEmpty"
                   );
               });
 
