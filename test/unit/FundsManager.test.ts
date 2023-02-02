@@ -287,10 +287,12 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                           account4.address,
                       ];
 
-                      const tx: ContractTransaction =
-                          await guardian.addGuardians(newGuardians);
+                      for (let i = 0; i < newGuardians.length; i++) {
+                          const tx: ContractTransaction =
+                              await guardian.addGuardian(newGuardians[i]);
 
-                      await tx.wait(1);
+                          await tx.wait(1);
+                      }
                   });
 
                   it("should revert if daily transfer limit update not requested by the owner.", async () => {
@@ -440,10 +442,12 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                           account4.address,
                       ];
 
-                      const tx: ContractTransaction =
-                          await guardian.addGuardians(newGuardians);
+                      for (let i = 0; i < newGuardians.length; i++) {
+                          const tx: ContractTransaction =
+                              await guardian.addGuardian(newGuardians[i]);
 
-                      await tx.wait(1);
+                          await tx.wait(1);
+                      }
                   });
 
                   it("should revert if daily transfer update not requested by an owner.", async () => {

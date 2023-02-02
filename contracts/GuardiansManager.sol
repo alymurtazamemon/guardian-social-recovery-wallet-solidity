@@ -26,22 +26,6 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
     }
 
     // * FUNCTIONS - EXTERNAL
-    function addGuardians(
-        address[] memory newGuardians
-    ) external onlyOwner nonReentrant {
-        if (newGuardians.length <= 0) {
-            revert Error__InvalidGuardiansList(
-                "GuardiansManager",
-                newGuardians
-            );
-        }
-
-        for (uint256 i = 0; i < newGuardians.length; i++) {
-            guardians.push(newGuardians[i]);
-        }
-        updateRequiredConfirmations();
-    }
-
     function addGuardian(address guardian) external onlyOwner nonReentrant {
         guardians.push(guardian);
         updateRequiredConfirmations();

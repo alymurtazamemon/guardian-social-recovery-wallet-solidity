@@ -23,51 +23,6 @@ import { BigNumber, ContractTransaction } from "ethers";
               guardian = await ethers.getContract("Guardian", deployer);
           });
 
-          describe("addGuardians", () => {
-              it("should revert if called by address which is not an owner.", async () => {
-                  const [_, account2, account3] = await ethers.getSigners();
-
-                  await expect(
-                      guardian.connect(account2).addGuardians([])
-                  ).to.be.revertedWith("Ownable: caller is not the owner");
-              });
-
-              it("should revert if the guardians list is empty.", async () => {
-                  await expect(guardian.addGuardians([]))
-                      .to.be.revertedWithCustomError(
-                          guardian,
-                          "Error__InvalidGuardiansList"
-                      )
-                      .withArgs("GuardiansManager", []);
-              });
-
-              it("should add new guardians.", async () => {
-                  const [_, account2, account3, account4, account5, account6] =
-                      await ethers.getSigners();
-
-                  const newGuardians: string[] = [
-                      account2.address,
-                      account3.address,
-                      account4.address,
-                      account5.address,
-                      account6.address,
-                  ];
-
-                  const tx: ContractTransaction = await guardian.addGuardians(
-                      newGuardians
-                  );
-
-                  await tx.wait(1);
-
-                  const guardians: string[] = await guardian.getGuardians();
-                  expect(guardians.length).to.be.equal(newGuardians.length);
-
-                  const requiredConfirmations: BigNumber =
-                      await guardian.getRequiredConfirmations();
-                  expect(requiredConfirmations).to.be.equal(3);
-              });
-          });
-
           describe("addGuardian", () => {
               it("should revert if called by address which is not an owner.", async () => {
                   const [_, account2, account3] = await ethers.getSigners();
@@ -158,10 +113,12 @@ import { BigNumber, ContractTransaction } from "ethers";
                           account4.address,
                       ];
 
-                      const tx: ContractTransaction =
-                          await guardian.addGuardians(newGuardians);
+                      for (let i = 0; i < newGuardians.length; i++) {
+                          const tx: ContractTransaction =
+                              await guardian.addGuardian(newGuardians[i]);
 
-                      await tx.wait(1);
+                          await tx.wait(1);
+                      }
 
                       const guardians: string[] = await guardian.getGuardians();
 
@@ -199,10 +156,12 @@ import { BigNumber, ContractTransaction } from "ethers";
                           account4.address,
                       ];
 
-                      const tx: ContractTransaction =
-                          await guardian.addGuardians(newGuardians);
+                      for (let i = 0; i < newGuardians.length; i++) {
+                          const tx: ContractTransaction =
+                              await guardian.addGuardian(newGuardians[i]);
 
-                      await tx.wait(1);
+                          await tx.wait(1);
+                      }
 
                       const guardians: string[] = await guardian.getGuardians();
 
@@ -292,10 +251,12 @@ import { BigNumber, ContractTransaction } from "ethers";
                           account4.address,
                       ];
 
-                      const tx: ContractTransaction =
-                          await guardian.addGuardians(newGuardians);
+                      for (let i = 0; i < newGuardians.length; i++) {
+                          const tx: ContractTransaction =
+                              await guardian.addGuardian(newGuardians[i]);
 
-                      await tx.wait(1);
+                          await tx.wait(1);
+                      }
 
                       const removalTime: BigNumber =
                           await guardian.getLastGuardianRemovalTime();
