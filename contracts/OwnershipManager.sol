@@ -15,17 +15,17 @@ contract OwnershipManager is GuardiansManager {
 
     bool private isOwnerUpdateRequested;
 
-    address private owner;
+    address private currentOwner;
     address private tempAddress;
 
     // * FUNCTIONS
     constructor() {
-        owner = msg.sender;
+        currentOwner = msg.sender;
         ownerUpdateConfirmationTime = 2 hours;
     }
 
     function requestToUpdateOwner(address newOwnerAddress) external {
-        if (newOwnerAddress == owner) {
+        if (newOwnerAddress == currentOwner) {
             revert OwnershipManager__AddressAlreadyAnOwner(newOwnerAddress);
         }
 
