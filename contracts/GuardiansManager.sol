@@ -36,6 +36,7 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
         }
 
         guardians.push(guardian);
+        lastGuardianAddTime = block.timestamp;
         updateRequiredConfirmations();
     }
 
