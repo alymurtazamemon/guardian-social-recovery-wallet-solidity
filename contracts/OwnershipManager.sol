@@ -63,7 +63,7 @@ contract OwnershipManager is GuardiansManager {
             block.timestamp >
             lastOwnerUpdateRequestTime + ownerUpdateConfirmationTime
         ) {
-            resetDailyTransferLimitVariables();
+            resetOwnershipVariables();
             revert OwnershipManager__RequestTimeExpired();
         }
 
@@ -77,12 +77,12 @@ contract OwnershipManager is GuardiansManager {
         if (noOfConfirmations >= requiredConfirmations) {
             // * Ownable internal function without access restriction.
             _transferOwnership(tempAddress);
-            resetDailyTransferLimitVariables();
+            resetOwnershipVariables();
         }
     }
 
     // * FUNCTION - PRIVATE
-    function resetDailyTransferLimitVariables() private {
+    function resetOwnershipVariables() private {
         isOwnerUpdateRequested = false;
 
         address[] memory guardiansCopy = guardians;
