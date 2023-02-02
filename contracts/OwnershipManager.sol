@@ -1,15 +1,9 @@
 // SPDX-License-Identifier: MIT
 
 import "./GuardiansManager.sol";
+import "./Errors.sol";
 
 pragma solidity ^0.8.17;
-
-error OwnershipManager__AddressAlreadyAnOwner(address newOwner);
-error OwnershipManager__GuardiansListIsEmpty();
-error OwnershipManager__AddressNotFoundAsGuardian(address caller);
-error OwnershipManager__UpdateNotRequested();
-error OwnershipManager__AlreadyConfirmedByGuardian(address guardian);
-error OwnershipManager__RequestTimeExpired();
 
 contract OwnershipManager is GuardiansManager {
     // * STATE VARIABLES
@@ -30,15 +24,21 @@ contract OwnershipManager is GuardiansManager {
 
     function requestToUpdateOwner(address newOwnerAddress) external {
         if (newOwnerAddress == owner()) {
-            revert OwnershipManager__AddressAlreadyAnOwner(newOwnerAddress);
+            revert Error__AddressAlreadyAnOwner(
+                "OwnershipManager",
+                newOwnerAddress
+            );
         }
 
         if (guardians.length <= 0) {
-            revert OwnershipManager__GuardiansListIsEmpty();
+            revert Error__GuardiansListIsEmpty("OwnershipManager");
         }
 
         if (!doesGuardianExist(msg.sender)) {
-            revert OwnershipManager__AddressNotFoundAsGuardian(msg.sender);
+            revert Error__AddressNotFoundAsGuardian(
+                "OwnershipManager",
+                msg.sender
+            );
         }
 
         lastOwnerUpdateRequestTime = block.timestamp;
@@ -48,15 +48,18 @@ contract OwnershipManager is GuardiansManager {
 
     function confirmUpdateOwnerRequest() external {
         if (guardians.length <= 0) {
-            revert OwnershipManager__GuardiansListIsEmpty();
+            revert Error__GuardiansListIsEmpty("OwnershipManager");
         }
 
         if (!isOwnerUpdateRequested) {
-            revert OwnershipManager__UpdateNotRequested();
+            revert Error__UpdateNotRequested("OwnershipManager");
         }
 
         if (isOwnershipConfimedByGuardian[msg.sender]) {
-            revert OwnershipManager__AlreadyConfirmedByGuardian(msg.sender);
+            revert Error__AlreadyConfirmedByGuardian(
+                "OwnershipManager",
+                msg.sender
+            );
         }
 
         if (
@@ -64,11 +67,14 @@ contract OwnershipManager is GuardiansManager {
             lastOwnerUpdateRequestTime + ownerUpdateConfirmationTime
         ) {
             resetOwnershipVariables();
-            revert OwnershipManager__RequestTimeExpired();
+            revert Error__RequestTimeExpired("OwnershipManager");
         }
 
         if (!doesGuardianExist(msg.sender)) {
-            revert OwnershipManager__AddressNotFoundAsGuardian(msg.sender);
+            revert Error__AddressNotFoundAsGuardian(
+                "OwnershipManager",
+                msg.sender
+            );
         }
 
         isOwnershipConfimedByGuardian[msg.sender] = true;

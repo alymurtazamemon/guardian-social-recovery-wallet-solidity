@@ -4,12 +4,7 @@ pragma solidity ^0.8.17;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
-
-error GuardiansManager__InvalidGuardiansList(address[] addressesList);
-error GuardiansManager__CanOnlyChangeAfterDelayPeriod();
-error GuardiansManager__GuardianDoesNotExist();
-error GuardiansManager__GuardiansListIsEmpty();
-error GuardiansManager__CanOnlyRemoveAfterDelayPeriod();
+import "./Errors.sol";
 
 contract GuardiansManager is Ownable, ReentrancyGuard {
     // * STATE VARIABLES
@@ -35,7 +30,10 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
         address[] memory newGuardians
     ) external onlyOwner nonReentrant {
         if (newGuardians.length <= 0) {
-            revert GuardiansManager__InvalidGuardiansList(newGuardians);
+            revert Error__InvalidGuardiansList(
+                "GuardiansManager",
+                newGuardians
+            );
         }
 
         for (uint256 i = 0; i < newGuardians.length; i++) {
@@ -54,7 +52,7 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
         address to
     ) external onlyOwner nonReentrant {
         if (block.timestamp < lastGuardianChangeTime + changeGuardianDelay) {
-            revert GuardiansManager__CanOnlyChangeAfterDelayPeriod();
+            revert Error__CanOnlyChangeAfterDelayPeriod("GuardiansManager");
         }
 
         address[] memory guardiansCopy = guardians;
@@ -74,17 +72,17 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
             guardians = guardiansCopy;
             lastGuardianChangeTime = block.timestamp;
         } else {
-            revert GuardiansManager__GuardianDoesNotExist();
+            revert Error__GuardianDoesNotExist("GuardiansManager");
         }
     }
 
     function removeGuardian(address guardian) external onlyOwner nonReentrant {
         if (guardians.length <= 0) {
-            revert GuardiansManager__GuardiansListIsEmpty();
+            revert Error__GuardiansListIsEmpty("GuardiansManager");
         }
 
         if (block.timestamp < lastGuardianRemovalTime + removeGuardianDelay) {
-            revert GuardiansManager__CanOnlyRemoveAfterDelayPeriod();
+            revert Error__CanOnlyRemoveAfterDelayPeriod("GuardiansManager");
         }
 
         address[] memory guardiansCopy = guardians;
@@ -111,7 +109,7 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
             guardians = updatedCopy;
             lastGuardianRemovalTime = block.timestamp;
         } else {
-            revert GuardiansManager__GuardianDoesNotExist();
+            revert Error__GuardianDoesNotExist("GuardiansManager");
         }
     }
 

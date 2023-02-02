@@ -3,17 +3,7 @@
 pragma solidity ^0.8.17;
 
 import "./GuardiansManager.sol";
-
-error FundsManager__InvalidAmount(uint amount);
-error FundsManager__DailyTransferLimitExceed(uint amount);
-error FundsManager__TransactionFailed();
-error FundsManager__BalanceIsZero(uint balance);
-error FundsManager__InvalidLimit(uint256 limit);
-error FundsManager__UpdateNotRequestedByOwner();
-error FundsManager__RequestTimeExpired();
-error FundsManager__AlreadyConfirmedByAddress(address guardian);
-error FundsManager__AddressNotFoundAsGuardian(address caller);
-error FundsManager__RequiredConfirmationsNotMet(uint256 confirmations);
+import "./Errors.sol";
 
 contract FundsManager is GuardiansManager {
     // * STATE VARIABLES
@@ -39,16 +29,16 @@ contract FundsManager is GuardiansManager {
 
     function send(address to, uint amount) external onlyOwner nonReentrant {
         if (amount <= 0) {
-            revert FundsManager__InvalidAmount(amount);
+            revert Error__InvalidAmount("FundsManager", amount);
         }
 
         if (amount > dailyTransferLimit) {
-            revert FundsManager__DailyTransferLimitExceed(amount);
+            revert Error__DailyTransferLimitExceed("FundsManager", amount);
         }
 
         (bool success, ) = to.call{value: amount}("");
         if (!success) {
-            revert FundsManager__TransactionFailed();
+            revert Error__TransactionFailed("FundsManager");
         }
     }
 
@@ -56,16 +46,16 @@ contract FundsManager is GuardiansManager {
         uint256 balance = address(this).balance;
 
         if (balance <= 0) {
-            revert FundsManager__BalanceIsZero(balance);
+            revert Error__BalanceIsZero("FundsManager", balance);
         }
 
         if (balance > dailyTransferLimit) {
-            revert FundsManager__DailyTransferLimitExceed(balance);
+            revert Error__DailyTransferLimitExceed("FundsManager", balance);
         }
 
         (bool success, ) = to.call{value: balance}("");
         if (!success) {
-            revert FundsManager__TransactionFailed();
+            revert Error__TransactionFailed("FundsManager");
         }
     }
 
@@ -73,7 +63,7 @@ contract FundsManager is GuardiansManager {
         uint256 limit
     ) external onlyOwner {
         if (limit <= 0) {
-            revert FundsManager__InvalidLimit(limit);
+            revert Error__InvalidLimit("FundsManager", limit);
         }
 
         lastDailyTransferUpdateRequestTime = block.timestamp;
@@ -83,11 +73,11 @@ contract FundsManager is GuardiansManager {
 
     function confirmDailyTransferLimitRequest() external {
         if (guardians.length <= 0) {
-            revert GuardiansManager__GuardiansListIsEmpty();
+            revert Error__GuardiansListIsEmpty("FundsManager");
         }
 
         if (!isDailyTransferLimitUpdateRequested) {
-            revert FundsManager__UpdateNotRequestedByOwner();
+            revert Error__UpdateNotRequestedByOwner("FundsManager");
         }
 
         if (
@@ -96,15 +86,18 @@ contract FundsManager is GuardiansManager {
                 dailyTransferLimitUpdateConfirmationTime
         ) {
             resetDailyTransferLimitVariables();
-            revert FundsManager__RequestTimeExpired();
+            revert Error__RequestTimeExpired("FundsManager");
         }
 
         if (isConfirmedByGuardian[msg.sender]) {
-            revert FundsManager__AlreadyConfirmedByAddress(msg.sender);
+            revert Error__AlreadyConfirmedByGuardian(
+                "FundsManager",
+                msg.sender
+            );
         }
 
         if (!doesGuardianExist(msg.sender)) {
-            revert FundsManager__AddressNotFoundAsGuardian(msg.sender);
+            revert Error__AddressNotFoundAsGuardian("FundsManager", msg.sender);
         }
 
         isConfirmedByGuardian[msg.sender] = true;
@@ -112,11 +105,11 @@ contract FundsManager is GuardiansManager {
 
     function confirmAndUpdate() external onlyOwner {
         if (guardians.length <= 0) {
-            revert GuardiansManager__GuardiansListIsEmpty();
+            revert Error__GuardiansListIsEmpty("FundsManager");
         }
 
         if (!isDailyTransferLimitUpdateRequested) {
-            revert FundsManager__UpdateNotRequestedByOwner();
+            revert Error__UpdateNotRequestedByOwner("FundsManager");
         }
 
         if (
@@ -125,7 +118,7 @@ contract FundsManager is GuardiansManager {
                 dailyTransferLimitUpdateConfirmationTime
         ) {
             resetDailyTransferLimitVariables();
-            revert FundsManager__RequestTimeExpired();
+            revert Error__RequestTimeExpired("FundsManager");
         }
 
         address[] memory guardiansCopy = guardians;
@@ -138,7 +131,8 @@ contract FundsManager is GuardiansManager {
         }
 
         if (counter < requiredConfirmations) {
-            revert FundsManager__RequiredConfirmationsNotMet(
+            revert Error__RequiredConfirmationsNotMet(
+                "FundsManager",
                 requiredConfirmations
             );
         }
