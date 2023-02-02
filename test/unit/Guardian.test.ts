@@ -95,9 +95,9 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                   await expect(guardian.send(account2.address, 0))
                       .to.be.revertedWithCustomError(
                           guardian,
-                          "Guardian__InvalidAmount"
+                          "Error__InvalidAmount"
                       )
-                      .withArgs(0);
+                      .withArgs("FundsManager", 0);
               });
 
               it("should revert if amount is greater than daily transfer limit.", async () => {
@@ -106,9 +106,9 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                   await expect(guardian.send(account2.address, oneEther.mul(2)))
                       .to.be.revertedWithCustomError(
                           guardian,
-                          "Guardian__DailyTransferLimitExceed"
+                          "Error__DailyTransferLimitExceed"
                       )
-                      .withArgs(oneEther.mul(2));
+                      .withArgs("FundsManager", oneEther.mul(2));
               });
 
               it("should transfer funds to other address.", async () => {
@@ -150,7 +150,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                       guardian.send(account2.address, oneEther.mul(1))
                   ).to.be.revertedWithCustomError(
                       guardian,
-                      "Guardian__TransactionFailed"
+                      "Error__TransactionFailed"
                   );
               });
           });
@@ -170,9 +170,9 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                   await expect(guardian.sendAll(account2.address))
                       .to.be.revertedWithCustomError(
                           guardian,
-                          "Guardian__BalanceIsZero"
+                          "Error__BalanceIsZero"
                       )
-                      .withArgs(0);
+                      .withArgs("FundsManager", 0);
               });
 
               it("should revert if amount is greater than daily transfer limit.", async () => {
@@ -190,9 +190,9 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                   await expect(guardian.sendAll(account2.address))
                       .to.be.revertedWithCustomError(
                           guardian,
-                          "Guardian__DailyTransferLimitExceed"
+                          "Error__DailyTransferLimitExceed"
                       )
-                      .withArgs(oneEther.mul(2));
+                      .withArgs("FundsManager", oneEther.mul(2));
               });
 
               it("should transfer all of the funds if less than or equal to daily limit.", async () => {
@@ -239,9 +239,9 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                   await expect(guardian.addGuardians([]))
                       .to.be.revertedWithCustomError(
                           guardian,
-                          "Guardian__InvalidGuardiansList"
+                          "Error__InvalidGuardiansList"
                       )
-                      .withArgs([]);
+                      .withArgs("GuardiansManager", []);
               });
 
               it("should add new guardians.", async () => {
@@ -320,7 +320,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                       )
                   ).to.be.revertedWithCustomError(
                       guardian,
-                      "Guardian__CanOnlyChangeAfterDelayPeriod"
+                      "Error__CanOnlyChangeAfterDelayPeriod"
                   );
               });
 
@@ -347,7 +347,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                           )
                       ).to.be.revertedWithCustomError(
                           guardian,
-                          "Guardian__GuardianDoesNotExist"
+                          "Error__GuardianDoesNotExist"
                       );
                   });
 
@@ -439,7 +439,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                           )
                       ).to.be.revertedWithCustomError(
                           guardian,
-                          "Guardian__CanOnlyChangeAfterDelayPeriod"
+                          "Error__CanOnlyChangeAfterDelayPeriod"
                       );
                   });
               });
@@ -463,7 +463,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                       guardian.removeGuardian(account2.address)
                   ).to.be.revertedWithCustomError(
                       guardian,
-                      "Guardian__GuardiansListIsEmpty"
+                      "Error__GuardiansListIsEmpty"
                   );
               });
 
@@ -480,7 +480,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                       guardian.removeGuardian(account2.address)
                   ).to.be.revertedWithCustomError(
                       guardian,
-                      "Guardian__CanOnlyRemoveAfterDelayPeriod"
+                      "Error__CanOnlyRemoveAfterDelayPeriod"
                   );
               });
 
@@ -519,7 +519,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                           guardian.removeGuardian(account5.address)
                       ).to.be.revertedWithCustomError(
                           guardian,
-                          "Guardian__GuardianDoesNotExist"
+                          "Error__GuardianDoesNotExist"
                       );
                   });
 
@@ -552,7 +552,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                           guardian.removeGuardian(account3.address)
                       ).to.be.revertedWithCustomError(
                           guardian,
-                          "Guardian__CanOnlyRemoveAfterDelayPeriod"
+                          "Error__CanOnlyRemoveAfterDelayPeriod"
                       );
                   });
               });
@@ -573,9 +573,9 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                   await expect(guardian.requestToUpdateDailyTransferLimit(0))
                       .to.be.revertedWithCustomError(
                           guardian,
-                          "Guardian__InvalidLimit"
+                          "Error__InvalidLimit"
                       )
-                      .withArgs(0);
+                      .withArgs("FundsManager", 0);
               });
 
               it("should request to update the daily limit.", async () => {
@@ -604,7 +604,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                       guardian.confirmDailyTransferLimitRequest()
                   ).to.be.revertedWithCustomError(
                       guardian,
-                      "Guardian__GuardiansListIsEmpty"
+                      "Error__GuardiansListIsEmpty"
                   );
               });
 
@@ -630,7 +630,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                           guardian.confirmDailyTransferLimitRequest()
                       ).to.be.revertedWithCustomError(
                           guardian,
-                          "Guardian__UpdateNotRequestedByOwner"
+                          "Error__UpdateNotRequestedByOwner"
                       );
                   });
 
@@ -661,7 +661,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                               guardian.confirmDailyTransferLimitRequest()
                           ).to.be.revertedWithCustomError(
                               guardian,
-                              "Guardian__RequestTimeExpired"
+                              "Error__RequestTimeExpired"
                           );
                       });
 
@@ -676,9 +676,9 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                           )
                               .to.be.revertedWithCustomError(
                                   guardian,
-                                  "Guardian__AddressNotFoundAsGuardian"
+                                  "Error__AddressNotFoundAsGuardian"
                               )
-                              .withArgs(account5.address);
+                              .withArgs("FundsManager", account5.address);
                       });
 
                       it("should confirm the daily transfer update request.", async () => {
@@ -735,9 +735,9 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                           )
                               .to.be.revertedWithCustomError(
                                   guardian,
-                                  "Guardian__AlreadyConfirmedByAddress"
+                                  "Error__AlreadyConfirmedByGuardian"
                               )
-                              .withArgs(account2.address);
+                              .withArgs("FundsManager", account2.address);
                       });
                   });
               });
@@ -757,7 +757,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                       guardian.confirmAndUpdate()
                   ).to.be.revertedWithCustomError(
                       guardian,
-                      "Guardian__GuardiansListIsEmpty"
+                      "Error__GuardiansListIsEmpty"
                   );
               });
 
@@ -783,7 +783,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                           guardian.confirmAndUpdate()
                       ).to.be.revertedWithCustomError(
                           guardian,
-                          "Guardian__UpdateNotRequestedByOwner"
+                          "Error__UpdateNotRequestedByOwner"
                       );
                   });
 
@@ -814,7 +814,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                               guardian.confirmAndUpdate()
                           ).to.be.revertedWithCustomError(
                               guardian,
-                              "Guardian__RequestTimeExpired"
+                              "Error__RequestTimeExpired"
                           );
                       });
 
@@ -833,9 +833,12 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                           await expect(guardian.confirmAndUpdate())
                               .to.be.revertedWithCustomError(
                                   guardian,
-                                  "Guardian__RequiredConfirmationsNotMet"
+                                  "Error__RequiredConfirmationsNotMet"
                               )
-                              .withArgs(requiredConfirmations.toNumber());
+                              .withArgs(
+                                  "FundsManager",
+                                  requiredConfirmations.toNumber()
+                              );
                       });
 
                       it("should update the daily transfer limit after all guardians confirmation.", async () => {
