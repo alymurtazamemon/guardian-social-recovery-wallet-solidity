@@ -35,6 +35,16 @@ import { BigNumber, ContractTransaction } from "ethers";
               it("should add new guardian.", async () => {
                   const [_, account2] = await ethers.getSigners();
 
+                  const addTime: BigNumber =
+                      await guardian.getLastGuardianAddTime();
+
+                  const delayTime: BigNumber =
+                      await guardian.getAddGuardianDelay();
+
+                  await network.provider.send("evm_increaseTime", [
+                      addTime.toNumber() + delayTime.toNumber(),
+                  ]);
+
                   const tx: ContractTransaction = await guardian.addGuardian(
                       account2.address
                   );
