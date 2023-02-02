@@ -22,3 +22,4 @@ error Error__InvalidGuardiansList(string location, address[] addressesList);
 error Error__CanOnlyChangeAfterDelayPeriod(string location);
 error Error__GuardianDoesNotExist(string location);
 error Error__CanOnlyRemoveAfterDelayPeriod(string location);
+error Error__CanOnlyAddAfterDelayPeriod(string location);

@@ -8,6 +8,8 @@ import "./Errors.sol";
 
 contract GuardiansManager is Ownable, ReentrancyGuard {
     // * STATE VARIABLES
+    uint256 private addGuardianDelay;
+    uint256 private lastGuardianAddTime;
     uint256 private changeGuardianDelay;
     uint256 private lastGuardianChangeTime;
     uint256 private removeGuardianDelay;
@@ -19,6 +21,8 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
 
     // * FUNCTIONS
     constructor() {
+        lastGuardianAddTime = block.timestamp;
+        addGuardianDelay = 1 days;
         lastGuardianChangeTime = block.timestamp;
         changeGuardianDelay = 1 days;
         lastGuardianRemovalTime = block.timestamp;
@@ -27,6 +31,10 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
 
     // * FUNCTIONS - EXTERNAL
     function addGuardian(address guardian) external onlyOwner nonReentrant {
+        if (block.timestamp < lastGuardianAddTime + addGuardianDelay) {
+            revert Error__CanOnlyAddAfterDelayPeriod("GuardiansManager");
+        }
+
         guardians.push(guardian);
         updateRequiredConfirmations();
     }
