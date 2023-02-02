@@ -113,6 +113,14 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
 
     // * FUNCTIONS - VIEW & PURE - EXTERNAL
 
+    function getLastGuardianAddTime() external view returns (uint256) {
+        return lastGuardianAddTime;
+    }
+
+    function getAddGuardianDelay() external view returns (uint256) {
+        return addGuardianDelay;
+    }
+
     function getLastGuardianChangeTime() external view returns (uint256) {
         return lastGuardianChangeTime;
     }
