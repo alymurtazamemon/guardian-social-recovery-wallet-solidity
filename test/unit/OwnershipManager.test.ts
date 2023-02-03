@@ -166,6 +166,24 @@ import { BigNumber, ContractTransaction } from "ethers";
 
                           await tx.wait(1);
                       });
+
+                      it("should revert if confirmation time is passed.", async () => {
+                          const requestTime: BigNumber =
+                              await guardian.getLastOwnerUpdateRequestTime();
+                          const confirmationTime: BigNumber =
+                              await guardian.getOwnerUpdateConfirmationTime();
+                          await network.provider.send("evm_increaseTime", [
+                              requestTime.toNumber() +
+                                  confirmationTime.toNumber(),
+                          ]);
+
+                          await expect(
+                              guardian.confirmUpdateOwnerRequest()
+                          ).to.be.revertedWithCustomError(
+                              guardian,
+                              "Error__RequestTimeExpired"
+                          );
+                      });
                   });
               });
           });
