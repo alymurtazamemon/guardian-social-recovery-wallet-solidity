@@ -24,6 +24,23 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
               guardian = await ethers.getContract("Guardian", deployer);
           });
 
+          async function addGuardian(address: string) {
+              const addTime: BigNumber =
+                  await guardian.getLastGuardianAddTime();
+
+              const delayTime: BigNumber = await guardian.getAddGuardianDelay();
+
+              await network.provider.send("evm_increaseTime", [
+                  addTime.toNumber() + delayTime.toNumber(),
+              ]);
+
+              const tx: ContractTransaction = await guardian.addGuardian(
+                  address
+              );
+
+              await tx.wait(1);
+          }
+
           describe("receive", () => {
               it("should deposit user funds.", async () => {
                   const [deployer] = await ethers.getSigners();
