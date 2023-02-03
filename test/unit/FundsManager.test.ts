@@ -305,20 +305,7 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                       ];
 
                       for (let i = 0; i < newGuardians.length; i++) {
-                          const addTime: BigNumber =
-                              await guardian.getLastGuardianAddTime();
-
-                          const delayTime: BigNumber =
-                              await guardian.getAddGuardianDelay();
-
-                          await network.provider.send("evm_increaseTime", [
-                              addTime.toNumber() + delayTime.toNumber(),
-                          ]);
-
-                          const tx: ContractTransaction =
-                              await guardian.addGuardian(newGuardians[i]);
-
-                          await tx.wait(1);
+                          await addGuardian(newGuardians[i]);
                       }
                   });
 
