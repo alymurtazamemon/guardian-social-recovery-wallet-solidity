@@ -94,6 +94,27 @@ import { BigNumber, ContractTransaction } from "ethers";
                           )
                           .withArgs("OwnershipManager", account5.address);
                   });
+
+                  it("should request to update the owner.", async () => {
+                      const [_, account2, account3, account4, account5] =
+                          await ethers.getSigners();
+
+                      const isRequested: Boolean =
+                          await guardian.getIsOwnerUpdateRequested();
+
+                      expect(isRequested).to.be.false;
+
+                      const tx: ContractTransaction = await guardian
+                          .connect(account2)
+                          .requestToUpdateOwner(account5.address);
+
+                      await tx.wait(1);
+
+                      const updatedIsRequested: Boolean =
+                          await guardian.getIsOwnerUpdateRequested();
+
+                      expect(updatedIsRequested).to.be.true;
+                  });
               });
           });
       });

@@ -100,4 +100,9 @@ contract OwnershipManager is GuardiansManager {
             }
         }
     }
+
+    // * FUNCTION - VIEW & PURE
+    function getIsOwnerUpdateRequested() external view returns (bool) {
+        return isOwnerUpdateRequested;
+    }
 }
