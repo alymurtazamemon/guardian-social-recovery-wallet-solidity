@@ -2,6 +2,7 @@ import { network } from "hardhat";
 import { DeployFunction, DeployResult } from "hardhat-deploy/dist/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { developmentChains } from "../helper-hardhat-config";
+import verify from "../utils/verify";
 
 const deployGuardian: DeployFunction = async (
     hre: HardhatRuntimeEnvironment
@@ -18,6 +19,14 @@ const deployGuardian: DeployFunction = async (
         args: args,
         waitConfirmations: developmentChains.includes(network.name) ? 1 : 6,
     });
+
+    // * only verify on testnets or mainnets.
+    if (
+        !developmentChains.includes(network.name) &&
+        process.env.ETHERSCAN_API_KEY
+    ) {
+        await verify(guardian.address, args);
+    }
 };
 
 export default deployGuardian;

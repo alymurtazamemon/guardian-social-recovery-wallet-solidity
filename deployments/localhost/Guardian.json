@@ -1,0 +1,927 @@
+{
+  "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "Error__AddressAlreadyAnOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        }
+      ],
+      "name": "Error__AddressNotFoundAsGuardian",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "guardian",
+          "type": "address"
+        }
+      ],
+      "name": "Error__AlreadyConfirmedByGuardian",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "balance",
+          "type": "uint256"
+        }
+      ],
+      "name": "Error__BalanceIsZero",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        }
+      ],
+      "name": "Error__CanOnlyAddAfterDelayPeriod",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        }
+      ],
+      "name": "Error__CanOnlyChangeAfterDelayPeriod",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        }
+      ],
+      "name": "Error__CanOnlyRemoveAfterDelayPeriod",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "Error__DailyTransferLimitExceed",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        }
+      ],
+      "name": "Error__GuardianDoesNotExist",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        }
+      ],
+      "name": "Error__GuardiansListIsEmpty",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "Error__InvalidAmount",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "limit",
+          "type": "uint256"
+        }
+      ],
+      "name": "Error__InvalidLimit",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        }
+      ],
+      "name": "Error__RequestTimeExpired",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "confirmations",
+          "type": "uint256"
+        }
+      ],
+      "name": "Error__RequiredConfirmationsNotMet",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        }
+      ],
+      "name": "Error__TransactionFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        }
+      ],
+      "name": "Error__UpdateNotRequested",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "location",
+          "type": "string"
+        }
+      ],
+      "name": "Error__UpdateNotRequestedByOwner",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "fallback"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "guardian",
+          "type": "address"
+        }
+      ],
+      "name": "addGuardian",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        }
+      ],
+      "name": "changeGuardian",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "confirmAndUpdate",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "confirmDailyTransferLimitRequest",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "confirmUpdateOwnerRequest",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getAddGuardianDelay",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getChangeGuardianDelay",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getDailyTransferLimit",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getDailyTransferLimitUpdateConfirmationTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getDailyTransferLimitUpdateRequestStatus",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "guardian",
+          "type": "address"
+        }
+      ],
+      "name": "getGuardianConfirmationStatus",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getGuardians",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getIsOwnerUpdateRequested",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "guardian",
+          "type": "address"
+        }
+      ],
+      "name": "getIsOwnershipConfimedByGuardian",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getLastDailyTransferUpdateRequestTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getLastGuardianAddTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getLastGuardianChangeTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getLastGuardianRemovalTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getLastOwnerUpdateRequestTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getNoOfConfirmations",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getOwnerUpdateConfirmationTime",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getRemoveGuardianDelay",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getRequiredConfirmations",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "guardian",
+          "type": "address"
+        }
+      ],
+      "name": "removeGuardian",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "limit",
+          "type": "uint256"
+        }
+      ],
+      "name": "requestToUpdateDailyTransferLimit",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwnerAddress",
+          "type": "address"
+        }
+      ],
+      "name": "requestToUpdateOwner",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "send",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        }
+      ],
+      "name": "sendAll",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "stateMutability": "payable",
+      "type": "receive"
+    }
+  ],
+  "transactionHash": "0x400ee8b9a6cd97c81b128470600c92e8f44cf6f552968ba16a38b6b2d65eff7d",
+  "receipt": {
+    "to": null,
+    "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "transactionIndex": 0,
+    "gasUsed": "2652688",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000040020000000000000100000800000000000000000000000000000000400000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000040000000200000000000000000000000002000000000000000000020000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x47bf3d155eeed2fdbf2d7ca86246ae3f3563123e4e4ea69c1754ffd75d010f77",
+    "transactionHash": "0x400ee8b9a6cd97c81b128470600c92e8f44cf6f552968ba16a38b6b2d65eff7d",
+    "logs": [
+      {
+        "transactionIndex": 0,
+        "blockNumber": 1,
+        "transactionHash": "0x400ee8b9a6cd97c81b128470600c92e8f44cf6f552968ba16a38b6b2d65eff7d",
+        "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+        ],
+        "data": "0x",
+        "logIndex": 0,
+        "blockHash": "0x47bf3d155eeed2fdbf2d7ca86246ae3f3563123e4e4ea69c1754ffd75d010f77"
+      }
+    ],
+    "blockNumber": 1,
+    "cumulativeGasUsed": "2652688",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "6a423da92b772a2d06e409d462a2908a",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"Error__AddressAlreadyAnOwner\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"addr\",\"type\":\"address\"}],\"name\":\"Error__AddressNotFoundAsGuardian\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"},{\"internalType\":\"address\",\"name\":\"guardian\",\"type\":\"address\"}],\"name\":\"Error__AlreadyConfirmedByGuardian\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"balance\",\"type\":\"uint256\"}],\"name\":\"Error__BalanceIsZero\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"Error__CanOnlyAddAfterDelayPeriod\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"Error__CanOnlyChangeAfterDelayPeriod\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"Error__CanOnlyRemoveAfterDelayPeriod\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Error__DailyTransferLimitExceed\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"Error__GuardianDoesNotExist\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"Error__GuardiansListIsEmpty\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"Error__InvalidAmount\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"limit\",\"type\":\"uint256\"}],\"name\":\"Error__InvalidLimit\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"Error__RequestTimeExpired\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"},{\"internalType\":\"uint256\",\"name\":\"confirmations\",\"type\":\"uint256\"}],\"name\":\"Error__RequiredConfirmationsNotMet\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"Error__TransactionFailed\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"Error__UpdateNotRequested\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"Error__UpdateNotRequestedByOwner\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"guardian\",\"type\":\"address\"}],\"name\":\"addGuardian\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"changeGuardian\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"confirmAndUpdate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"confirmDailyTransferLimitRequest\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"confirmUpdateOwnerRequest\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAddGuardianDelay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getChangeGuardianDelay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getDailyTransferLimit\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getDailyTransferLimitUpdateConfirmationTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getDailyTransferLimitUpdateRequestStatus\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"guardian\",\"type\":\"address\"}],\"name\":\"getGuardianConfirmationStatus\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getGuardians\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getIsOwnerUpdateRequested\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"guardian\",\"type\":\"address\"}],\"name\":\"getIsOwnershipConfimedByGuardian\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLastDailyTransferUpdateRequestTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLastGuardianAddTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLastGuardianChangeTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLastGuardianRemovalTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getLastOwnerUpdateRequestTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getNoOfConfirmations\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getOwnerUpdateConfirmationTime\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getRemoveGuardianDelay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getRequiredConfirmations\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"guardian\",\"type\":\"address\"}],\"name\":\"removeGuardian\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"limit\",\"type\":\"uint256\"}],\"name\":\"requestToUpdateDailyTransferLimit\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwnerAddress\",\"type\":\"address\"}],\"name\":\"requestToUpdateOwner\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"send\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"sendAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"stateMutability\":\"payable\",\"type\":\"receive\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Guardian.sol\":\"Guardian\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.7.0) (access/Ownable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * By default, the owner account will be the one that deploys the contract. This\\n * can later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor() {\\n        _transferOwnership(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        _checkOwner();\\n        _;\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if the sender is not the owner.\\n     */\\n    function _checkOwner() internal view virtual {\\n        require(owner() == _msgSender(), \\\"Ownable: caller is not the owner\\\");\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions anymore. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby removing any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0xa94b34880e3c1b0b931662cb1c09e5dfa6662f31cba80e07c5ee71cd135c9673\",\"license\":\"MIT\"},\"@openzeppelin/contracts/security/ReentrancyGuard.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts (last updated v4.8.0) (security/ReentrancyGuard.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Contract module that helps prevent reentrant calls to a function.\\n *\\n * Inheriting from `ReentrancyGuard` will make the {nonReentrant} modifier\\n * available, which can be applied to functions to make sure there are no nested\\n * (reentrant) calls to them.\\n *\\n * Note that because there is a single `nonReentrant` guard, functions marked as\\n * `nonReentrant` may not call one another. This can be worked around by making\\n * those functions `private`, and then adding `external` `nonReentrant` entry\\n * points to them.\\n *\\n * TIP: If you would like to learn more about reentrancy and alternative ways\\n * to protect against it, check out our blog post\\n * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].\\n */\\nabstract contract ReentrancyGuard {\\n    // Booleans are more expensive than uint256 or any type that takes up a full\\n    // word because each write operation emits an extra SLOAD to first read the\\n    // slot's contents, replace the bits taken up by the boolean, and then write\\n    // back. This is the compiler's defense against contract upgrades and\\n    // pointer aliasing, and it cannot be disabled.\\n\\n    // The values being non-zero value makes deployment a bit more expensive,\\n    // but in exchange the refund on every call to nonReentrant will be lower in\\n    // amount. Since refunds are capped to a percentage of the total\\n    // transaction's gas, it is best to keep them low in cases like this one, to\\n    // increase the likelihood of the full refund coming into effect.\\n    uint256 private constant _NOT_ENTERED = 1;\\n    uint256 private constant _ENTERED = 2;\\n\\n    uint256 private _status;\\n\\n    constructor() {\\n        _status = _NOT_ENTERED;\\n    }\\n\\n    /**\\n     * @dev Prevents a contract from calling itself, directly or indirectly.\\n     * Calling a `nonReentrant` function from another `nonReentrant`\\n     * function is not supported. It is possible to prevent this from happening\\n     * by making the `nonReentrant` function external, and making it call a\\n     * `private` function that does the actual work.\\n     */\\n    modifier nonReentrant() {\\n        _nonReentrantBefore();\\n        _;\\n        _nonReentrantAfter();\\n    }\\n\\n    function _nonReentrantBefore() private {\\n        // On the first call to nonReentrant, _status will be _NOT_ENTERED\\n        require(_status != _ENTERED, \\\"ReentrancyGuard: reentrant call\\\");\\n\\n        // Any calls to nonReentrant after this point will fail\\n        _status = _ENTERED;\\n    }\\n\\n    function _nonReentrantAfter() private {\\n        // By storing the original value once again, a refund is triggered (see\\n        // https://eips.ethereum.org/EIPS/eip-2200)\\n        _status = _NOT_ENTERED;\\n    }\\n}\\n\",\"keccak256\":\"0x190dd6f8d592b7e4e930feb7f4313aeb8e1c4ad3154c27ce1cf6a512fc30d8cc\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n}\\n\",\"keccak256\":\"0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7\",\"license\":\"MIT\"},\"contracts/Errors.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.17;\\n\\nerror Error__AddressAlreadyAnOwner(string location, address addr);\\nerror Error__GuardiansListIsEmpty(string location);\\nerror Error__AddressNotFoundAsGuardian(string location, address addr);\\nerror Error__UpdateNotRequested(string location);\\nerror Error__AlreadyConfirmedByGuardian(string location, address guardian);\\nerror Error__RequestTimeExpired(string location);\\nerror Error__InvalidAmount(string location, uint amount);\\nerror Error__DailyTransferLimitExceed(string location, uint amount);\\nerror Error__TransactionFailed(string location);\\nerror Error__BalanceIsZero(string location, uint balance);\\nerror Error__InvalidLimit(string location, uint256 limit);\\nerror Error__UpdateNotRequestedByOwner(string location);\\nerror Error__RequiredConfirmationsNotMet(\\n    string location,\\n    uint256 confirmations\\n);\\nerror Error__InvalidGuardiansList(string location, address[] addressesList);\\nerror Error__CanOnlyChangeAfterDelayPeriod(string location);\\nerror Error__GuardianDoesNotExist(string location);\\nerror Error__CanOnlyRemoveAfterDelayPeriod(string location);\\nerror Error__CanOnlyAddAfterDelayPeriod(string location);\\n\",\"keccak256\":\"0x9e7e43a4f27803f4f23f66e6fdbe62120abfaf774ff9d1f9095b0bd10af8f6a5\",\"license\":\"MIT\"},\"contracts/FundsManager.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.17;\\n\\nimport \\\"./GuardiansManager.sol\\\";\\nimport \\\"./Errors.sol\\\";\\n\\ncontract FundsManager is GuardiansManager {\\n    // * STATE VARIABLES\\n    uint256 private dailyTransferLimit;\\n    uint256 private tempDailyTransferLimit;\\n    uint256 private lastDailyTransferUpdateRequestTime;\\n    uint256 private dailyTransferLimitUpdateConfirmationTime;\\n\\n    bool private isDailyTransferLimitUpdateRequested;\\n\\n    mapping(address => bool) private isConfirmedByGuardian;\\n\\n    // * FUNCTIONS\\n    constructor() {\\n        dailyTransferLimit = 1 ether;\\n        dailyTransferLimitUpdateConfirmationTime = 1 days;\\n    }\\n\\n    // * FUNCTIONS - EXTERNAL\\n    fallback() external payable {}\\n\\n    receive() external payable {}\\n\\n    function send(address to, uint amount) external onlyOwner nonReentrant {\\n        if (amount <= 0) {\\n            revert Error__InvalidAmount(\\\"FundsManager\\\", amount);\\n        }\\n\\n        if (amount > dailyTransferLimit) {\\n            revert Error__DailyTransferLimitExceed(\\\"FundsManager\\\", amount);\\n        }\\n\\n        (bool success, ) = to.call{value: amount}(\\\"\\\");\\n        if (!success) {\\n            revert Error__TransactionFailed(\\\"FundsManager\\\");\\n        }\\n    }\\n\\n    function sendAll(address to) external onlyOwner nonReentrant {\\n        uint256 balance = address(this).balance;\\n\\n        if (balance <= 0) {\\n            revert Error__BalanceIsZero(\\\"FundsManager\\\", balance);\\n        }\\n\\n        if (balance > dailyTransferLimit) {\\n            revert Error__DailyTransferLimitExceed(\\\"FundsManager\\\", balance);\\n        }\\n\\n        (bool success, ) = to.call{value: balance}(\\\"\\\");\\n        if (!success) {\\n            revert Error__TransactionFailed(\\\"FundsManager\\\");\\n        }\\n    }\\n\\n    function requestToUpdateDailyTransferLimit(\\n        uint256 limit\\n    ) external onlyOwner {\\n        if (limit <= 0) {\\n            revert Error__InvalidLimit(\\\"FundsManager\\\", limit);\\n        }\\n\\n        lastDailyTransferUpdateRequestTime = block.timestamp;\\n        tempDailyTransferLimit = limit;\\n        isDailyTransferLimitUpdateRequested = true;\\n    }\\n\\n    function confirmDailyTransferLimitRequest() external {\\n        if (guardians.length <= 0) {\\n            revert Error__GuardiansListIsEmpty(\\\"FundsManager\\\");\\n        }\\n\\n        if (!isDailyTransferLimitUpdateRequested) {\\n            revert Error__UpdateNotRequestedByOwner(\\\"FundsManager\\\");\\n        }\\n\\n        if (\\n            block.timestamp >\\n            lastDailyTransferUpdateRequestTime +\\n                dailyTransferLimitUpdateConfirmationTime\\n        ) {\\n            resetDailyTransferLimitVariables();\\n            revert Error__RequestTimeExpired(\\\"FundsManager\\\");\\n        }\\n\\n        if (isConfirmedByGuardian[msg.sender]) {\\n            revert Error__AlreadyConfirmedByGuardian(\\n                \\\"FundsManager\\\",\\n                msg.sender\\n            );\\n        }\\n\\n        if (!doesGuardianExist(msg.sender)) {\\n            revert Error__AddressNotFoundAsGuardian(\\\"FundsManager\\\", msg.sender);\\n        }\\n\\n        isConfirmedByGuardian[msg.sender] = true;\\n    }\\n\\n    function confirmAndUpdate() external onlyOwner {\\n        if (guardians.length <= 0) {\\n            revert Error__GuardiansListIsEmpty(\\\"FundsManager\\\");\\n        }\\n\\n        if (!isDailyTransferLimitUpdateRequested) {\\n            revert Error__UpdateNotRequestedByOwner(\\\"FundsManager\\\");\\n        }\\n\\n        if (\\n            block.timestamp >\\n            lastDailyTransferUpdateRequestTime +\\n                dailyTransferLimitUpdateConfirmationTime\\n        ) {\\n            resetDailyTransferLimitVariables();\\n            revert Error__RequestTimeExpired(\\\"FundsManager\\\");\\n        }\\n\\n        address[] memory guardiansCopy = guardians;\\n        uint256 counter = 0;\\n\\n        for (uint256 i = 0; i < guardiansCopy.length; i++) {\\n            if (isConfirmedByGuardian[guardiansCopy[i]]) {\\n                counter++;\\n            }\\n        }\\n\\n        if (counter < requiredConfirmations) {\\n            revert Error__RequiredConfirmationsNotMet(\\n                \\\"FundsManager\\\",\\n                requiredConfirmations\\n            );\\n        }\\n\\n        dailyTransferLimit = tempDailyTransferLimit;\\n\\n        resetDailyTransferLimitVariables();\\n    }\\n\\n    // * FUNCTIONS - PRIVATE\\n\\n    function resetDailyTransferLimitVariables() private {\\n        isDailyTransferLimitUpdateRequested = false;\\n\\n        address[] memory guardiansCopy = guardians;\\n\\n        for (uint256 i = 0; i < guardiansCopy.length; i++) {\\n            if (isConfirmedByGuardian[guardiansCopy[i]]) {\\n                isConfirmedByGuardian[guardiansCopy[i]] = false;\\n            }\\n        }\\n    }\\n\\n    // * FUNCTIONS - VIEW & PURE - EXTERNAL\\n\\n    function getDailyTransferLimit() external view returns (uint256) {\\n        return dailyTransferLimit;\\n    }\\n\\n    function getRequiredConfirmations() external view returns (uint256) {\\n        return requiredConfirmations;\\n    }\\n\\n    function getDailyTransferLimitUpdateRequestStatus()\\n        external\\n        view\\n        returns (bool)\\n    {\\n        return isDailyTransferLimitUpdateRequested;\\n    }\\n\\n    function getDailyTransferLimitUpdateConfirmationTime()\\n        external\\n        view\\n        returns (uint256)\\n    {\\n        return dailyTransferLimitUpdateConfirmationTime;\\n    }\\n\\n    function getLastDailyTransferUpdateRequestTime()\\n        external\\n        view\\n        returns (uint256)\\n    {\\n        return lastDailyTransferUpdateRequestTime;\\n    }\\n\\n    function getGuardianConfirmationStatus(\\n        address guardian\\n    ) external view returns (bool) {\\n        return isConfirmedByGuardian[guardian];\\n    }\\n}\\n\",\"keccak256\":\"0x5246c4e2459569ce4a87098ceec96add28cdb2a4f601800b298bebc4dcbddccb\",\"license\":\"MIT\"},\"contracts/Guardian.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.17;\\n\\nimport \\\"./FundsManager.sol\\\";\\nimport \\\"./OwnershipManager.sol\\\";\\n\\ncontract Guardian is FundsManager, OwnershipManager {}\\n\",\"keccak256\":\"0x3648e7d94d12132c5729e8d73f76a9ea2a54384ddc40cc9e51ec6980f2cc3a64\",\"license\":\"MIT\"},\"contracts/GuardiansManager.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.17;\\n\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\nimport \\\"@openzeppelin/contracts/security/ReentrancyGuard.sol\\\";\\nimport \\\"./Errors.sol\\\";\\n\\ncontract GuardiansManager is Ownable, ReentrancyGuard {\\n    // * STATE VARIABLES\\n    uint256 private addGuardianDelay;\\n    uint256 private lastGuardianAddTime;\\n    uint256 private changeGuardianDelay;\\n    uint256 private lastGuardianChangeTime;\\n    uint256 private removeGuardianDelay;\\n    uint256 private lastGuardianRemovalTime;\\n\\n    uint256 internal requiredConfirmations;\\n\\n    address[] internal guardians;\\n\\n    // * FUNCTIONS\\n    constructor() {\\n        lastGuardianAddTime = block.timestamp;\\n        addGuardianDelay = 1 days;\\n        lastGuardianChangeTime = block.timestamp;\\n        changeGuardianDelay = 1 days;\\n        lastGuardianRemovalTime = block.timestamp;\\n        removeGuardianDelay = 3 days;\\n    }\\n\\n    // * FUNCTIONS - EXTERNAL\\n    function addGuardian(address guardian) external onlyOwner nonReentrant {\\n        if (block.timestamp < lastGuardianAddTime + addGuardianDelay) {\\n            revert Error__CanOnlyAddAfterDelayPeriod(\\\"GuardiansManager\\\");\\n        }\\n\\n        guardians.push(guardian);\\n        lastGuardianAddTime = block.timestamp;\\n        updateRequiredConfirmations();\\n    }\\n\\n    function changeGuardian(\\n        address from,\\n        address to\\n    ) external onlyOwner nonReentrant {\\n        if (block.timestamp < lastGuardianChangeTime + changeGuardianDelay) {\\n            revert Error__CanOnlyChangeAfterDelayPeriod(\\\"GuardiansManager\\\");\\n        }\\n\\n        address[] memory guardiansCopy = guardians;\\n\\n        // * using this variable so we should not update the state variable if address does not exits.\\n        bool exist = false;\\n\\n        for (uint256 i = 0; i < guardiansCopy.length; i++) {\\n            if (guardiansCopy[i] == from) {\\n                exist = true;\\n                guardiansCopy[i] = to;\\n                break;\\n            }\\n        }\\n\\n        if (exist) {\\n            guardians = guardiansCopy;\\n            lastGuardianChangeTime = block.timestamp;\\n        } else {\\n            revert Error__GuardianDoesNotExist(\\\"GuardiansManager\\\");\\n        }\\n    }\\n\\n    function removeGuardian(address guardian) external onlyOwner nonReentrant {\\n        if (block.timestamp < lastGuardianRemovalTime + removeGuardianDelay) {\\n            revert Error__CanOnlyRemoveAfterDelayPeriod(\\\"GuardiansManager\\\");\\n        }\\n\\n        if (guardians.length <= 0) {\\n            revert Error__GuardiansListIsEmpty(\\\"GuardiansManager\\\");\\n        }\\n\\n        address[] memory guardiansCopy = guardians;\\n\\n        // * for local arrays we need to declare the size at the initialization time.\\n        // * we are removing the 1 guardian so the updated array will be less than 1 the length of existing array.\\n        address[] memory updatedCopy = new address[](guardiansCopy.length - 1);\\n        uint256 index = 0;\\n\\n        // * using this variable so we should not update the state variable if address does not exits.\\n        bool exist = false;\\n\\n        for (uint256 i = 0; i < guardiansCopy.length; i++) {\\n            if (guardiansCopy[i] == guardian) {\\n                exist = true;\\n                continue;\\n            } else if (i != updatedCopy.length) {\\n                updatedCopy[index] = guardiansCopy[i];\\n                index++;\\n            }\\n        }\\n\\n        if (exist) {\\n            guardians = updatedCopy;\\n            lastGuardianRemovalTime = block.timestamp;\\n        } else {\\n            revert Error__GuardianDoesNotExist(\\\"GuardiansManager\\\");\\n        }\\n    }\\n\\n    // * FUNCTION - PRIVATE\\n\\n    function updateRequiredConfirmations() private {\\n        requiredConfirmations = (guardians.length / 2) + 1;\\n    }\\n\\n    // * FUNCTIONS - VIEW & PURE - EXTERNAL\\n\\n    function getLastGuardianAddTime() external view returns (uint256) {\\n        return lastGuardianAddTime;\\n    }\\n\\n    function getAddGuardianDelay() external view returns (uint256) {\\n        return addGuardianDelay;\\n    }\\n\\n    function getLastGuardianChangeTime() external view returns (uint256) {\\n        return lastGuardianChangeTime;\\n    }\\n\\n    function getChangeGuardianDelay() external view returns (uint256) {\\n        return changeGuardianDelay;\\n    }\\n\\n    function getLastGuardianRemovalTime() external view returns (uint256) {\\n        return lastGuardianRemovalTime;\\n    }\\n\\n    function getRemoveGuardianDelay() external view returns (uint256) {\\n        return removeGuardianDelay;\\n    }\\n\\n    function getGuardians() external view returns (address[] memory) {\\n        return guardians;\\n    }\\n\\n    // * FUNCTIONS - VIEW & PURE - INTERNAL\\n\\n    function doesGuardianExist(address caller) internal view returns (bool) {\\n        address[] memory guardiansCopy = guardians;\\n\\n        for (uint256 i = 0; i < guardiansCopy.length; i++) {\\n            if (caller == guardiansCopy[i]) {\\n                return true;\\n            }\\n        }\\n\\n        return false;\\n    }\\n}\\n\",\"keccak256\":\"0xb0a544360367aa821cff0249b5cbdf6dd164365569223ce097f7d7a22ab4fc81\",\"license\":\"MIT\"},\"contracts/OwnershipManager.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\nimport \\\"./GuardiansManager.sol\\\";\\nimport \\\"./Errors.sol\\\";\\n\\npragma solidity ^0.8.17;\\n\\ncontract OwnershipManager is GuardiansManager {\\n    // * STATE VARIABLES\\n    uint256 private lastOwnerUpdateRequestTime;\\n    uint256 private ownerUpdateConfirmationTime;\\n    uint256 private noOfConfirmations;\\n\\n    bool private isOwnerUpdateRequested;\\n\\n    address private tempAddress;\\n\\n    mapping(address => bool) private isOwnershipConfimedByGuardian;\\n\\n    // * FUNCTIONS\\n    constructor() {\\n        ownerUpdateConfirmationTime = 2 hours;\\n    }\\n\\n    function requestToUpdateOwner(address newOwnerAddress) external {\\n        if (newOwnerAddress == owner()) {\\n            revert Error__AddressAlreadyAnOwner(\\n                \\\"OwnershipManager\\\",\\n                newOwnerAddress\\n            );\\n        }\\n\\n        if (guardians.length <= 0) {\\n            revert Error__GuardiansListIsEmpty(\\\"OwnershipManager\\\");\\n        }\\n\\n        if (!doesGuardianExist(msg.sender)) {\\n            revert Error__AddressNotFoundAsGuardian(\\n                \\\"OwnershipManager\\\",\\n                msg.sender\\n            );\\n        }\\n\\n        lastOwnerUpdateRequestTime = block.timestamp;\\n        tempAddress = newOwnerAddress;\\n        isOwnershipConfimedByGuardian[msg.sender] = true;\\n        noOfConfirmations++;\\n        isOwnerUpdateRequested = true;\\n    }\\n\\n    function confirmUpdateOwnerRequest() external {\\n        if (guardians.length <= 0) {\\n            revert Error__GuardiansListIsEmpty(\\\"OwnershipManager\\\");\\n        }\\n\\n        if (!isOwnerUpdateRequested) {\\n            revert Error__UpdateNotRequested(\\\"OwnershipManager\\\");\\n        }\\n\\n        if (isOwnershipConfimedByGuardian[msg.sender]) {\\n            revert Error__AlreadyConfirmedByGuardian(\\n                \\\"OwnershipManager\\\",\\n                msg.sender\\n            );\\n        }\\n\\n        if (\\n            block.timestamp >\\n            lastOwnerUpdateRequestTime + ownerUpdateConfirmationTime\\n        ) {\\n            resetOwnershipVariables();\\n            revert Error__RequestTimeExpired(\\\"OwnershipManager\\\");\\n        }\\n\\n        if (!doesGuardianExist(msg.sender)) {\\n            revert Error__AddressNotFoundAsGuardian(\\n                \\\"OwnershipManager\\\",\\n                msg.sender\\n            );\\n        }\\n\\n        isOwnershipConfimedByGuardian[msg.sender] = true;\\n        noOfConfirmations++;\\n\\n        if (noOfConfirmations >= requiredConfirmations) {\\n            // * Ownable internal function without access restriction.\\n            _transferOwnership(tempAddress);\\n            resetOwnershipVariables();\\n        }\\n    }\\n\\n    // * FUNCTION - PRIVATE\\n    function resetOwnershipVariables() private {\\n        isOwnerUpdateRequested = false;\\n        noOfConfirmations = 0;\\n\\n        address[] memory guardiansCopy = guardians;\\n\\n        for (uint256 i = 0; i < guardiansCopy.length; i++) {\\n            if (isOwnershipConfimedByGuardian[guardiansCopy[i]]) {\\n                isOwnershipConfimedByGuardian[guardiansCopy[i]] = false;\\n            }\\n        }\\n    }\\n\\n    // * FUNCTION - VIEW & PURE\\n    function getIsOwnerUpdateRequested() external view returns (bool) {\\n        return isOwnerUpdateRequested;\\n    }\\n\\n    function getIsOwnershipConfimedByGuardian(\\n        address guardian\\n    ) external view returns (bool) {\\n        return isOwnershipConfimedByGuardian[guardian];\\n    }\\n\\n    function getLastOwnerUpdateRequestTime() external view returns (uint256) {\\n        return lastOwnerUpdateRequestTime;\\n    }\\n\\n    function getOwnerUpdateConfirmationTime() external view returns (uint256) {\\n        return ownerUpdateConfirmationTime;\\n    }\\n\\n    function getNoOfConfirmations() external view returns (uint256) {\\n        return noOfConfirmations;\\n    }\\n}\\n\",\"keccak256\":\"0x2bbfb872f9cd3c9be6056af97f6ad528630162cade95289ab63c88d937323b95\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x60806040523480156200001157600080fd5b5062000032620000266200009460201b60201c565b6200009c60201b60201c565b6001808190555042600381905550620151806002819055504260058190555062015180600481905550426007819055506203f480600681905550670de0b6b3a7640000600a8190555062015180600d81905550611c2060118190555062000160565b600033905090565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169050816000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508173ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a35050565b612abf80620001706000396000f3fe6080604052600436106101dc5760003560e01c80638636068c11610102578063d0679d3411610095578063e9316a2111610064578063e9316a2114610648578063ecfba8f514610673578063f2fde38b1461069e578063fb549788146106c7576101e3565b8063d0679d3414610590578063d2377361146105b9578063d660c45d146105e2578063daf3ce6a1461060b576101e3565b8063a85ae377116100d1578063a85ae377146104d2578063af630ad3146104fd578063b9e1c79814610528578063bbe4424a14610565576101e3565b80638636068c1461043c5780638da5cb5b146104535780638fc270b71461047e578063a526d83b146104a9576101e3565b80632ad2ed901161017a578063715018a611610149578063715018a6146103a65780637388fe86146103bd5780637d09f5dd146103e857806383b40cc914610413576101e3565b80632ad2ed90146102fc5780632b28d0cc14610327578063673d4ec814610352578063714041561461037d576101e3565b806314cbc763116101b657806314cbc7631461026457806315c1bc3e1461028f57806324cb7604146102ba57806326c886df146102e5576101e3565b80630665f04b146101e557806306c4df831461021057806310a0cf171461023b576101e3565b366101e357005b005b3480156101f157600080fd5b506101fa6106de565b6040516102079190612370565b60405180910390f35b34801561021c57600080fd5b5061022561076c565b60405161023291906123ab565b60405180910390f35b34801561024757600080fd5b50610262600480360381019061025d91906123f7565b610776565b005b34801561027057600080fd5b50610279610955565b60405161028691906123ab565b60405180910390f35b34801561029b57600080fd5b506102a461095f565b6040516102b191906123ab565b60405180910390f35b3480156102c657600080fd5b506102cf610969565b6040516102dc91906123ab565b60405180910390f35b3480156102f157600080fd5b506102fa610973565b005b34801561030857600080fd5b50610311610b97565b60405161031e91906123ab565b60405180910390f35b34801561033357600080fd5b5061033c610ba1565b60405161034991906123ab565b60405180910390f35b34801561035e57600080fd5b50610367610bab565b604051610374919061243f565b60405180910390f35b34801561038957600080fd5b506103a4600480360381019061039f91906123f7565b610bc2565b005b3480156103b257600080fd5b506103bb610ebd565b005b3480156103c957600080fd5b506103d2610ed1565b6040516103df91906123ab565b60405180910390f35b3480156103f457600080fd5b506103fd610edb565b60405161040a91906123ab565b60405180910390f35b34801561041f57600080fd5b5061043a6004803603810190610435919061245a565b610ee5565b005b34801561044857600080fd5b50610451611109565b005b34801561045f57600080fd5b50610468611384565b60405161047591906124a9565b60405180910390f35b34801561048a57600080fd5b506104936113ad565b6040516104a0919061243f565b60405180910390f35b3480156104b557600080fd5b506104d060048036038101906104cb91906123f7565b6113c4565b005b3480156104de57600080fd5b506104e76114a3565b6040516104f491906123ab565b60405180910390f35b34801561050957600080fd5b506105126114ad565b60405161051f91906123ab565b60405180910390f35b34801561053457600080fd5b5061054f600480360381019061054a91906123f7565b6114b7565b60405161055c919061243f565b60405180910390f35b34801561057157600080fd5b5061057a61150d565b60405161058791906123ab565b60405180910390f35b34801561059c57600080fd5b506105b760048036038101906105b291906124f0565b611517565b005b3480156105c557600080fd5b506105e060048036038101906105db9190612530565b61166c565b005b3480156105ee57600080fd5b50610609600480360381019061060491906123f7565b6116e5565b005b34801561061757600080fd5b50610632600480360381019061062d91906123f7565b61183f565b60405161063f919061243f565b60405180910390f35b34801561065457600080fd5b5061065d611895565b60405161066a91906123ab565b60405180910390f35b34801561067f57600080fd5b5061068861189f565b60405161069591906123ab565b60405180910390f35b3480156106aa57600080fd5b506106c560048036038101906106c091906123f7565b6118a9565b005b3480156106d357600080fd5b506106dc61192c565b005b6060600980548060200260200160405190810160405280929190818152602001828054801561076257602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019060010190808311610718575b5050505050905090565b6000601054905090565b61077e611384565b73ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16036107ed57806040517fa4f2199f0000000000000000000000000000000000000000000000000000000081526004016107e491906125ba565b60405180910390fd5b600060098054905011610835576040517fe9e10a6400000000000000000000000000000000000000000000000000000000815260040161082c906125e8565b60405180910390fd5b61083e33611baa565b61087f57336040517f8e8bbab900000000000000000000000000000000000000000000000000000000815260040161087691906125ba565b60405180910390fd5b4260108190555080601360016101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506001601460003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055506012600081548092919061093290612637565b91905055506001601360006101000a81548160ff02191690831515021790555050565b6000600654905090565b6000600a54905090565b6000600854905090565b6000600980549050116109bb576040517fe9e10a640000000000000000000000000000000000000000000000000000000081526004016109b2906126cb565b60405180910390fd5b600e60009054906101000a900460ff16610a0a576040517fe4363ca3000000000000000000000000000000000000000000000000000000008152600401610a01906126cb565b60405180910390fd5b600d54600c54610a1a91906126eb565b421115610a6457610a29611cb9565b6040517f5130ce4e000000000000000000000000000000000000000000000000000000008152600401610a5b906126cb565b60405180910390fd5b600f60003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff1615610af357336040517f40b28742000000000000000000000000000000000000000000000000000000008152600401610aea919061271f565b60405180910390fd5b610afc33611baa565b610b3d57336040517f8e8bbab9000000000000000000000000000000000000000000000000000000008152600401610b34919061271f565b60405180910390fd5b6001600f60003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff021916908315150217905550565b6000600754905090565b6000601154905090565b6000601360009054906101000a900460ff16905090565b610bca611e61565b610bd2611edf565b600654600754610be291906126eb565b421015610c24576040517f2ab71fd6000000000000000000000000000000000000000000000000000000008152600401610c1b90612799565b60405180910390fd5b600060098054905011610c6c576040517fe9e10a64000000000000000000000000000000000000000000000000000000008152600401610c6390612799565b60405180910390fd5b60006009805480602002602001604051908101604052809291908181526020018280548015610cf057602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019060010190808311610ca6575b50505050509050600060018251610d0791906127b9565b67ffffffffffffffff811115610d2057610d1f6127ed565b5b604051908082528060200260200182016040528015610d4e5781602001602082028036833780820191505090505b50905060008060005b8451811015610e49578573ffffffffffffffffffffffffffffffffffffffff16858281518110610d8a57610d8961281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff1603610db65760019150610e36565b83518114610e3557848181518110610dd157610dd061281c565b5b6020026020010151848481518110610dec57610deb61281c565b5b602002602001019073ffffffffffffffffffffffffffffffffffffffff16908173ffffffffffffffffffffffffffffffffffffffff16815250508280610e3190612637565b9350505b5b8080610e4190612637565b915050610d57565b508015610e73578260099080519060200190610e669291906121d9565b5042600781905550610eae565b6040517f47637222000000000000000000000000000000000000000000000000000000008152600401610ea590612799565b60405180910390fd5b50505050610eba611f2e565b50565b610ec5611e61565b610ecf6000611f37565b565b6000600354905090565b6000600c54905090565b610eed611e61565b610ef5611edf565b600454600554610f0591906126eb565b421015610f47576040517f0e7f7d15000000000000000000000000000000000000000000000000000000008152600401610f3e90612799565b60405180910390fd5b60006009805480602002602001604051908101604052809291908181526020018280548015610fcb57602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019060010190808311610f81575b505050505090506000805b8251811015611096578473ffffffffffffffffffffffffffffffffffffffff168382815181106110095761100861281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff16036110835760019150838382815181106110445761104361281c565b5b602002602001019073ffffffffffffffffffffffffffffffffffffffff16908173ffffffffffffffffffffffffffffffffffffffff1681525050611096565b808061108e90612637565b915050610fd6565b5080156110c05781600990805190602001906110b39291906121d9565b50426005819055506110fb565b6040517f476372220000000000000000000000000000000000000000000000000000000081526004016110f290612799565b60405180910390fd5b5050611105611f2e565b5050565b600060098054905011611151576040517fe9e10a64000000000000000000000000000000000000000000000000000000008152600401611148906125e8565b60405180910390fd5b601360009054906101000a900460ff166111a0576040517f7bd1f7a2000000000000000000000000000000000000000000000000000000008152600401611197906125e8565b60405180910390fd5b601460003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff161561122f57336040517f40b2874200000000000000000000000000000000000000000000000000000000815260040161122691906125ba565b60405180910390fd5b60115460105461123f91906126eb565b4211156112895761124e611ffb565b6040517f5130ce4e000000000000000000000000000000000000000000000000000000008152600401611280906125e8565b60405180910390fd5b61129233611baa565b6112d357336040517f8e8bbab90000000000000000000000000000000000000000000000000000000081526004016112ca91906125ba565b60405180910390fd5b6001601460003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055506012600081548092919061133e90612637565b91905055506008546012541061138257611379601360019054906101000a900473ffffffffffffffffffffffffffffffffffffffff16611f37565b611381611ffb565b5b565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b6000600e60009054906101000a900460ff16905090565b6113cc611e61565b6113d4611edf565b6002546003546113e491906126eb565b421015611426576040517fdd49edf800000000000000000000000000000000000000000000000000000000815260040161141d90612799565b60405180910390fd5b6009819080600181540180825580915050600190039060005260206000200160009091909190916101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550426003819055506114986121ab565b6114a0611f2e565b50565b6000600254905090565b6000600d54905090565b6000601460008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff169050919050565b6000601254905090565b61151f611e61565b611527611edf565b6000811161156c57806040517fc816f5c8000000000000000000000000000000000000000000000000000000008152600401611563919061284b565b60405180910390fd5b600a548111156115b357806040517fd8dde22d0000000000000000000000000000000000000000000000000000000081526004016115aa919061284b565b60405180910390fd5b60008273ffffffffffffffffffffffffffffffffffffffff16826040516115d9906128aa565b60006040518083038185875af1925050503d8060008114611616576040519150601f19603f3d011682016040523d82523d6000602084013e61161b565b606091505b505090508061165f576040517f5b0ecddc000000000000000000000000000000000000000000000000000000008152600401611656906126cb565b60405180910390fd5b50611668611f2e565b5050565b611674611e61565b600081116116b957806040517f60fe2e4f0000000000000000000000000000000000000000000000000000000081526004016116b0919061284b565b60405180910390fd5b42600c8190555080600b819055506001600e60006101000a81548160ff02191690831515021790555050565b6116ed611e61565b6116f5611edf565b60004790506000811161173f57806040517f25ba08f5000000000000000000000000000000000000000000000000000000008152600401611736919061284b565b60405180910390fd5b600a5481111561178657806040517fd8dde22d00000000000000000000000000000000000000000000000000000000815260040161177d919061284b565b60405180910390fd5b60008273ffffffffffffffffffffffffffffffffffffffff16826040516117ac906128aa565b60006040518083038185875af1925050503d80600081146117e9576040519150601f19603f3d011682016040523d82523d6000602084013e6117ee565b606091505b5050905080611832576040517f5b0ecddc000000000000000000000000000000000000000000000000000000008152600401611829906126cb565b60405180910390fd5b505061183c611f2e565b50565b6000600f60008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff169050919050565b6000600554905090565b6000600454905090565b6118b1611e61565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1603611920576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161191790612931565b60405180910390fd5b61192981611f37565b50565b611934611e61565b60006009805490501161197c576040517fe9e10a64000000000000000000000000000000000000000000000000000000008152600401611973906126cb565b60405180910390fd5b600e60009054906101000a900460ff166119cb576040517fe4363ca30000000000000000000000000000000000000000000000000000000081526004016119c2906126cb565b60405180910390fd5b600d54600c546119db91906126eb565b421115611a25576119ea611cb9565b6040517f5130ce4e000000000000000000000000000000000000000000000000000000008152600401611a1c906126cb565b60405180910390fd5b60006009805480602002602001604051908101604052809291908181526020018280548015611aa957602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019060010190808311611a5f575b505050505090506000805b8251811015611b4b57600f6000848381518110611ad457611ad361281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff1615611b38578180611b3490612637565b9250505b8080611b4390612637565b915050611ab4565b50600854811015611b95576008546040517f9dd75b3a000000000000000000000000000000000000000000000000000000008152600401611b8c919061284b565b60405180910390fd5b600b54600a81905550611ba6611cb9565b5050565b6000806009805480602002602001604051908101604052809291908181526020018280548015611c2f57602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019060010190808311611be5575b5050505050905060005b8151811015611cad57818181518110611c5557611c5461281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff168473ffffffffffffffffffffffffffffffffffffffff1603611c9a57600192505050611cb4565b8080611ca590612637565b915050611c39565b5060009150505b919050565b6000600e60006101000a81548160ff02191690831515021790555060006009805480602002602001604051908101604052809291908181526020018280548015611d5857602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019060010190808311611d0e575b5050505050905060005b8151811015611e5d57600f6000838381518110611d8257611d8161281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff1615611e4a576000600f6000848481518110611df057611def61281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505b8080611e5590612637565b915050611d62565b5050565b611e696121d1565b73ffffffffffffffffffffffffffffffffffffffff16611e87611384565b73ffffffffffffffffffffffffffffffffffffffff1614611edd576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611ed49061299d565b60405180910390fd5b565b600260015403611f24576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611f1b90612a09565b60405180910390fd5b6002600181905550565b60018081905550565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169050816000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508173ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a35050565b6000601360006101000a81548160ff0219169083151502179055506000601281905550600060098054806020026020016040519081016040528092919081815260200182805480156120a257602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019060010190808311612058575b5050505050905060005b81518110156121a757601460008383815181106120cc576120cb61281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16156121945760006014600084848151811061213a5761213961281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505b808061219f90612637565b9150506120ac565b5050565b600160026009805490506121bf9190612a58565b6121c991906126eb565b600881905550565b600033905090565b828054828255906000526020600020908101928215612252579160200282015b828111156122515782518260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550916020019190600101906121f9565b5b50905061225f9190612263565b5090565b5b8082111561227c576000816000905550600101612264565b5090565b600081519050919050565b600082825260208201905092915050565b6000819050602082019050919050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b60006122d7826122ac565b9050919050565b6122e7816122cc565b82525050565b60006122f983836122de565b60208301905092915050565b6000602082019050919050565b600061231d82612280565b612327818561228b565b93506123328361229c565b8060005b8381101561236357815161234a88826122ed565b975061235583612305565b925050600181019050612336565b5085935050505092915050565b6000602082019050818103600083015261238a8184612312565b905092915050565b6000819050919050565b6123a581612392565b82525050565b60006020820190506123c0600083018461239c565b92915050565b600080fd5b6123d4816122cc565b81146123df57600080fd5b50565b6000813590506123f1816123cb565b92915050565b60006020828403121561240d5761240c6123c6565b5b600061241b848285016123e2565b91505092915050565b60008115159050919050565b61243981612424565b82525050565b60006020820190506124546000830184612430565b92915050565b60008060408385031215612471576124706123c6565b5b600061247f858286016123e2565b9250506020612490858286016123e2565b9150509250929050565b6124a3816122cc565b82525050565b60006020820190506124be600083018461249a565b92915050565b6124cd81612392565b81146124d857600080fd5b50565b6000813590506124ea816124c4565b92915050565b60008060408385031215612507576125066123c6565b5b6000612515858286016123e2565b9250506020612526858286016124db565b9150509250929050565b600060208284031215612546576125456123c6565b5b6000612554848285016124db565b91505092915050565b600082825260208201905092915050565b7f4f776e6572736869704d616e6167657200000000000000000000000000000000600082015250565b60006125a460108361255d565b91506125af8261256e565b602082019050919050565b600060408201905081810360008301526125d381612597565b90506125e2602083018461249a565b92915050565b6000602082019050818103600083015261260181612597565b9050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b600061264282612392565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff820361267457612673612608565b5b600182019050919050565b7f46756e64734d616e616765720000000000000000000000000000000000000000600082015250565b60006126b5600c8361255d565b91506126c08261267f565b602082019050919050565b600060208201905081810360008301526126e4816126a8565b9050919050565b60006126f682612392565b915061270183612392565b925082820190508082111561271957612718612608565b5b92915050565b60006040820190508181036000830152612738816126a8565b9050612747602083018461249a565b92915050565b7f477561726469616e734d616e6167657200000000000000000000000000000000600082015250565b600061278360108361255d565b915061278e8261274d565b602082019050919050565b600060208201905081810360008301526127b281612776565b9050919050565b60006127c482612392565b91506127cf83612392565b92508282039050818111156127e7576127e6612608565b5b92915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b60006040820190508181036000830152612864816126a8565b9050612873602083018461239c565b92915050565b600081905092915050565b50565b6000612894600083612879565b915061289f82612884565b600082019050919050565b60006128b582612887565b9150819050919050565b7f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160008201527f6464726573730000000000000000000000000000000000000000000000000000602082015250565b600061291b60268361255d565b9150612926826128bf565b604082019050919050565b6000602082019050818103600083015261294a8161290e565b9050919050565b7f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572600082015250565b600061298760208361255d565b915061299282612951565b602082019050919050565b600060208201905081810360008301526129b68161297a565b9050919050565b7f5265656e7472616e637947756172643a207265656e7472616e742063616c6c00600082015250565b60006129f3601f8361255d565b91506129fe826129bd565b602082019050919050565b60006020820190508181036000830152612a22816129e6565b9050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b6000612a6382612392565b9150612a6e83612392565b925082612a7e57612a7d612a29565b5b82820490509291505056fea2646970667358221220a48ec30abaa178f951c77bf9e046cf66c73ed7fa08b7c1bbe2e66f0095615dd364736f6c63430008110033",
+  "deployedBytecode": "0x6080604052600436106101dc5760003560e01c80638636068c11610102578063d0679d3411610095578063e9316a2111610064578063e9316a2114610648578063ecfba8f514610673578063f2fde38b1461069e578063fb549788146106c7576101e3565b8063d0679d3414610590578063d2377361146105b9578063d660c45d146105e2578063daf3ce6a1461060b576101e3565b8063a85ae377116100d1578063a85ae377146104d2578063af630ad3146104fd578063b9e1c79814610528578063bbe4424a14610565576101e3565b80638636068c1461043c5780638da5cb5b146104535780638fc270b71461047e578063a526d83b146104a9576101e3565b80632ad2ed901161017a578063715018a611610149578063715018a6146103a65780637388fe86146103bd5780637d09f5dd146103e857806383b40cc914610413576101e3565b80632ad2ed90146102fc5780632b28d0cc14610327578063673d4ec814610352578063714041561461037d576101e3565b806314cbc763116101b657806314cbc7631461026457806315c1bc3e1461028f57806324cb7604146102ba57806326c886df146102e5576101e3565b80630665f04b146101e557806306c4df831461021057806310a0cf171461023b576101e3565b366101e357005b005b3480156101f157600080fd5b506101fa6106de565b6040516102079190612370565b60405180910390f35b34801561021c57600080fd5b5061022561076c565b60405161023291906123ab565b60405180910390f35b34801561024757600080fd5b50610262600480360381019061025d91906123f7565b610776565b005b34801561027057600080fd5b50610279610955565b60405161028691906123ab565b60405180910390f35b34801561029b57600080fd5b506102a461095f565b6040516102b191906123ab565b60405180910390f35b3480156102c657600080fd5b506102cf610969565b6040516102dc91906123ab565b60405180910390f35b3480156102f157600080fd5b506102fa610973565b005b34801561030857600080fd5b50610311610b97565b60405161031e91906123ab565b60405180910390f35b34801561033357600080fd5b5061033c610ba1565b60405161034991906123ab565b60405180910390f35b34801561035e57600080fd5b50610367610bab565b604051610374919061243f565b60405180910390f35b34801561038957600080fd5b506103a4600480360381019061039f91906123f7565b610bc2565b005b3480156103b257600080fd5b506103bb610ebd565b005b3480156103c957600080fd5b506103d2610ed1565b6040516103df91906123ab565b60405180910390f35b3480156103f457600080fd5b506103fd610edb565b60405161040a91906123ab565b60405180910390f35b34801561041f57600080fd5b5061043a6004803603810190610435919061245a565b610ee5565b005b34801561044857600080fd5b50610451611109565b005b34801561045f57600080fd5b50610468611384565b60405161047591906124a9565b60405180910390f35b34801561048a57600080fd5b506104936113ad565b6040516104a0919061243f565b60405180910390f35b3480156104b557600080fd5b506104d060048036038101906104cb91906123f7565b6113c4565b005b3480156104de57600080fd5b506104e76114a3565b6040516104f491906123ab565b60405180910390f35b34801561050957600080fd5b506105126114ad565b60405161051f91906123ab565b60405180910390f35b34801561053457600080fd5b5061054f600480360381019061054a91906123f7565b6114b7565b60405161055c919061243f565b60405180910390f35b34801561057157600080fd5b5061057a61150d565b60405161058791906123ab565b60405180910390f35b34801561059c57600080fd5b506105b760048036038101906105b291906124f0565b611517565b005b3480156105c557600080fd5b506105e060048036038101906105db9190612530565b61166c565b005b3480156105ee57600080fd5b50610609600480360381019061060491906123f7565b6116e5565b005b34801561061757600080fd5b50610632600480360381019061062d91906123f7565b61183f565b60405161063f919061243f565b60405180910390f35b34801561065457600080fd5b5061065d611895565b60405161066a91906123ab565b60405180910390f35b34801561067f57600080fd5b5061068861189f565b60405161069591906123ab565b60405180910390f35b3480156106aa57600080fd5b506106c560048036038101906106c091906123f7565b6118a9565b005b3480156106d357600080fd5b506106dc61192c565b005b6060600980548060200260200160405190810160405280929190818152602001828054801561076257602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019060010190808311610718575b5050505050905090565b6000601054905090565b61077e611384565b73ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff16036107ed57806040517fa4f2199f0000000000000000000000000000000000000000000000000000000081526004016107e491906125ba565b60405180910390fd5b600060098054905011610835576040517fe9e10a6400000000000000000000000000000000000000000000000000000000815260040161082c906125e8565b60405180910390fd5b61083e33611baa565b61087f57336040517f8e8bbab900000000000000000000000000000000000000000000000000000000815260040161087691906125ba565b60405180910390fd5b4260108190555080601360016101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506001601460003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055506012600081548092919061093290612637565b91905055506001601360006101000a81548160ff02191690831515021790555050565b6000600654905090565b6000600a54905090565b6000600854905090565b6000600980549050116109bb576040517fe9e10a640000000000000000000000000000000000000000000000000000000081526004016109b2906126cb565b60405180910390fd5b600e60009054906101000a900460ff16610a0a576040517fe4363ca3000000000000000000000000000000000000000000000000000000008152600401610a01906126cb565b60405180910390fd5b600d54600c54610a1a91906126eb565b421115610a6457610a29611cb9565b6040517f5130ce4e000000000000000000000000000000000000000000000000000000008152600401610a5b906126cb565b60405180910390fd5b600f60003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff1615610af357336040517f40b28742000000000000000000000000000000000000000000000000000000008152600401610aea919061271f565b60405180910390fd5b610afc33611baa565b610b3d57336040517f8e8bbab9000000000000000000000000000000000000000000000000000000008152600401610b34919061271f565b60405180910390fd5b6001600f60003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff021916908315150217905550565b6000600754905090565b6000601154905090565b6000601360009054906101000a900460ff16905090565b610bca611e61565b610bd2611edf565b600654600754610be291906126eb565b421015610c24576040517f2ab71fd6000000000000000000000000000000000000000000000000000000008152600401610c1b90612799565b60405180910390fd5b600060098054905011610c6c576040517fe9e10a64000000000000000000000000000000000000000000000000000000008152600401610c6390612799565b60405180910390fd5b60006009805480602002602001604051908101604052809291908181526020018280548015610cf057602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019060010190808311610ca6575b50505050509050600060018251610d0791906127b9565b67ffffffffffffffff811115610d2057610d1f6127ed565b5b604051908082528060200260200182016040528015610d4e5781602001602082028036833780820191505090505b50905060008060005b8451811015610e49578573ffffffffffffffffffffffffffffffffffffffff16858281518110610d8a57610d8961281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff1603610db65760019150610e36565b83518114610e3557848181518110610dd157610dd061281c565b5b6020026020010151848481518110610dec57610deb61281c565b5b602002602001019073ffffffffffffffffffffffffffffffffffffffff16908173ffffffffffffffffffffffffffffffffffffffff16815250508280610e3190612637565b9350505b5b8080610e4190612637565b915050610d57565b508015610e73578260099080519060200190610e669291906121d9565b5042600781905550610eae565b6040517f47637222000000000000000000000000000000000000000000000000000000008152600401610ea590612799565b60405180910390fd5b50505050610eba611f2e565b50565b610ec5611e61565b610ecf6000611f37565b565b6000600354905090565b6000600c54905090565b610eed611e61565b610ef5611edf565b600454600554610f0591906126eb565b421015610f47576040517f0e7f7d15000000000000000000000000000000000000000000000000000000008152600401610f3e90612799565b60405180910390fd5b60006009805480602002602001604051908101604052809291908181526020018280548015610fcb57602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019060010190808311610f81575b505050505090506000805b8251811015611096578473ffffffffffffffffffffffffffffffffffffffff168382815181106110095761100861281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff16036110835760019150838382815181106110445761104361281c565b5b602002602001019073ffffffffffffffffffffffffffffffffffffffff16908173ffffffffffffffffffffffffffffffffffffffff1681525050611096565b808061108e90612637565b915050610fd6565b5080156110c05781600990805190602001906110b39291906121d9565b50426005819055506110fb565b6040517f476372220000000000000000000000000000000000000000000000000000000081526004016110f290612799565b60405180910390fd5b5050611105611f2e565b5050565b600060098054905011611151576040517fe9e10a64000000000000000000000000000000000000000000000000000000008152600401611148906125e8565b60405180910390fd5b601360009054906101000a900460ff166111a0576040517f7bd1f7a2000000000000000000000000000000000000000000000000000000008152600401611197906125e8565b60405180910390fd5b601460003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff161561122f57336040517f40b2874200000000000000000000000000000000000000000000000000000000815260040161122691906125ba565b60405180910390fd5b60115460105461123f91906126eb565b4211156112895761124e611ffb565b6040517f5130ce4e000000000000000000000000000000000000000000000000000000008152600401611280906125e8565b60405180910390fd5b61129233611baa565b6112d357336040517f8e8bbab90000000000000000000000000000000000000000000000000000000081526004016112ca91906125ba565b60405180910390fd5b6001601460003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055506012600081548092919061133e90612637565b91905055506008546012541061138257611379601360019054906101000a900473ffffffffffffffffffffffffffffffffffffffff16611f37565b611381611ffb565b5b565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905090565b6000600e60009054906101000a900460ff16905090565b6113cc611e61565b6113d4611edf565b6002546003546113e491906126eb565b421015611426576040517fdd49edf800000000000000000000000000000000000000000000000000000000815260040161141d90612799565b60405180910390fd5b6009819080600181540180825580915050600190039060005260206000200160009091909190916101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550426003819055506114986121ab565b6114a0611f2e565b50565b6000600254905090565b6000600d54905090565b6000601460008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff169050919050565b6000601254905090565b61151f611e61565b611527611edf565b6000811161156c57806040517fc816f5c8000000000000000000000000000000000000000000000000000000008152600401611563919061284b565b60405180910390fd5b600a548111156115b357806040517fd8dde22d0000000000000000000000000000000000000000000000000000000081526004016115aa919061284b565b60405180910390fd5b60008273ffffffffffffffffffffffffffffffffffffffff16826040516115d9906128aa565b60006040518083038185875af1925050503d8060008114611616576040519150601f19603f3d011682016040523d82523d6000602084013e61161b565b606091505b505090508061165f576040517f5b0ecddc000000000000000000000000000000000000000000000000000000008152600401611656906126cb565b60405180910390fd5b50611668611f2e565b5050565b611674611e61565b600081116116b957806040517f60fe2e4f0000000000000000000000000000000000000000000000000000000081526004016116b0919061284b565b60405180910390fd5b42600c8190555080600b819055506001600e60006101000a81548160ff02191690831515021790555050565b6116ed611e61565b6116f5611edf565b60004790506000811161173f57806040517f25ba08f5000000000000000000000000000000000000000000000000000000008152600401611736919061284b565b60405180910390fd5b600a5481111561178657806040517fd8dde22d00000000000000000000000000000000000000000000000000000000815260040161177d919061284b565b60405180910390fd5b60008273ffffffffffffffffffffffffffffffffffffffff16826040516117ac906128aa565b60006040518083038185875af1925050503d80600081146117e9576040519150601f19603f3d011682016040523d82523d6000602084013e6117ee565b606091505b5050905080611832576040517f5b0ecddc000000000000000000000000000000000000000000000000000000008152600401611829906126cb565b60405180910390fd5b505061183c611f2e565b50565b6000600f60008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff169050919050565b6000600554905090565b6000600454905090565b6118b1611e61565b600073ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff1603611920576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161191790612931565b60405180910390fd5b61192981611f37565b50565b611934611e61565b60006009805490501161197c576040517fe9e10a64000000000000000000000000000000000000000000000000000000008152600401611973906126cb565b60405180910390fd5b600e60009054906101000a900460ff166119cb576040517fe4363ca30000000000000000000000000000000000000000000000000000000081526004016119c2906126cb565b60405180910390fd5b600d54600c546119db91906126eb565b421115611a25576119ea611cb9565b6040517f5130ce4e000000000000000000000000000000000000000000000000000000008152600401611a1c906126cb565b60405180910390fd5b60006009805480602002602001604051908101604052809291908181526020018280548015611aa957602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019060010190808311611a5f575b505050505090506000805b8251811015611b4b57600f6000848381518110611ad457611ad361281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff1615611b38578180611b3490612637565b9250505b8080611b4390612637565b915050611ab4565b50600854811015611b95576008546040517f9dd75b3a000000000000000000000000000000000000000000000000000000008152600401611b8c919061284b565b60405180910390fd5b600b54600a81905550611ba6611cb9565b5050565b6000806009805480602002602001604051908101604052809291908181526020018280548015611c2f57602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019060010190808311611be5575b5050505050905060005b8151811015611cad57818181518110611c5557611c5461281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff168473ffffffffffffffffffffffffffffffffffffffff1603611c9a57600192505050611cb4565b8080611ca590612637565b915050611c39565b5060009150505b919050565b6000600e60006101000a81548160ff02191690831515021790555060006009805480602002602001604051908101604052809291908181526020018280548015611d5857602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019060010190808311611d0e575b5050505050905060005b8151811015611e5d57600f6000838381518110611d8257611d8161281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff1615611e4a576000600f6000848481518110611df057611def61281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505b8080611e5590612637565b915050611d62565b5050565b611e696121d1565b73ffffffffffffffffffffffffffffffffffffffff16611e87611384565b73ffffffffffffffffffffffffffffffffffffffff1614611edd576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611ed49061299d565b60405180910390fd5b565b600260015403611f24576040517f08c379a0000000000000000000000000000000000000000000000000000000008152600401611f1b90612a09565b60405180910390fd5b6002600181905550565b60018081905550565b60008060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff169050816000806101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055508173ffffffffffffffffffffffffffffffffffffffff168173ffffffffffffffffffffffffffffffffffffffff167f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e060405160405180910390a35050565b6000601360006101000a81548160ff0219169083151502179055506000601281905550600060098054806020026020016040519081016040528092919081815260200182805480156120a257602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1681526020019060010190808311612058575b5050505050905060005b81518110156121a757601460008383815181106120cc576120cb61281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16156121945760006014600084848151811061213a5761213961281c565b5b602002602001015173ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505b808061219f90612637565b9150506120ac565b5050565b600160026009805490506121bf9190612a58565b6121c991906126eb565b600881905550565b600033905090565b828054828255906000526020600020908101928215612252579160200282015b828111156122515782518260006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550916020019190600101906121f9565b5b50905061225f9190612263565b5090565b5b8082111561227c576000816000905550600101612264565b5090565b600081519050919050565b600082825260208201905092915050565b6000819050602082019050919050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b60006122d7826122ac565b9050919050565b6122e7816122cc565b82525050565b60006122f983836122de565b60208301905092915050565b6000602082019050919050565b600061231d82612280565b612327818561228b565b93506123328361229c565b8060005b8381101561236357815161234a88826122ed565b975061235583612305565b925050600181019050612336565b5085935050505092915050565b6000602082019050818103600083015261238a8184612312565b905092915050565b6000819050919050565b6123a581612392565b82525050565b60006020820190506123c0600083018461239c565b92915050565b600080fd5b6123d4816122cc565b81146123df57600080fd5b50565b6000813590506123f1816123cb565b92915050565b60006020828403121561240d5761240c6123c6565b5b600061241b848285016123e2565b91505092915050565b60008115159050919050565b61243981612424565b82525050565b60006020820190506124546000830184612430565b92915050565b60008060408385031215612471576124706123c6565b5b600061247f858286016123e2565b9250506020612490858286016123e2565b9150509250929050565b6124a3816122cc565b82525050565b60006020820190506124be600083018461249a565b92915050565b6124cd81612392565b81146124d857600080fd5b50565b6000813590506124ea816124c4565b92915050565b60008060408385031215612507576125066123c6565b5b6000612515858286016123e2565b9250506020612526858286016124db565b9150509250929050565b600060208284031215612546576125456123c6565b5b6000612554848285016124db565b91505092915050565b600082825260208201905092915050565b7f4f776e6572736869704d616e6167657200000000000000000000000000000000600082015250565b60006125a460108361255d565b91506125af8261256e565b602082019050919050565b600060408201905081810360008301526125d381612597565b90506125e2602083018461249a565b92915050565b6000602082019050818103600083015261260181612597565b9050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b600061264282612392565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff820361267457612673612608565b5b600182019050919050565b7f46756e64734d616e616765720000000000000000000000000000000000000000600082015250565b60006126b5600c8361255d565b91506126c08261267f565b602082019050919050565b600060208201905081810360008301526126e4816126a8565b9050919050565b60006126f682612392565b915061270183612392565b925082820190508082111561271957612718612608565b5b92915050565b60006040820190508181036000830152612738816126a8565b9050612747602083018461249a565b92915050565b7f477561726469616e734d616e6167657200000000000000000000000000000000600082015250565b600061278360108361255d565b915061278e8261274d565b602082019050919050565b600060208201905081810360008301526127b281612776565b9050919050565b60006127c482612392565b91506127cf83612392565b92508282039050818111156127e7576127e6612608565b5b92915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b60006040820190508181036000830152612864816126a8565b9050612873602083018461239c565b92915050565b600081905092915050565b50565b6000612894600083612879565b915061289f82612884565b600082019050919050565b60006128b582612887565b9150819050919050565b7f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160008201527f6464726573730000000000000000000000000000000000000000000000000000602082015250565b600061291b60268361255d565b9150612926826128bf565b604082019050919050565b6000602082019050818103600083015261294a8161290e565b9050919050565b7f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e6572600082015250565b600061298760208361255d565b915061299282612951565b602082019050919050565b600060208201905081810360008301526129b68161297a565b9050919050565b7f5265656e7472616e637947756172643a207265656e7472616e742063616c6c00600082015250565b60006129f3601f8361255d565b91506129fe826129bd565b602082019050919050565b60006020820190508181036000830152612a22816129e6565b9050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b6000612a6382612392565b9150612a6e83612392565b925082612a7e57612a7d612a29565b5b82820490509291505056fea2646970667358221220a48ec30abaa178f951c77bf9e046cf66c73ed7fa08b7c1bbe2e66f0095615dd364736f6c63430008110033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 7,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 123,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "_status",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 731,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "addGuardianDelay",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 733,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "lastGuardianAddTime",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 735,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "changeGuardianDelay",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 737,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "lastGuardianChangeTime",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 739,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "removeGuardianDelay",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 741,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "lastGuardianRemovalTime",
+        "offset": 0,
+        "slot": "7",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 743,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "requiredConfirmations",
+        "offset": 0,
+        "slot": "8",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 746,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "guardians",
+        "offset": 0,
+        "slot": "9",
+        "type": "t_array(t_address)dyn_storage"
+      },
+      {
+        "astId": 289,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "dailyTransferLimit",
+        "offset": 0,
+        "slot": "10",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 291,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "tempDailyTransferLimit",
+        "offset": 0,
+        "slot": "11",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 293,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "lastDailyTransferUpdateRequestTime",
+        "offset": 0,
+        "slot": "12",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 295,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "dailyTransferLimitUpdateConfirmationTime",
+        "offset": 0,
+        "slot": "13",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 297,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "isDailyTransferLimitUpdateRequested",
+        "offset": 0,
+        "slot": "14",
+        "type": "t_bool"
+      },
+      {
+        "astId": 301,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "isConfirmedByGuardian",
+        "offset": 0,
+        "slot": "15",
+        "type": "t_mapping(t_address,t_bool)"
+      },
+      {
+        "astId": 1135,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "lastOwnerUpdateRequestTime",
+        "offset": 0,
+        "slot": "16",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 1137,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "ownerUpdateConfirmationTime",
+        "offset": 0,
+        "slot": "17",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 1139,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "noOfConfirmations",
+        "offset": 0,
+        "slot": "18",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 1141,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "isOwnerUpdateRequested",
+        "offset": 0,
+        "slot": "19",
+        "type": "t_bool"
+      },
+      {
+        "astId": 1143,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "tempAddress",
+        "offset": 1,
+        "slot": "19",
+        "type": "t_address"
+      },
+      {
+        "astId": 1147,
+        "contract": "contracts/Guardian.sol:Guardian",
+        "label": "isOwnershipConfimedByGuardian",
+        "offset": 0,
+        "slot": "20",
+        "type": "t_mapping(t_address,t_bool)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_address)dyn_storage": {
+        "base": "t_address",
+        "encoding": "dynamic_array",
+        "label": "address[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
