@@ -119,4 +119,8 @@ contract OwnershipManager is GuardiansManager {
     function getOwnerUpdateConfirmationTime() external view returns (uint256) {
         return ownerUpdateConfirmationTime;
     }
+
+    function getNoOfConfirmations() external view returns (uint256) {
+        return noOfConfirmations;
+    }
 }
