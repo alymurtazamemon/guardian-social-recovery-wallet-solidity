@@ -90,6 +90,7 @@ contract OwnershipManager is GuardiansManager {
     // * FUNCTION - PRIVATE
     function resetOwnershipVariables() private {
         isOwnerUpdateRequested = false;
+        noOfConfirmations = 0;
 
         address[] memory guardiansCopy = guardians;
 
