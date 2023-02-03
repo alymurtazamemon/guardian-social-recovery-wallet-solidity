@@ -129,5 +129,22 @@ import { BigNumber, ContractTransaction } from "ethers";
                       "Error__GuardiansListIsEmpty"
                   );
               });
+
+              describe("confirmUpdateOwnerRequest - After Adding Guardians", () => {
+                  beforeEach(async () => {
+                      const [_, account2, account3, account4, account5] =
+                          await ethers.getSigners();
+
+                      const newGuardians: string[] = [
+                          account2.address,
+                          account3.address,
+                          account4.address,
+                      ];
+
+                      for (let i = 0; i < newGuardians.length; i++) {
+                          await addGuardian(newGuardians[i]);
+                      }
+                  });
+              });
           });
       });
