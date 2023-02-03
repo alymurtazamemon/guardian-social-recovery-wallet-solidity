@@ -238,6 +238,27 @@ import { BigNumber, ContractTransaction } from "ethers";
                               updatedNumberOfConfirmations.toNumber()
                           ).to.be.equal(1);
                       });
+
+                      it("should revert if already confirmed by a guardian.", async () => {
+                          const [_, account2] = await ethers.getSigners();
+
+                          const tx: ContractTransaction = await guardian
+                              .connect(account2)
+                              .confirmUpdateOwnerRequest();
+
+                          await tx.wait(1);
+
+                          await expect(
+                              guardian
+                                  .connect(account2)
+                                  .confirmUpdateOwnerRequest()
+                          )
+                              .to.be.revertedWithCustomError(
+                                  guardian,
+                                  "Error__AlreadyConfirmedByGuardian"
+                              )
+                              .withArgs("OwnershipManager", account2.address);
+                      });
                   });
               });
           });
