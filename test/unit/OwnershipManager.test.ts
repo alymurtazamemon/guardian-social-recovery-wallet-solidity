@@ -34,5 +34,16 @@ import { BigNumber, ContractTransaction } from "ethers";
                       )
                       .withArgs("OwnershipManager", deployer.address);
               });
+
+              it("should revert if guardians list is empty.", async () => {
+                  const [_, account2] = await ethers.getSigners();
+
+                  await expect(
+                      guardian.requestToUpdateOwner(account2.address)
+                  ).to.be.revertedWithCustomError(
+                      guardian,
+                      "Error__GuardiansListIsEmpty"
+                  );
+              });
           });
       });
