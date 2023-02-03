@@ -165,11 +165,19 @@ import { BigNumber, ContractTransaction } from "ethers";
 
                   describe("confirmUpdateOwnerRequest - After Request", () => {
                       beforeEach(async () => {
-                          const [_, account2] = await ethers.getSigners();
+                          const [
+                              _,
+                              account2,
+                              account3,
+                              account4,
+                              account5,
+                              account6,
+                              account7,
+                          ] = await ethers.getSigners();
 
                           const tx: ContractTransaction = await guardian
                               .connect(account2)
-                              .requestToUpdateOwner(account2.address);
+                              .requestToUpdateOwner(account7.address);
 
                           await tx.wait(1);
                       });
@@ -271,6 +279,50 @@ import { BigNumber, ContractTransaction } from "ethers";
                           const owner: string = await guardian.owner();
 
                           expect(owner).to.be.equal(deployer.address);
+                      });
+
+                      it("should update the owner after required confirmations.", async () => {
+                          const [
+                              deployer,
+                              account2,
+                              account3,
+                              account4,
+                              account5,
+                              account6,
+                              account7,
+                          ] = await ethers.getSigners();
+
+                          // * account2 has already confirmed by requesting update.
+                          // * We have 5 guardians so we only need 3 confirmations.
+                          const guardians = [account3, account4];
+
+                          const owner: string = await guardian.owner();
+
+                          expect(owner).to.be.equal(deployer.address);
+
+                          for (let i = 0; i < guardians.length; i++) {
+                              const tx: ContractTransaction = await guardian
+                                  .connect(guardians[i])
+                                  .confirmUpdateOwnerRequest();
+
+                              await tx.wait(1);
+                          }
+
+                          const updatedOwner: string = await guardian.owner();
+
+                          expect(updatedOwner).to.be.equal(account7.address);
+
+                          const requestStatus: boolean =
+                              await guardian.getIsOwnerUpdateRequested();
+
+                          expect(requestStatus).to.be.false;
+
+                          const numberOfConfirmations: BigNumber =
+                              await guardian.getNoOfConfirmations();
+
+                          expect(numberOfConfirmations.toNumber()).to.be.equal(
+                              0
+                          );
                       });
                   });
               });
