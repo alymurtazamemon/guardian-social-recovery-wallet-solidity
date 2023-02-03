@@ -154,6 +154,19 @@ import { BigNumber, ContractTransaction } from "ethers";
                           "Error__UpdateNotRequested"
                       );
                   });
+
+                  describe("confirmUpdateOwnerRequest - After Request", () => {
+                      beforeEach(async () => {
+                          const [_, account2, account3, account4, account5] =
+                              await ethers.getSigners();
+
+                          const tx: ContractTransaction = await guardian
+                              .connect(account2)
+                              .requestToUpdateOwner(account5.address);
+
+                          await tx.wait(1);
+                      });
+                  });
               });
           });
       });
