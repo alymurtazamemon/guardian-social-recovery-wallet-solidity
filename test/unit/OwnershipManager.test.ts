@@ -184,6 +184,22 @@ import { BigNumber, ContractTransaction } from "ethers";
                               "Error__RequestTimeExpired"
                           );
                       });
+
+                      it("should revert if address is not a guardian.", async () => {
+                          const [_, account2, account3, account4, account5] =
+                              await ethers.getSigners();
+
+                          await expect(
+                              guardian
+                                  .connect(account5)
+                                  .confirmUpdateOwnerRequest()
+                          )
+                              .to.be.revertedWithCustomError(
+                                  guardian,
+                                  "Error__AddressNotFoundAsGuardian"
+                              )
+                              .withArgs("OwnershipManager", account5.address);
+                      });
                   });
               });
           });
