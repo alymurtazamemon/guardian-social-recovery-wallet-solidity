@@ -3,6 +3,7 @@ import { developmentChains } from "../../helper-hardhat-config";
 import { Guardian } from "../../typechain-types";
 import { expect } from "chai";
 import { BigNumber, ContractTransaction } from "ethers";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 
 // * if the newwork will be hardhat or localhost then these tests will be run.
 !developmentChains.includes(network.name)
@@ -23,6 +24,23 @@ import { BigNumber, ContractTransaction } from "ethers";
               guardian = await ethers.getContract("Guardian", deployer);
           });
 
+          async function addGuardian(account: SignerWithAddress) {
+              const addTime: BigNumber =
+                  await guardian.getLastGuardianAddTime();
+
+              const delayTime: BigNumber = await guardian.getAddGuardianDelay();
+
+              await network.provider.send("evm_increaseTime", [
+                  addTime.toNumber() + delayTime.toNumber(),
+              ]);
+
+              const tx: ContractTransaction = await guardian.addGuardian(
+                  account.address
+              );
+
+              await tx.wait(1);
+          }
+
           describe("addGuardian", () => {
               it("should revert if called by address which is not an owner.", async () => {
                   const [_, account2, account3] = await ethers.getSigners();
@@ -35,21 +53,7 @@ import { BigNumber, ContractTransaction } from "ethers";
               it("should add new guardian.", async () => {
                   const [_, account2] = await ethers.getSigners();
 
-                  const addTime: BigNumber =
-                      await guardian.getLastGuardianAddTime();
-
-                  const delayTime: BigNumber =
-                      await guardian.getAddGuardianDelay();
-
-                  await network.provider.send("evm_increaseTime", [
-                      addTime.toNumber() + delayTime.toNumber(),
-                  ]);
-
-                  const tx: ContractTransaction = await guardian.addGuardian(
-                      account2.address
-                  );
-
-                  await tx.wait(1);
+                  await addGuardian(account2);
 
                   const guardians: string[] = await guardian.getGuardians();
                   expect(guardians.length).to.be.equal(1);
