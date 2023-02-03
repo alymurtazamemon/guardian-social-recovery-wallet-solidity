@@ -132,13 +132,21 @@ import { BigNumber, ContractTransaction } from "ethers";
 
               describe("confirmUpdateOwnerRequest - After Adding Guardians", () => {
                   beforeEach(async () => {
-                      const [_, account2, account3, account4, account5] =
-                          await ethers.getSigners();
+                      const [
+                          _,
+                          account2,
+                          account3,
+                          account4,
+                          account5,
+                          account6,
+                      ] = await ethers.getSigners();
 
                       const newGuardians: string[] = [
                           account2.address,
                           account3.address,
                           account4.address,
+                          account5.address,
+                          account6.address,
                       ];
 
                       for (let i = 0; i < newGuardians.length; i++) {
@@ -157,14 +165,28 @@ import { BigNumber, ContractTransaction } from "ethers";
 
                   describe("confirmUpdateOwnerRequest - After Request", () => {
                       beforeEach(async () => {
-                          const [_, account2, account3, account4, account5] =
-                              await ethers.getSigners();
+                          const [_, account2] = await ethers.getSigners();
 
                           const tx: ContractTransaction = await guardian
                               .connect(account2)
-                              .requestToUpdateOwner(account5.address);
+                              .requestToUpdateOwner(account2.address);
 
                           await tx.wait(1);
+                      });
+
+                      it("should revert if already confirmed by a guardian.", async () => {
+                          const [_, account2] = await ethers.getSigners();
+
+                          await expect(
+                              guardian
+                                  .connect(account2)
+                                  .confirmUpdateOwnerRequest()
+                          )
+                              .to.be.revertedWithCustomError(
+                                  guardian,
+                                  "Error__AlreadyConfirmedByGuardian"
+                              )
+                              .withArgs("OwnershipManager", account2.address);
                       });
 
                       it("should revert if confirmation time is passed.", async () => {
@@ -186,27 +208,35 @@ import { BigNumber, ContractTransaction } from "ethers";
                       });
 
                       it("should revert if address is not a guardian.", async () => {
-                          const [_, account2, account3, account4, account5] =
-                              await ethers.getSigners();
+                          const [
+                              _,
+                              account2,
+                              account3,
+                              account4,
+                              account5,
+                              account6,
+                              account7,
+                          ] = await ethers.getSigners();
 
                           await expect(
                               guardian
-                                  .connect(account5)
+                                  .connect(account7)
                                   .confirmUpdateOwnerRequest()
                           )
                               .to.be.revertedWithCustomError(
                                   guardian,
                                   "Error__AddressNotFoundAsGuardian"
                               )
-                              .withArgs("OwnershipManager", account5.address);
+                              .withArgs("OwnershipManager", account7.address);
                       });
 
                       it("should confirm the request to update the owner.", async () => {
-                          const [_, account2] = await ethers.getSigners();
+                          const [_, account2, account3] =
+                              await ethers.getSigners();
 
                           const confirmationStatus: Boolean =
                               await guardian.getIsOwnershipConfimedByGuardian(
-                                  account2.address
+                                  account3.address
                               );
 
                           expect(confirmationStatus).to.be.false;
@@ -215,18 +245,18 @@ import { BigNumber, ContractTransaction } from "ethers";
                               await guardian.getNoOfConfirmations();
 
                           expect(numberOfConfirmations.toNumber()).to.be.equal(
-                              0
+                              1
                           );
 
                           const tx: ContractTransaction = await guardian
-                              .connect(account2)
+                              .connect(account3)
                               .confirmUpdateOwnerRequest();
 
                           await tx.wait(1);
 
                           const updatedConfirmationStatus: Boolean =
                               await guardian.getIsOwnershipConfimedByGuardian(
-                                  account2.address
+                                  account3.address
                               );
 
                           expect(updatedConfirmationStatus).to.be.true;
@@ -236,28 +266,7 @@ import { BigNumber, ContractTransaction } from "ethers";
 
                           expect(
                               updatedNumberOfConfirmations.toNumber()
-                          ).to.be.equal(1);
-                      });
-
-                      it("should revert if already confirmed by a guardian.", async () => {
-                          const [_, account2] = await ethers.getSigners();
-
-                          const tx: ContractTransaction = await guardian
-                              .connect(account2)
-                              .confirmUpdateOwnerRequest();
-
-                          await tx.wait(1);
-
-                          await expect(
-                              guardian
-                                  .connect(account2)
-                                  .confirmUpdateOwnerRequest()
-                          )
-                              .to.be.revertedWithCustomError(
-                                  guardian,
-                                  "Error__AlreadyConfirmedByGuardian"
-                              )
-                              .withArgs("OwnershipManager", account2.address);
+                          ).to.be.equal(2);
                       });
                   });
               });

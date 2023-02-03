@@ -43,6 +43,8 @@ contract OwnershipManager is GuardiansManager {
 
         lastOwnerUpdateRequestTime = block.timestamp;
         tempAddress = newOwnerAddress;
+        isOwnershipConfimedByGuardian[msg.sender] = true;
+        noOfConfirmations++;
         isOwnerUpdateRequested = true;
     }
 
