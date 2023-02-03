@@ -22,4 +22,17 @@ import { BigNumber, ContractTransaction } from "ethers";
 
               guardian = await ethers.getContract("Guardian", deployer);
           });
+
+          describe("requestToUpdateOwner", () => {
+              it("should revert if given address is same as previous owner.", async () => {
+                  const [deployer] = await ethers.getSigners();
+
+                  await expect(guardian.requestToUpdateOwner(deployer.address))
+                      .to.be.revertedWithCustomError(
+                          guardian,
+                          "Error__AddressAlreadyAnOwner"
+                      )
+                      .withArgs("OwnershipManager", deployer.address);
+              });
+          });
       });
