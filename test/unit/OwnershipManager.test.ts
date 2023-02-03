@@ -200,6 +200,44 @@ import { BigNumber, ContractTransaction } from "ethers";
                               )
                               .withArgs("OwnershipManager", account5.address);
                       });
+
+                      it("should confirm the request to update the owner.", async () => {
+                          const [_, account2] = await ethers.getSigners();
+
+                          const confirmationStatus: Boolean =
+                              await guardian.getIsOwnershipConfimedByGuardian(
+                                  account2.address
+                              );
+
+                          expect(confirmationStatus).to.be.false;
+
+                          const numberOfConfirmations: BigNumber =
+                              await guardian.getNoOfConfirmations();
+
+                          expect(numberOfConfirmations.toNumber()).to.be.equal(
+                              0
+                          );
+
+                          const tx: ContractTransaction = await guardian
+                              .connect(account2)
+                              .confirmUpdateOwnerRequest();
+
+                          await tx.wait(1);
+
+                          const updatedConfirmationStatus: Boolean =
+                              await guardian.getIsOwnershipConfimedByGuardian(
+                                  account2.address
+                              );
+
+                          expect(updatedConfirmationStatus).to.be.true;
+
+                          const updatedNumberOfConfirmations: BigNumber =
+                              await guardian.getNoOfConfirmations();
+
+                          expect(
+                              updatedNumberOfConfirmations.toNumber()
+                          ).to.be.equal(1);
+                      });
                   });
               });
           });
