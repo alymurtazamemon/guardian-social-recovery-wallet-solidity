@@ -117,4 +117,17 @@ import { BigNumber, ContractTransaction } from "ethers";
                   });
               });
           });
+
+          describe("confirmUpdateOwnerRequest", () => {
+              it("should revert if guardians list is empty.", async () => {
+                  const [_, account2] = await ethers.getSigners();
+
+                  await expect(
+                      guardian.confirmUpdateOwnerRequest()
+                  ).to.be.revertedWithCustomError(
+                      guardian,
+                      "Error__GuardiansListIsEmpty"
+                  );
+              });
+          });
       });
