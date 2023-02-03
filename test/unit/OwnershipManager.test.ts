@@ -145,6 +145,15 @@ import { BigNumber, ContractTransaction } from "ethers";
                           await addGuardian(newGuardians[i]);
                       }
                   });
+
+                  it("should revert if owner update is not requested.", async () => {
+                      await expect(
+                          guardian.confirmUpdateOwnerRequest()
+                      ).to.be.revertedWithCustomError(
+                          guardian,
+                          "Error__UpdateNotRequested"
+                      );
+                  });
               });
           });
       });
