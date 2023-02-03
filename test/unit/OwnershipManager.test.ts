@@ -63,30 +63,37 @@ import { BigNumber, ContractTransaction } from "ethers";
                   );
               });
 
-              it("should revert if address is not a guardian.", async () => {
-                  const [_, account2, account3, account4, account5] =
-                      await ethers.getSigners();
+              describe("requestToUpdateOwner - After Adding Guardians", () => {
+                  beforeEach(async () => {
+                      const [_, account2, account3, account4, account5] =
+                          await ethers.getSigners();
 
-                  const newGuardians: string[] = [
-                      account2.address,
-                      account3.address,
-                      account4.address,
-                  ];
+                      const newGuardians: string[] = [
+                          account2.address,
+                          account3.address,
+                          account4.address,
+                      ];
 
-                  for (let i = 0; i < newGuardians.length; i++) {
-                      await addGuardian(newGuardians[i]);
-                  }
+                      for (let i = 0; i < newGuardians.length; i++) {
+                          await addGuardian(newGuardians[i]);
+                      }
+                  });
 
-                  await expect(
-                      guardian
-                          .connect(account5)
-                          .requestToUpdateOwner(account5.address)
-                  )
-                      .to.be.revertedWithCustomError(
-                          guardian,
-                          "Error__AddressNotFoundAsGuardian"
+                  it("should revert if address is not a guardian.", async () => {
+                      const [_, account2, account3, account4, account5] =
+                          await ethers.getSigners();
+
+                      await expect(
+                          guardian
+                              .connect(account5)
+                              .requestToUpdateOwner(account5.address)
                       )
-                      .withArgs("OwnershipManager", account5.address);
+                          .to.be.revertedWithCustomError(
+                              guardian,
+                              "Error__AddressNotFoundAsGuardian"
+                          )
+                          .withArgs("OwnershipManager", account5.address);
+                  });
               });
           });
       });
