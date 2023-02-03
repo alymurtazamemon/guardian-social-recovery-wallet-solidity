@@ -106,6 +106,12 @@ contract OwnershipManager is GuardiansManager {
         return isOwnerUpdateRequested;
     }
 
+    function getIsOwnershipConfimedByGuardian(
+        address guardian
+    ) external view returns (bool) {
+        return isOwnershipConfimedByGuardian[guardian];
+    }
+
     function getLastOwnerUpdateRequestTime() external view returns (uint256) {
         return lastOwnerUpdateRequestTime;
     }
