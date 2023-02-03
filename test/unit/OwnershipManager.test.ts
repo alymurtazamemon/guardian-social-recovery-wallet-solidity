@@ -231,7 +231,7 @@ import { BigNumber, ContractTransaction } from "ethers";
                       });
 
                       it("should confirm the request to update the owner.", async () => {
-                          const [_, account2, account3] =
+                          const [deployer, account2, account3] =
                               await ethers.getSigners();
 
                           const confirmationStatus: Boolean =
@@ -267,6 +267,10 @@ import { BigNumber, ContractTransaction } from "ethers";
                           expect(
                               updatedNumberOfConfirmations.toNumber()
                           ).to.be.equal(2);
+
+                          const owner: string = await guardian.owner();
+
+                          expect(owner).to.be.equal(deployer.address);
                       });
                   });
               });
