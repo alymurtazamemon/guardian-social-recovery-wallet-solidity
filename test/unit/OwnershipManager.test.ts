@@ -23,6 +23,23 @@ import { BigNumber, ContractTransaction } from "ethers";
               guardian = await ethers.getContract("Guardian", deployer);
           });
 
+          async function addGuardian(address: string) {
+              const addTime: BigNumber =
+                  await guardian.getLastGuardianAddTime();
+
+              const delayTime: BigNumber = await guardian.getAddGuardianDelay();
+
+              await network.provider.send("evm_increaseTime", [
+                  addTime.toNumber() + delayTime.toNumber(),
+              ]);
+
+              const tx: ContractTransaction = await guardian.addGuardian(
+                  address
+              );
+
+              await tx.wait(1);
+          }
+
           describe("requestToUpdateOwner", () => {
               it("should revert if given address is same as previous owner.", async () => {
                   const [deployer] = await ethers.getSigners();
@@ -44,6 +61,32 @@ import { BigNumber, ContractTransaction } from "ethers";
                       guardian,
                       "Error__GuardiansListIsEmpty"
                   );
+              });
+
+              it("should revert if address is not a guardian.", async () => {
+                  const [_, account2, account3, account4, account5] =
+                      await ethers.getSigners();
+
+                  const newGuardians: string[] = [
+                      account2.address,
+                      account3.address,
+                      account4.address,
+                  ];
+
+                  for (let i = 0; i < newGuardians.length; i++) {
+                      await addGuardian(newGuardians[i]);
+                  }
+
+                  await expect(
+                      guardian
+                          .connect(account5)
+                          .requestToUpdateOwner(account5.address)
+                  )
+                      .to.be.revertedWithCustomError(
+                          guardian,
+                          "Error__AddressNotFoundAsGuardian"
+                      )
+                      .withArgs("OwnershipManager", account5.address);
               });
           });
       });
