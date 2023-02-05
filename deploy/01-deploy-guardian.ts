@@ -1,7 +1,7 @@
-import { network } from "hardhat";
+import { deployments, network } from "hardhat";
 import { DeployFunction, DeployResult } from "hardhat-deploy/dist/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
-import { developmentChains } from "../helper-hardhat-config";
+import { developmentChains, networkConfig } from "../helper-hardhat-config";
 import verify from "../utils/verify";
 
 const deployGuardian: DeployFunction = async (
@@ -11,13 +11,22 @@ const deployGuardian: DeployFunction = async (
     const { deployer } = await hre.getNamedAccounts();
     const chainId = network.config.chainId!;
 
-    const args: any[] = [];
+    let ethUsdPriceFeedAddress;
+
+    if (chainId == 31337) {
+        const ethUsdAggregator = await deployments.get("MockV3Aggregator");
+        ethUsdPriceFeedAddress = ethUsdAggregator.address;
+    } else {
+        ethUsdPriceFeedAddress = networkConfig[chainId]["ethUsdPriceFeed"];
+    }
+
+    const args: any[] = [ethUsdPriceFeedAddress];
 
     const guardian: DeployResult = await deploy("Guardian", {
         from: deployer,
         log: true,
         args: args,
-        waitConfirmations: developmentChains.includes(network.name) ? 1 : 6,
+        waitConfirmations: networkConfig[chainId].blockConfirmations,
     });
 
     // * only verify on testnets or mainnets.
