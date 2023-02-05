@@ -4,7 +4,6 @@ import "hardhat-deploy";
 import "dotenv/config";
 
 const config: HardhatUserConfig = {
-    solidity: "0.8.17",
     defaultNetwork: "hardhat",
     networks: {
         hardhat: {
@@ -19,6 +18,16 @@ const config: HardhatUserConfig = {
             accounts: [process.env.PRIVATE_KEY!],
             saveDeployments: true,
         },
+    },
+    solidity: {
+        compilers: [
+            {
+                version: "0.8.17",
+            },
+            {
+                version: "0.6.6",
+            },
+        ],
     },
     namedAccounts: {
         deployer: {
