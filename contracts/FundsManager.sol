@@ -166,10 +166,15 @@ contract FundsManager is GuardiansManager {
 
     // * FUNCTIONS - VIEW & PURE - EXTERNAL
 
-    function getPrice() external view returns (uint256) {
-        (, int256 answer, , , ) = priceFeed.latestRoundData();
-        // ETH/USD rate in 18 digit
-        return uint256(answer * 10000000000);
+    function getBalance() external view returns (uint256) {
+        return address(this).balance;
+    }
+
+    function getBalanceInUSD() external view returns (uint256) {
+        uint256 ethPrice = getPrice();
+        uint256 balanceInUSD = (ethPrice * address(this).balance) /
+            1000000000000000000;
+        return balanceInUSD;
     }
 
     function getDailyTransferLimit() external view returns (uint256) {
@@ -208,5 +213,13 @@ contract FundsManager is GuardiansManager {
         address guardian
     ) external view returns (bool) {
         return isConfirmedByGuardian[guardian];
+    }
+
+    // * FUNCTIONS - VIEW & PURE - PRIVATE
+
+    function getPrice() private view returns (uint256) {
+        (, int256 answer, , , ) = priceFeed.latestRoundData();
+        // ETH/USD rate in 18 digit
+        return uint256(answer * 10000000000);
     }
 }
