@@ -2,7 +2,7 @@ import { BigNumber, ContractTransaction } from "ethers";
 import { ethers } from "hardhat";
 
 async function depositFunds(): Promise<void> {
-    const oneEther: BigNumber = ethers.utils.parseEther("1");
+    const oneEther: BigNumber = ethers.utils.parseEther("0.001");
 
     const [deployer] = await ethers.getSigners();
 
@@ -16,7 +16,7 @@ async function depositFunds(): Promise<void> {
 
     await tx.wait(1);
 
-    console.log(`Deposited ${oneEther} Ethers`);
+    console.log(`Deposited ${ethers.utils.formatEther(oneEther)} ETH`);
 }
 
 depositFunds()
