@@ -2,6 +2,7 @@
 
 pragma solidity ^0.8.17;
 
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "./GuardiansManager.sol";
 import "./Errors.sol";
 
@@ -16,8 +17,11 @@ contract FundsManager is GuardiansManager {
 
     mapping(address => bool) private isConfirmedByGuardian;
 
+    AggregatorV3Interface private priceFeed;
+
     // * FUNCTIONS
-    constructor() {
+    constructor(address _priceFeed) {
+        priceFeed = AggregatorV3Interface(_priceFeed);
         dailyTransferLimit = 1 ether;
         dailyTransferLimitUpdateConfirmationTime = 1 days;
     }
@@ -142,6 +146,10 @@ contract FundsManager is GuardiansManager {
         resetDailyTransferLimitVariables();
     }
 
+    function updateETHUSDPriceFeed(address _priceFeed) external onlyOwner {
+        priceFeed = AggregatorV3Interface(_priceFeed);
+    }
+
     // * FUNCTIONS - PRIVATE
 
     function resetDailyTransferLimitVariables() private {
@@ -157,6 +165,12 @@ contract FundsManager is GuardiansManager {
     }
 
     // * FUNCTIONS - VIEW & PURE - EXTERNAL
+
+    function getPrice() external view returns (uint256) {
+        (, int256 answer, , , ) = priceFeed.latestRoundData();
+        // ETH/USD rate in 18 digit
+        return uint256(answer * 10000000000);
+    }
 
     function getDailyTransferLimit() external view returns (uint256) {
         return dailyTransferLimit;
