@@ -222,9 +222,9 @@ contract FundsManager is GuardiansManager {
         return isConfirmedByGuardian[guardian];
     }
 
-    // * FUNCTIONS - VIEW & PURE - PRIVATE
+    // * FUNCTIONS - VIEW & PURE - PUBLIC
 
-    function getPrice() private view returns (uint256) {
+    function getPrice() public view returns (uint256) {
         (, int256 answer, , , ) = priceFeed.latestRoundData();
         // ETH/USD rate in 18 digit
         return uint256(answer * 10000000000);
