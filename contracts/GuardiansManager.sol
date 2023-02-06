@@ -5,6 +5,7 @@ pragma solidity ^0.8.17;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./Errors.sol";
+import "hardhat/console.sol";
 
 contract GuardiansManager is Ownable, ReentrancyGuard {
     // * STATE VARIABLES
@@ -78,6 +79,10 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
             revert Error__GuardiansListIsEmpty("GuardiansManager");
         }
 
+        if (!doesGuardianExist(guardian)) {
+            revert Error__GuardianDoesNotExist("GuardiansManager");
+        }
+
         address[] memory guardiansCopy = guardians;
 
         // * for local arrays we need to declare the size at the initialization time.
@@ -92,7 +97,7 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
             if (guardiansCopy[i] == guardian) {
                 exist = true;
                 continue;
-            } else if (i != updatedCopy.length) {
+            } else {
                 updatedCopy[index] = guardiansCopy[i];
                 index++;
             }
@@ -101,8 +106,6 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
         if (exist) {
             guardians = updatedCopy;
             lastGuardianRemovalTime = block.timestamp;
-        } else {
-            revert Error__GuardianDoesNotExist("GuardiansManager");
         }
     }
 
