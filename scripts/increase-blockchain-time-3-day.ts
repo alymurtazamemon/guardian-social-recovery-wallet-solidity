@@ -7,7 +7,7 @@ async function increaseBlockchainTime3Day(): Promise<void> {
 
     const guardian: Guardian = await ethers.getContract("Guardian", deployer);
 
-    const delay: BigNumber = await guardian.getChangeGuardianDelay();
+    const delay: BigNumber = await guardian.getRemoveGuardianDelay();
 
     await network.provider.send("evm_increaseTime", [delay.toNumber()]);
 
