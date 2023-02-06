@@ -15,6 +15,7 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
     uint256 private lastGuardianChangeTime;
     uint256 private removeGuardianDelay;
     uint256 private lastGuardianRemovalTime;
+    uint256 private contractDeployTime;
 
     uint256 internal requiredConfirmations;
 
@@ -22,6 +23,7 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
 
     // * FUNCTIONS
     constructor() {
+        contractDeployTime = block.timestamp;
         lastGuardianAddTime = block.timestamp;
         addGuardianDelay = 1 days;
         lastGuardianChangeTime = block.timestamp;
@@ -118,7 +120,8 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
     // * FUNCTIONS - VIEW & PURE - EXTERNAL
 
     function getLastGuardianAddTime() external view returns (uint256) {
-        return lastGuardianAddTime;
+        return
+            lastGuardianAddTime == contractDeployTime ? 0 : lastGuardianAddTime;
     }
 
     function getAddGuardianDelay() external view returns (uint256) {
@@ -126,7 +129,10 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
     }
 
     function getLastGuardianChangeTime() external view returns (uint256) {
-        return lastGuardianChangeTime;
+        return
+            lastGuardianChangeTime == contractDeployTime
+                ? 0
+                : lastGuardianChangeTime;
     }
 
     function getChangeGuardianDelay() external view returns (uint256) {
@@ -134,7 +140,10 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
     }
 
     function getLastGuardianRemovalTime() external view returns (uint256) {
-        return lastGuardianRemovalTime;
+        return
+            lastGuardianRemovalTime == contractDeployTime
+                ? 0
+                : lastGuardianRemovalTime;
     }
 
     function getRemoveGuardianDelay() external view returns (uint256) {
