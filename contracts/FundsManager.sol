@@ -89,7 +89,6 @@ contract FundsManager is GuardiansManager {
             lastDailyTransferUpdateRequestTime +
                 dailyTransferLimitUpdateConfirmationTime
         ) {
-            resetDailyTransferLimitVariables();
             revert Error__RequestTimeExpired("FundsManager");
         }
 
@@ -121,7 +120,6 @@ contract FundsManager is GuardiansManager {
             lastDailyTransferUpdateRequestTime +
                 dailyTransferLimitUpdateConfirmationTime
         ) {
-            resetDailyTransferLimitVariables();
             revert Error__RequestTimeExpired("FundsManager");
         }
 
@@ -150,9 +148,9 @@ contract FundsManager is GuardiansManager {
         priceFeed = AggregatorV3Interface(_priceFeed);
     }
 
-    // * FUNCTIONS - PRIVATE
+    // * FUNCTION - PUBLIC
 
-    function resetDailyTransferLimitVariables() private {
+    function resetDailyTransferLimitVariables() public onlyOwner {
         isDailyTransferLimitUpdateRequested = false;
 
         address[] memory guardiansCopy = guardians;
