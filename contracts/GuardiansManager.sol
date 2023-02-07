@@ -17,7 +17,7 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
     uint256 private lastGuardianRemovalTime;
     uint256 private contractDeployTime;
 
-    uint256 internal requiredConfirmations;
+    uint256 public requiredConfirmations;
 
     address[] internal guardians;
 
