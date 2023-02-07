@@ -578,6 +578,21 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
               });
           });
 
+          describe("updateETHUSDPriceFeed", () => {
+              it("should update the ETH/USD price feed address.", async () => {
+                  const newAddress =
+                      "0xb4c4a493AB6356497713A78FFA6c60FB53517c63";
+
+                  const tx: ContractTransaction =
+                      await guardian.updateETHUSDPriceFeed(newAddress);
+
+                  await tx.wait(1);
+
+                  const address = await guardian.getPriceFeedAddress();
+                  expect(address).to.be.equal(newAddress);
+              });
+          });
+
           describe("getBalance", () => {
               it("should get the balance of contract.", async () => {
                   const balance = await guardian.getBalance();

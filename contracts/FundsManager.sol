@@ -164,6 +164,10 @@ contract FundsManager is GuardiansManager {
 
     // * FUNCTIONS - VIEW & PURE - EXTERNAL
 
+    function getPriceFeedAddress() external view returns (address) {
+        return address(priceFeed);
+    }
+
     function getBalance() external view returns (uint256) {
         return address(this).balance;
     }
