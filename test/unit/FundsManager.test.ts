@@ -577,4 +577,11 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
                   });
               });
           });
+
+          describe("getPrice", () => {
+              it("should return the price of ETH/USD.", async () => {
+                  const price = await guardian.getPrice();
+                  expect(price).to.be.equal(ethers.utils.parseEther("1665"));
+              });
+          });
       });
