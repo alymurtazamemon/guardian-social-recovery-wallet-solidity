@@ -90,6 +90,13 @@ contract OwnershipManager is GuardiansManager {
 
     // * FUNCTION - PUBLIC
     function resetOwnershipVariables() public {
+        if (!doesGuardianExist(msg.sender)) {
+            revert Error__AddressNotFoundAsGuardian(
+                "OwnershipManager",
+                msg.sender
+            );
+        }
+
         isOwnerUpdateRequested = false;
         noOfConfirmations = 0;
 
