@@ -68,7 +68,6 @@ contract OwnershipManager is GuardiansManager {
             block.timestamp >
             lastOwnerUpdateRequestTime + ownerUpdateConfirmationTime
         ) {
-            resetOwnershipVariables();
             revert Error__RequestTimeExpired("OwnershipManager");
         }
 
