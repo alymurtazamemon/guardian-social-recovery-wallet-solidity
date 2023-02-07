@@ -578,6 +578,13 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
               });
           });
 
+          describe("getBalance", () => {
+              it("should get the balance of contract.", async () => {
+                  const balance = await guardian.getBalance();
+                  expect(balance).to.be.equal(0);
+              });
+          });
+
           describe("getBalanceInUSD", () => {
               it("should get the balance in USD.", async () => {
                   const balanceInUsd = await guardian.getBalanceInUSD();
