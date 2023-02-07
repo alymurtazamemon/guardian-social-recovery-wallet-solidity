@@ -578,6 +578,13 @@ import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
               });
           });
 
+          describe("getBalanceInUSD", () => {
+              it("should get the balance in USD.", async () => {
+                  const balanceInUsd = await guardian.getBalanceInUSD();
+                  expect(balanceInUsd).to.be.equal(0);
+              });
+          });
+
           describe("getDailyTransferLimitInUSD", () => {
               it("should return the price of ETH/USD.", async () => {
                   const priceInUSD =
