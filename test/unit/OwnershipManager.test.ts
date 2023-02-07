@@ -327,4 +327,15 @@ import { BigNumber, ContractTransaction } from "ethers";
                   });
               });
           });
+
+          describe("resetOwnershipVariables", () => {
+              it("should revert if caller is not guardian.", async () => {
+                  await expect(guardian.resetOwnershipVariables())
+                      .to.be.revertedWithCustomError(
+                          guardian,
+                          "Error__AddressNotFoundAsGuardian"
+                      )
+                      .withArgs("OwnershipManager", deployer);
+              });
+          });
       });
