@@ -90,7 +90,7 @@ contract OwnershipManager is GuardiansManager {
     }
 
     // * FUNCTION - PRIVATE
-    function resetOwnershipVariables() private {
+    function resetOwnershipVariables() public {
         isOwnerUpdateRequested = false;
         noOfConfirmations = 0;
 
