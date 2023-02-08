@@ -50,6 +50,20 @@ import { expect } from "chai";
 
                   expect(owner).to.be.equal(deployer);
               });
+
+              it("should revert if wallet already exist.", async () => {
+                  const tx: ContractTransaction =
+                      await guardiansFactroy.createWallet();
+
+                  await tx.wait(1);
+
+                  await expect(
+                      guardiansFactroy.createWallet()
+                  ).to.be.revertedWithCustomError(
+                      guardiansFactroy,
+                      "GuardianFactory__WalletAlreadyExist"
+                  );
+              });
           });
 
           describe("updateWalletOwner", () => {
