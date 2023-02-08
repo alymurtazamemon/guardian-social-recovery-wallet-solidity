@@ -123,4 +123,19 @@ import { expect } from "chai";
                   expect(walletAddress).to.be.equal(guardian.address);
               });
           });
+
+          describe("getContractAddressByGuardian", () => {
+              it("should revert if owner does not found.", async () => {
+                  const [_, account2] = await ethers.getSigners();
+
+                  await expect(
+                      guardiansFactroy.getContractAddressByGuardian(
+                          account2.address
+                      )
+                  ).to.be.revertedWithCustomError(
+                      guardiansFactroy,
+                      "GuardianFactory__OwnerContractNotFound"
+                  );
+              });
+          });
       });
