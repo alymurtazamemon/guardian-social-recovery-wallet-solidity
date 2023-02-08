@@ -188,10 +188,22 @@ import { expect } from "chai";
                           guardiansFactroy
                               .connect(account5)
                               .getContractAddressByGuardian(_.address)
-                      ).to.be.revertedWithCustomError(
-                          guardiansFactroy,
-                          "GuardianFactory__AddressNotFoundAsGuardian"
-                      ).withArgs(account5.address);
+                      )
+                          .to.be.revertedWithCustomError(
+                              guardiansFactroy,
+                              "GuardianFactory__AddressNotFoundAsGuardian"
+                          )
+                          .withArgs(account5.address);
+                  });
+
+                  it("should return the Guardian contract address using correct guardian.", async () => {
+                      const [_, account2] = await ethers.getSigners();
+
+                      const address: string = await guardiansFactroy
+                          .connect(account2)
+                          .getContractAddressByGuardian(_.address);
+
+                      expect(address).to.be.equal(guardian.address);
                   });
               });
           });
