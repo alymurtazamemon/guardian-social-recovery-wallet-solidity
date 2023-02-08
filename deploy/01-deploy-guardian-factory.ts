@@ -22,7 +22,7 @@ const deployGuardian: DeployFunction = async (
 
     const args: any[] = [ethUsdPriceFeedAddress];
 
-    const guardian: DeployResult = await deploy("Guardian", {
+    const guardian: DeployResult = await deploy("GuardianFactory", {
         from: deployer,
         log: true,
         args: args,
@@ -39,4 +39,4 @@ const deployGuardian: DeployFunction = async (
 };
 
 export default deployGuardian;
-deployGuardian.tags = ["all", "guardian"];
+deployGuardian.tags = ["all", "guardianFactory"];

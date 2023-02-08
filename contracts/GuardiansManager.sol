@@ -154,9 +154,9 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
         return guardians;
     }
 
-    // * FUNCTIONS - VIEW & PURE - INTERNAL
+    // * FUNCTIONS - VIEW & PURE - PUBLIC
 
-    function doesGuardianExist(address caller) internal view returns (bool) {
+    function doesGuardianExist(address caller) public view returns (bool) {
         address[] memory guardiansCopy = guardians;
 
         for (uint256 i = 0; i < guardiansCopy.length; i++) {

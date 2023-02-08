@@ -6,5 +6,8 @@ import "./FundsManager.sol";
 import "./OwnershipManager.sol";
 
 contract Guardian is FundsManager, OwnershipManager {
-    constructor(address priceFeed) FundsManager(priceFeed) {}
+    constructor(
+        address priceFeed,
+        address guardianFactoryAddress
+    ) FundsManager(priceFeed) OwnershipManager(guardianFactoryAddress) {}
 }

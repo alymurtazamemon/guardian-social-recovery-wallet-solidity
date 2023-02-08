@@ -2,6 +2,7 @@
 
 import "./GuardiansManager.sol";
 import "./Errors.sol";
+import "./GuardianFactory.sol";
 
 pragma solidity ^0.8.17;
 
@@ -14,12 +15,14 @@ contract OwnershipManager is GuardiansManager {
     bool private isOwnerUpdateRequested;
 
     address private tempAddress;
+    address payable private guardianFactoryAddress;
 
     mapping(address => bool) private isOwnershipConfimedByGuardian;
 
     // * FUNCTIONS
-    constructor() {
+    constructor(address _guardianFactoryAddress) {
         ownerUpdateConfirmationTime = 2 hours;
+        guardianFactoryAddress = payable(_guardianFactoryAddress);
     }
 
     function requestToUpdateOwner(address newOwnerAddress) external {
@@ -84,6 +87,10 @@ contract OwnershipManager is GuardiansManager {
         if (noOfConfirmations >= requiredConfirmations) {
             // * Ownable internal function without access restriction.
             _transferOwnership(tempAddress);
+            GuardianFactory(payable(guardianFactoryAddress)).updateWalletOwner(
+                address(this),
+                tempAddress
+            );
             resetOwnershipVariables();
         }
     }
