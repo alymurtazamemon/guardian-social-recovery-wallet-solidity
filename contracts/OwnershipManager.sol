@@ -6,6 +6,12 @@ import "./GuardianFactory.sol";
 
 pragma solidity ^0.8.17;
 
+/**
+ * @title OwnershipManager - This is the part of Guardian smart contract which handles the Ownership Management.
+ * @author Ali Murtaza Memon
+ * @notice This smart contract handles the request and guardians confirmations about updating the owner features for Guardian smart contract.
+ * @custom:hackathon This project is for Alchemy University Hackathon.
+ */
 contract OwnershipManager is GuardiansManager {
     // * STATE VARIABLES
     uint256 private lastOwnerUpdateRequestTime;
