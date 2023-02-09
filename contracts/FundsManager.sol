@@ -6,6 +6,12 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "./GuardiansManager.sol";
 import "./Errors.sol";
 
+/**
+ * @title FundsManager - This is the part of Guardian smart contract which manages the Funds of the smart contract.
+ * @author Ali Murtaza Memon
+ * @notice This smart contract handles deposit, transfer, daily transfer update and guardians confirmations features for Guardian smart contract.
+ * @custom:hackathon This project is for Alchemy University Hackathon.
+ */
 contract FundsManager is GuardiansManager {
     // * STATE VARIABLES
     uint256 private dailyTransferLimit;
