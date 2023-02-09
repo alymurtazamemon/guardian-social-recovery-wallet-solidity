@@ -59,6 +59,12 @@ contract FundsManager is GuardiansManager {
         }
     }
 
+    /**
+     * @notice This function trnasfers all of the contract's funds to provided address.
+     * @dev Only user can call this function.
+     * @dev This uses the Reentrancy Guard.
+     * @param to the address of the user you want to send funds to.
+     */
     function sendAll(address to) external onlyOwner nonReentrant {
         uint256 balance = address(this).balance;
 
