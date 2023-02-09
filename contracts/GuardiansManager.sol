@@ -55,6 +55,13 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
         updateRequiredConfirmations();
     }
 
+    /**
+     * @notice This function change the existing guardian with new guardian after delay period.
+     * @dev Only owner can call this function.
+     * @dev This uses the Reentrancy Guard.
+     * @param from the address of existing guardian.
+     * @param to the address of new guardian.
+     */
     function changeGuardian(
         address from,
         address to
