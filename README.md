@@ -8,6 +8,7 @@
 4. Tailwind
 
 ## Website Link: [Open](https://guardian-social-recovery.vercel.app/)
+## Frontend Project Repository Link: [Open](https://github.com/alymurtazamemon/guardian-social-recovery-wallet-frontend-react)
 
 ## Short Demo Video
 
