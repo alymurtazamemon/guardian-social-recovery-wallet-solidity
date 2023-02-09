@@ -31,6 +31,10 @@ contract OwnershipManager is GuardiansManager {
         guardianFactoryAddress = payable(_guardianFactoryAddress);
     }
 
+    /**
+     * @notice This function will be used by one of guardian of this wallet to request to update the owner of the wallet.
+     * @param newOwnerAddress the address of new owner for this wallet.
+     */
     function requestToUpdateOwner(address newOwnerAddress) external {
         if (newOwnerAddress == owner()) {
             revert Error__AddressAlreadyAnOwner(
