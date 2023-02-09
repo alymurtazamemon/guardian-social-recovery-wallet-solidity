@@ -104,6 +104,10 @@ contract GuardianFactory {
         }
     }
 
+    /**
+     * @notice This function will returnt the Guardian wallet address based on owner.
+     * @return address the contract address of Guardian wallet or zero address.
+     */
     function getWallet() public view returns (address) {
         Wallet[] memory walletsCopy = wallets;
 
@@ -116,6 +120,10 @@ contract GuardianFactory {
         return address(0);
     }
 
+    /**
+     * @notice This function returns the length of wallets created.
+     * @return uint256 value
+     */
     function getWalletsLength() external view returns (uint256) {
         return wallets.length;
     }
