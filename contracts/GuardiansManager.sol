@@ -39,6 +39,12 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
     }
 
     // * FUNCTIONS - EXTERNAL
+    /**
+     * @notice This function add new guardian after delay period and update the required confirmations.
+     * @dev Only owner can call this function.
+     * @dev This uses the Reentrancy Guard.
+     * @param guardian will be the address of new guardian.
+     */
     function addGuardian(address guardian) external onlyOwner nonReentrant {
         if (block.timestamp < lastGuardianAddTime + addGuardianDelay) {
             revert Error__CanOnlyAddAfterDelayPeriod("GuardiansManager");
