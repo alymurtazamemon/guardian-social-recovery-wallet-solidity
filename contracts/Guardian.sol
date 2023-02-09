@@ -12,6 +12,7 @@ import "./OwnershipManager.sol";
  * @dev This contract takes Chainlink's Goerli ETH/USD price feed address and GuardianFactory contract address in the constructor.
  */
 contract Guardian is FundsManager, OwnershipManager {
+    // * FUNCTIONS
     constructor(
         address priceFeed,
         address guardianFactoryAddress
