@@ -9,6 +9,13 @@ error GuardianFactory__WalletAlreadyExist();
 error GuardianFactory__OwnerContractNotFound();
 error GuardianFactory__AddressNotFoundAsGuardian(address caller);
 
+/**
+ * @title GuardianFactory - Is a factory which handles the creation of new Guardian smart contract and storage of these contracts.
+ * @author Ali Murtaza Memon
+ * @notice This smart contract creates new Guardian smart contract and transfer the ownership to caller and update the ownership later on request.
+ * @dev Ownership of contract here will not affect the Guardian individual ownership, here we are working as a marketplace for Guardian wallets.
+ * @custom:hackathon This project is for Alchemy University Hackathon.
+ */
 contract GuardianFactory {
     // * STATE VARIABLES
     struct Wallet {
