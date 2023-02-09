@@ -14,6 +14,7 @@ error GuardianFactory__AddressNotFoundAsGuardian(address caller);
  * @author Ali Murtaza Memon
  * @notice This smart contract creates new Guardian smart contract and transfer the ownership to caller and update the ownership later on request.
  * @dev Ownership of contract here will not affect the Guardian individual ownership, here we are working as a marketplace for Guardian wallets.
+ * @dev This smart contract take Chainlink's Goerli ETH/USD price feed as a parameter in the constructor and pass it to Guardian smart contract.
  * @custom:hackathon This project is for Alchemy University Hackathon.
  */
 contract GuardianFactory {
