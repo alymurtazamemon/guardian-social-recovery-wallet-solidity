@@ -91,6 +91,12 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
         }
     }
 
+    /**
+     * @notice This function removes the existing guardian from the guardians list.
+     * @dev Only user can call this function.
+     * @dev This uses the Reentrancy Guard.
+     * @param guardian the address of existing guardian.
+     */
     function removeGuardian(address guardian) external onlyOwner nonReentrant {
         if (block.timestamp < lastGuardianRemovalTime + removeGuardianDelay) {
             revert Error__CanOnlyRemoveAfterDelayPeriod("GuardiansManager");
