@@ -186,6 +186,11 @@ contract FundsManager is GuardiansManager {
 
     // * FUNCTION - PUBLIC
 
+    /**
+     * @notice This function helps to reset the variables when the request gets expired.
+     * @dev Only owner can call this function.
+     * @dev You can use the Chainlink's Keepers to automatically reset the variables when the request gets expire but for now I am doing it manually.
+     */
     function resetDailyTransferLimitVariables() public onlyOwner {
         isDailyTransferLimitUpdateRequested = false;
 
