@@ -99,6 +99,9 @@ contract FundsManager is GuardiansManager {
         isDailyTransferLimitUpdateRequested = true;
     }
 
+    /**
+     * @notice This function will be call by Guardians of this wallet to confirm the owner request to update the daily transfer limit.
+     */
     function confirmDailyTransferLimitRequest() external {
         if (guardians.length <= 0) {
             revert Error__GuardiansListIsEmpty("FundsManager");
