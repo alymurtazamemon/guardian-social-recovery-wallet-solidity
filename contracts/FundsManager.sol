@@ -37,6 +37,13 @@ contract FundsManager is GuardiansManager {
 
     receive() external payable {}
 
+    /**
+     * @notice This function transfers the fund to other address.
+     * @dev Only owner can call this function.
+     * @dev This uses the Reentrancy Guard.
+     * @param to the address of user you want to send funds to.
+     * @param amount the value in wei you want to send.
+     */
     function send(address to, uint amount) external onlyOwner nonReentrant {
         if (amount <= 0) {
             revert Error__InvalidAmount("FundsManager", amount);
