@@ -82,6 +82,11 @@ contract FundsManager is GuardiansManager {
         }
     }
 
+    /**
+     * @notice This function will be called by owner to update the daily transfer limit.
+     * @dev Only user can call this function.
+     * @param limit the value you want to set as a daily transfer limit in wei.
+     */
     function requestToUpdateDailyTransferLimit(
         uint256 limit
     ) external onlyOwner {
