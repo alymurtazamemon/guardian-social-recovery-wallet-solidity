@@ -137,22 +137,36 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
     }
 
     // * FUNCTION - PRIVATE
-
+    /**
+     * @dev this function updates the required confirmations based on No Of Guardians.
+     */
     function updateRequiredConfirmations() private {
         requiredConfirmations = (guardians.length / 2) + 1;
     }
 
     // * FUNCTIONS - VIEW & PURE - EXTERNAL
 
+    /**
+     * @notice This function returns the time when last guardian added in the list. The return value will be zero if no any guardian added.
+     * @return uint256 value
+     */
     function getLastGuardianAddTime() external view returns (uint256) {
         return
             lastGuardianAddTime == contractDeployTime ? 0 : lastGuardianAddTime;
     }
 
+    /**
+     * @notice This function will return the delay time required between adding guadians. Initially it is set to 1 day.
+     * @return uint256 value.
+     */
     function getAddGuardianDelay() external view returns (uint256) {
         return addGuardianDelay;
     }
 
+    /**
+     * @notice This function will return the time when the last guardian changed. The return value will be zero if guardians are never changed.
+     * @return uint256 value
+     */
     function getLastGuardianChangeTime() external view returns (uint256) {
         return
             lastGuardianChangeTime == contractDeployTime
@@ -160,10 +174,18 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
                 : lastGuardianChangeTime;
     }
 
+    /**
+     * @notice This function will return the delay time required between changing guardians. Initially it is set to 1 day.
+     * @return uint256 value.
+     */
     function getChangeGuardianDelay() external view returns (uint256) {
         return changeGuardianDelay;
     }
 
+    /**
+     * @notice This function will return the time when the last guardian was removed. The return value will be zero is guardians are never removed.
+     * @return uint256 value.
+     */
     function getLastGuardianRemovalTime() external view returns (uint256) {
         return
             lastGuardianRemovalTime == contractDeployTime
@@ -171,16 +193,29 @@ contract GuardiansManager is Ownable, ReentrancyGuard {
                 : lastGuardianRemovalTime;
     }
 
+    /**
+     * @notice This function will return the delay time required to remove between guardians. Initially it is set to 3 days.
+     * @return uint256 value
+     */
     function getRemoveGuardianDelay() external view returns (uint256) {
         return removeGuardianDelay;
     }
 
+    /**
+     * @notice This function returns the list of guardians of the wallet.
+     * @return array of addresses.
+     */
     function getGuardians() external view returns (address[] memory) {
         return guardians;
     }
 
     // * FUNCTIONS - VIEW & PURE - PUBLIC
 
+    /**
+     * @notice This function checks whether the address exist as a guardian or not.
+     * @param caller the address which you want to check for guardian.
+     * @return boolean value
+     */
     function doesGuardianExist(address caller) public view returns (bool) {
         address[] memory guardiansCopy = guardians;
 
