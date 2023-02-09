@@ -73,6 +73,11 @@ contract GuardianFactory {
         }
     }
 
+    /**
+     * @notice This function will be called when guardian will see the wallet on the marketplace and this function will check whether the caller is guardian or not and return the address of Guardian smart contract based on owner address.
+     * @param ownerAddress the address of the owner of the Guardian smart contract.
+     * @return address of the Guardian smart contract.
+     */
     function getContractAddressByGuardian(
         address ownerAddress
     ) external view returns (address) {
