@@ -36,6 +36,9 @@ contract GuardianFactory {
 
     receive() external payable {}
 
+    /**
+     * @notice This function creates a new Guardian wallet and transfer its ownership to caller.
+     */
     function createWallet() external {
         // * if already created then revert.
         if (getWallet() != address(0)) {
