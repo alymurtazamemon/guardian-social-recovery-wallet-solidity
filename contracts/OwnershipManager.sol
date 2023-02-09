@@ -61,6 +61,9 @@ contract OwnershipManager is GuardiansManager {
         isOwnerUpdateRequested = true;
     }
 
+    /**
+     * @notice This function will be used by other guardians to confirm the request to update the owner by one of the guardians.
+     */
     function confirmUpdateOwnerRequest() external {
         if (guardians.length <= 0) {
             revert Error__GuardiansListIsEmpty("OwnershipManager");
