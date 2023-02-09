@@ -50,6 +50,12 @@ contract GuardianFactory {
         wallets.push(Wallet(guardian.owner(), address(guardian)));
     }
 
+    /**
+     * @notice This function creates a new Guardian wallet and transfer its ownership to caller.
+     * @dev This function will be called by Guardian smart contract when any owner gets updated. This function will update the owner inside this contract.
+     * @param contractAddress the address of Guardian contract
+     * @param newOwner the addrss of new owner.
+     */
     function updateWalletOwner(
         address contractAddress,
         address newOwner
