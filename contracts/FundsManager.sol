@@ -175,6 +175,11 @@ contract FundsManager is GuardiansManager {
         resetDailyTransferLimitVariables();
     }
 
+    /**
+     * @notice This function will update the existing price feed address which is Chainlink's ETH/USD price feed address initially.
+     * @dev This uses the Chainlink's AggregatorV3Interface.
+     * @param _priceFeed the address of new price feed address.
+     */
     function updateETHUSDPriceFeed(address _priceFeed) external onlyOwner {
         priceFeed = AggregatorV3Interface(_priceFeed);
     }
