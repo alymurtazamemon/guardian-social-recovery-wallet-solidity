@@ -109,6 +109,10 @@ contract OwnershipManager is GuardiansManager {
     }
 
     // * FUNCTION - PUBLIC
+    /**
+     * @notice This function helps to reset the variables when the request gets expired.
+     * @dev You can use the Chainlink's Keepers to automatically reset the variables when the request gets expire but for now I am doing it manually.
+     */
     function resetOwnershipVariables() public {
         if (!doesGuardianExist(msg.sender)) {
             revert Error__AddressNotFoundAsGuardian(
