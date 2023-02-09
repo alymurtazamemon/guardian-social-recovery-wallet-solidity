@@ -7,6 +7,12 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./Errors.sol";
 import "hardhat/console.sol";
 
+/**
+ * @title GuardiansManager - This is the part of Guardian smart contract which handles Guardians Management.
+ * @author Ali Murtaza Memon
+ * @notice This smart contract handles add, change and remove guardians features for Guardian smart contract.
+ * @custom:hackathon This project is for Alchemy University Hackathon.
+ */
 contract GuardiansManager is Ownable, ReentrancyGuard {
     // * STATE VARIABLES
     uint256 private addGuardianDelay;
