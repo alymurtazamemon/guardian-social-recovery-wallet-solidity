@@ -205,14 +205,26 @@ contract FundsManager is GuardiansManager {
 
     // * FUNCTIONS - VIEW & PURE - EXTERNAL
 
+    /**
+     * @notice This function returns the Chainlink's AggregatorV3Interface price feed address.
+     * @return address of price feed.
+     */
     function getPriceFeedAddress() external view returns (address) {
         return address(priceFeed);
     }
 
+    /**
+     * @notice This function return the balance of the smart contract.
+     * @return uint256 value of balance.
+     */
     function getBalance() external view returns (uint256) {
         return address(this).balance;
     }
 
+    /**
+     * @notice This function returns the baalance of the smart contract in USD.
+     * @return uint256 value of balance in usd.
+     */
     function getBalanceInUSD() external view returns (uint256) {
         uint256 ethPrice = getPrice();
         uint256 balanceInUSD = (ethPrice * address(this).balance) /
@@ -220,10 +232,18 @@ contract FundsManager is GuardiansManager {
         return balanceInUSD;
     }
 
+    /**
+     * @notice This function returns the daily transfer limit set value in wei.
+     * @return uint256 value.
+     */
     function getDailyTransferLimit() external view returns (uint256) {
         return dailyTransferLimit;
     }
 
+    /**
+     * @notice This function returns the daily transfer limit set value in usd.
+     * @return uint256 value in usd.
+     */
     function getDailyTransferLimitInUSD() external view returns (uint256) {
         uint256 ethPrice = getPrice();
         uint256 dailyTransferLimitInUSD = (ethPrice * dailyTransferLimit) /
@@ -231,10 +251,18 @@ contract FundsManager is GuardiansManager {
         return dailyTransferLimitInUSD;
     }
 
+    /**
+     * @notice This function returns the no of confirmations required for any task.
+     * @return uint256 value.
+     */
     function getRequiredConfirmations() external view returns (uint256) {
         return requiredConfirmations;
     }
 
+    /**
+     * @notice This function returns the status of daily transfer limit request.
+     * @return boolean value
+     */
     function getDailyTransferLimitUpdateRequestStatus()
         external
         view
@@ -243,6 +271,10 @@ contract FundsManager is GuardiansManager {
         return isDailyTransferLimitUpdateRequested;
     }
 
+    /**
+     * @notice This function returns the time till guardian can confirm the request.
+     * @return uint256 value.
+     */
     function getDailyTransferLimitUpdateConfirmationTime()
         external
         view
@@ -251,6 +283,10 @@ contract FundsManager is GuardiansManager {
         return dailyTransferLimitUpdateConfirmationTime;
     }
 
+    /**
+     * @notice This function returns the time when the owner request to update the daily transfer limit.
+     * @return uint256 value.
+     */
     function getLastDailyTransferUpdateRequestTime()
         external
         view
@@ -259,6 +295,11 @@ contract FundsManager is GuardiansManager {
         return lastDailyTransferUpdateRequestTime;
     }
 
+    /**
+     * @notice This function returns the confirmation status of guardian.
+     * @param guardian the address of guardian.
+     * @return boolean value.
+     */
     function getGuardianConfirmationStatus(
         address guardian
     ) external view returns (bool) {
@@ -267,6 +308,11 @@ contract FundsManager is GuardiansManager {
 
     // * FUNCTIONS - VIEW & PURE - PUBLIC
 
+    /**
+     * @notice This function returns the current price of ETH/USD.
+     * @dev Chainlink's AggregatorV3Interface price feed is used to get the current price of ETH/USD.
+     * @return uint256 value.
+     */
     function getPrice() public view returns (uint256) {
         (, int256 answer, , , ) = priceFeed.latestRoundData();
         // ETH/USD rate in 18 digit
