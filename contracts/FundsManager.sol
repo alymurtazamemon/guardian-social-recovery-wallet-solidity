@@ -133,6 +133,10 @@ contract FundsManager is GuardiansManager {
         isConfirmedByGuardian[msg.sender] = true;
     }
 
+    /**
+     * @notice This function will be call the owner to confirm and update the limit after the required no of confirmations by guardians.
+     * @dev Only user can call this function.
+     */
     function confirmAndUpdate() external onlyOwner {
         if (guardians.length <= 0) {
             revert Error__GuardiansListIsEmpty("FundsManager");
