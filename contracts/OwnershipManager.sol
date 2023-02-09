@@ -134,24 +134,45 @@ contract OwnershipManager is GuardiansManager {
     }
 
     // * FUNCTION - VIEW & PURE
+    /**
+     * @notice This function the status of owner update request.
+     * @return boolean value.
+     */
     function getIsOwnerUpdateRequested() external view returns (bool) {
         return isOwnerUpdateRequested;
     }
 
+    /**
+     * @notice This function will return the status of guardian confirmation.
+     * @param guardian the address of guardian.
+     * @return boolean value
+     */
     function getIsOwnershipConfimedByGuardian(
         address guardian
     ) external view returns (bool) {
         return isOwnershipConfimedByGuardian[guardian];
     }
 
+    /**
+     * @notice This function returns the time when last owner update requested.
+     * @return uint256 value.
+     */
     function getLastOwnerUpdateRequestTime() external view returns (uint256) {
         return lastOwnerUpdateRequestTime;
     }
 
+    /**
+     * @notice This fuction returns the time till guarians can confirm the request.
+     * @return uint256 value.
+     */
     function getOwnerUpdateConfirmationTime() external view returns (uint256) {
         return ownerUpdateConfirmationTime;
     }
 
+    /**
+     * @notice This functin returns the no of confirmation required to perform any task.
+     * @return uint256 value
+     */
     function getNoOfConfirmations() external view returns (uint256) {
         return noOfConfirmations;
     }
